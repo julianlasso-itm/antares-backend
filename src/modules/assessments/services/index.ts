@@ -1,4 +1,3 @@
-export * from '../../../common/services/service.abstract';
 export * from './assessments.service';
 export * from './configuration-levels.service';
 export * from './configuration-per-level.service';
