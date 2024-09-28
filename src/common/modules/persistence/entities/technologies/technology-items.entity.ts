@@ -11,9 +11,11 @@ import { TechnologyStack } from '../projects_management';
 import { TechnologyTypes } from './technology-types.entity';
 
 @Index('technology_items_tech_item_status_Idx', ['deletedAt', 'status'], {})
+@Index('tech_technology_items_tech_type_id_Idx', ['technologyTypeId'], {})
 @Index('pktech_technology_items', ['technologyItemId'], { unique: true })
 @Index('technologies_tech_name_tech_deleted_at_Idx', ['name'], {
   unique: true,
+  where: 'deletedAt IS NULL',
 })
 @Entity('tech_technology_items', { schema: 'technologies' })
 export class TechnologyItems {
@@ -23,6 +25,9 @@ export class TechnologyItems {
     length: 26,
   })
   technologyItemId: string;
+
+  @Column('character varying', { name: 'tech_type_id', length: 26 })
+  technologyTypeId: string;
 
   @Column('character varying', { name: 'tech_item_name', length: 500 })
   name: string;
