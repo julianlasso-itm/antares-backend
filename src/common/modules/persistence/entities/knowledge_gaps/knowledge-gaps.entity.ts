@@ -27,6 +27,9 @@ export class KnowledgeGaps {
   @Column('character varying', { name: 'dk_id', length: 26 })
   domainKnowledgeId: string;
 
+  @Column('character varying', { name: 'kg_observation', length: 8192 })
+  observation: string;
+
   @Column('boolean', { name: 'kg_status', default: () => 'true' })
   status: boolean;
 
