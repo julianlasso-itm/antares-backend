@@ -16,7 +16,7 @@ import {
 } from '../dto';
 import { KnowledgeGapNotesService } from '../services/knowledge-gap-notes.service';
 
-@Controller('knowledge-gap-notes')
+@Controller('notes')
 export class KnowledgeGapNotesController {
   constructor(private readonly service: KnowledgeGapNotesService) {}
 
