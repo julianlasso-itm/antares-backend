@@ -13,7 +13,7 @@ import { Assessments } from '../../../common/modules/persistence/entities';
 import { NewAssessmentsRequestDto, UpdateAssessmentsRequestDto } from '../dto';
 import { AssessmentsService } from '../services/assessments.service';
 
-@Controller('assessments')
+@Controller()
 export class AssessmentsController {
   constructor(private readonly service: AssessmentsService) {}
 
