@@ -3,14 +3,16 @@ import {
   AssessmentsModule,
   HumanResourcesModule,
   KnowledgeGapsModule,
+  ProjectsManagementModule,
+  TechnologiesModule,
 } from './modules';
-import { TechnologiesModule } from './modules/technologies';
 
 @Module({
   imports: [
     AssessmentsModule,
     HumanResourcesModule,
     KnowledgeGapsModule,
+    ProjectsManagementModule,
     TechnologiesModule,
   ],
   controllers: [],
