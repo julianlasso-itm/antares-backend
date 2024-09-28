@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { RouterModule } from '@nestjs/core';
 import { PersistenceModule } from '../../common/modules/persistence';
 import {
   AssessmentsController,
@@ -24,7 +25,15 @@ import {
 } from './services';
 
 @Module({
-  imports: [PersistenceModule],
+  imports: [
+    PersistenceModule,
+    RouterModule.register([
+      {
+        path: 'assessments',
+        module: AssessmentsModule,
+      },
+    ]),
+  ],
   controllers: [
     AssessmentsController,
     ConfigurationLevelsController,
