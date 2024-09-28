@@ -1,8 +1,11 @@
 {
+  "npm.packageManager": "bun",
   "cSpell.language": "en,es",
   "cSpell.words": [
+    "antares",
     "asmt",
     "assmt",
+    "Knowledges",
     "pkassessments",
     "pkassmt",
     "pkconfiguration",
@@ -23,7 +26,9 @@
     "pktechnology",
     "pkuser",
     "pkusers",
+    "postgres",
     "puntaje",
-    "Puntaje"
+    "Puntaje",
+    "typeorm"
   ],
 }
