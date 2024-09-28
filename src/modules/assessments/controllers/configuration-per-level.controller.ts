@@ -14,7 +14,7 @@ import {
   NewConfigurationPerLevelRequestDto,
   UpdateConfigurationPerLevelRequestDto,
 } from '../dto';
-import { ConfigurationPerLevelService } from '../services/configuration-per-level.service';
+import { ConfigurationPerLevelService } from '../services';
 
 @Controller('configuration-per-level')
 export class ConfigurationPerLevelController {

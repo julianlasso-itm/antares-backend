@@ -10,9 +10,8 @@ import {
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { RatingScale } from '../../../common/modules/persistence/entities';
-import { NewRatingScaleRequestDto } from '../dto/new-rating-scale-request.dto';
-import { UpdateRatingScaleRequestDto } from '../dto/update-rating-scale-request.dto';
-import { RatingScaleService } from '../services/rating-scale.service';
+import { NewRatingScaleRequestDto, UpdateRatingScaleRequestDto } from '../dto';
+import { RatingScaleService } from '../services';
 
 @Controller('rating-scale')
 export class RatingScaleController {

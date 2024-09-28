@@ -14,7 +14,7 @@ import {
   NewConfigurationLevelRequestDto,
   UpdateConfigurationLevelRequestDto,
 } from '../dto';
-import { ConfigurationLevelsService } from '../services/configuration-levels.service';
+import { ConfigurationLevelsService } from '../services';
 
 @Controller('configuration-levels')
 export class ConfigurationLevelsController {

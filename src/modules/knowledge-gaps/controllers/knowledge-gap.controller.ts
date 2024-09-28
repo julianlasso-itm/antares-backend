@@ -14,7 +14,7 @@ import {
   NewKnowledgeGapRequestDto,
   UpdateKnowledgeGapRequestDto,
 } from '../dto';
-import { KnowledgeGapsService } from '../services/knowledge-gap.service';
+import { KnowledgeGapsService } from '../services';
 
 @Controller('gaps')
 export class KnowledgeGapsController {

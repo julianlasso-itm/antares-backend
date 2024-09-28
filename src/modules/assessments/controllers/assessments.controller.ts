@@ -11,7 +11,7 @@ import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { Assessments } from '../../../common/modules/persistence/entities';
 import { NewAssessmentsRequestDto, UpdateAssessmentsRequestDto } from '../dto';
-import { AssessmentsService } from '../services/assessments.service';
+import { AssessmentsService } from '../services';
 
 @Controller()
 export class AssessmentsController {

@@ -11,7 +11,7 @@ import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { TechnologyItems } from '../../../common/modules/persistence/entities';
 import { NewTechnologyItemDto, UpdateTechnologyItemDto } from '../dto';
-import { TechnologyItemsService } from '../services/technology-items.service';
+import { TechnologyItemsService } from '../services';
 
 @Controller('items')
 export class TechnologyItemsController {

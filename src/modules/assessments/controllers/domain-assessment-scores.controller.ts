@@ -14,7 +14,7 @@ import {
   NewDomainAssessmentScoresDto,
   UpdateDomainAssessmentScoresDto,
 } from '../dto';
-import { DomainAssessmentScoresService } from '../services/domain-assessment-scores.service';
+import { DomainAssessmentScoresService } from '../services';
 
 @Controller('domain-assessment-scores')
 export class DomainAssessmentScoresController {

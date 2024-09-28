@@ -14,7 +14,7 @@ import {
   NewDomainQuestionsAnswersRequestDto,
   UpdateDomainQuestionsAnswersRequestDto,
 } from '../dto';
-import { DomainQuestionsAnswersService } from '../services/domain-questions-answers.service';
+import { DomainQuestionsAnswersService } from '../services';
 
 @Controller('domain-questions-answers')
 export class DomainQuestionsAnswersController {
