@@ -52,9 +52,9 @@ export abstract class BaseRepository<Entity extends ObjectLiteral> {
   async update(
     id: Partial<Entity>,
     partialEntity: DeepPartial<Entity>,
+    updateDate: boolean = true,
   ): Promise<Result<Entity>> {
     try {
-      // First, check if the entity exists and is not deleted
       const existingEntity = await this.findOne(id);
 
       if (!existingEntity) {
@@ -63,10 +63,10 @@ export abstract class BaseRepository<Entity extends ObjectLiteral> {
         );
       }
 
-      const updatedEntity = this.repository.merge(
-        existingEntity.value,
-        partialEntity,
-      );
+      const updatedEntity = this.repository.merge(existingEntity.value, {
+        ...partialEntity,
+        updatedAt: updateDate ? new Date() : existingEntity.value.updatedAt,
+      });
 
       const result = await this.repository.save(updatedEntity);
 
