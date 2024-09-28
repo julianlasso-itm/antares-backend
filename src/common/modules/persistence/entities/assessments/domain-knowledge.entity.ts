@@ -36,7 +36,7 @@ export class DomainKnowledge {
     precision: 3,
     scale: 2,
   })
-  weight: string | null;
+  weight: number | null;
 
   @Column('character varying', { name: 'dk_topic', length: 1024 })
   topic: string;

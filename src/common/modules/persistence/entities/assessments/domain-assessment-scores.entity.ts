@@ -34,7 +34,7 @@ export class DomainAssessmentScores {
   observations: string | null;
 
   @Column('numeric', { name: 'das_score', precision: 3, scale: 2 })
-  score: string;
+  score: number;
 
   @Column('boolean', { name: 'das_status', default: () => 'true' })
   status: boolean;
