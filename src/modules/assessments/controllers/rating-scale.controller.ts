@@ -70,7 +70,6 @@ export class RatingScaleController {
     if (request.status) {
       update.status = request.status;
     }
-    update.updatedAt = new Date();
 
     const data = await this.service.update('ratingScaleId', id, update);
     return CrudController.response(data);

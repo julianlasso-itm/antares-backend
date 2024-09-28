@@ -71,7 +71,6 @@ export class DomainKnowledgeController {
     if (request.status !== undefined) {
       update.status = request.status;
     }
-    update.updatedAt = new Date();
 
     const data = await this.service.update('domainKnowledgeId', id, update);
     return CrudController.response(data);

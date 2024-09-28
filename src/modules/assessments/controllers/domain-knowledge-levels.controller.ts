@@ -66,7 +66,6 @@ export class DomainKnowledgeLevelsController {
     if (request.status !== undefined) {
       update.status = request.status;
     }
-    update.updatedAt = new Date();
 
     const data = await this.service.update(
       'domainKnowledgeLevelId',

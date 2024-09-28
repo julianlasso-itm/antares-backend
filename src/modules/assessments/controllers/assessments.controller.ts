@@ -36,7 +36,7 @@ export class AssessmentsController {
     const newData = new Assessments();
     newData.assessmentId = ulid();
     newData.rolePerProfessionalId = request.rolePerProfessionalId;
-    newData.userId = request.userId;
+    newData.userId = request.userId; // TODO: Esto debería salir del token de autenticación en relación al correo del usuario
     newData.startDate = new Date();
 
     const data = await this.service.create(newData);
@@ -58,7 +58,6 @@ export class AssessmentsController {
     if (request.status !== undefined) {
       update.status = request.status;
     }
-    update.updatedAt = new Date();
 
     const data = await this.service.update('assessmentId', id, update);
     return CrudController.response(data);

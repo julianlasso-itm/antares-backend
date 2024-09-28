@@ -53,7 +53,6 @@ export class LevelsController {
     if (request.status) {
       update.status = request.status;
     }
-    update.updatedAt = new Date();
 
     const data = await this.service.update('levelId', id, update);
     return CrudController.response(data);
