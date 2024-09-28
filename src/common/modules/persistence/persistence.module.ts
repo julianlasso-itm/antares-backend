@@ -27,6 +27,33 @@ import {
   UserPerRole,
   Users,
 } from './entities/security';
+import {
+  AssessmentsRepository,
+  ConfigurationLevelsRepository,
+  ConfigurationPerLevelRepository,
+  CustomersRepository,
+  DomainAssessmentScoresRepository,
+  DomainKnowledgeLevelsRepository,
+  DomainKnowledgeRepository,
+  DomainQuestionsAnswersRepository,
+  KnowledgeGapNotesRepository,
+  KnowledgeGapsRepository,
+  LevelsRepository,
+  ProfessionalsRepository,
+  ProjectsRepository,
+  RatingScaleRepository,
+  RolePerProfessionalRepository,
+  RolesRepository as RolesProjectManagementRepository,
+  TechnologyItemsRepository,
+  TechnologyPerRoleRepository,
+  TechnologyStackRepository,
+  TechnologyTypesRepository,
+} from './repositories';
+import {
+  RolesRepository as RolesSecurityRepository,
+  UserPerRoleRepository,
+  UsersRepository,
+} from './repositories/security';
 
 @Module({
   imports: [
@@ -91,7 +118,31 @@ import {
     ]),
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    AssessmentsRepository,
+    ConfigurationLevelsRepository,
+    ConfigurationPerLevelRepository,
+    CustomersRepository,
+    DomainAssessmentScoresRepository,
+    DomainKnowledgeLevelsRepository,
+    DomainKnowledgeRepository,
+    DomainQuestionsAnswersRepository,
+    KnowledgeGapNotesRepository,
+    KnowledgeGapsRepository,
+    LevelsRepository,
+    ProfessionalsRepository,
+    ProjectsRepository,
+    RatingScaleRepository,
+    RolePerProfessionalRepository,
+    RolesProjectManagementRepository,
+    RolesSecurityRepository,
+    TechnologyItemsRepository,
+    TechnologyPerRoleRepository,
+    TechnologyStackRepository,
+    TechnologyTypesRepository,
+    UserPerRoleRepository,
+    UsersRepository,
+  ],
   exports: [],
 })
 export class PersistenceModule {}
