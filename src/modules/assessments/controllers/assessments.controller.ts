@@ -7,12 +7,14 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { Assessments } from '../../../common/modules/persistence/entities';
 import { NewAssessmentsRequestDto, UpdateAssessmentsRequestDto } from '../dto';
 import { AssessmentsService } from '../services';
 
+@ApiTags('assessments')
 @Controller()
 export class AssessmentsController {
   constructor(private readonly service: AssessmentsService) {}

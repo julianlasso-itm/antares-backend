@@ -12,7 +12,9 @@ import { CrudController, ResponseDto } from '../../../common';
 import { TechnologyItems } from '../../../common/modules/persistence/entities';
 import { NewTechnologyItemDto, UpdateTechnologyItemDto } from '../dto';
 import { TechnologyItemsService } from '../services';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('technologies')
 @Controller('items')
 export class TechnologyItemsController {
   constructor(private readonly service: TechnologyItemsService) {}

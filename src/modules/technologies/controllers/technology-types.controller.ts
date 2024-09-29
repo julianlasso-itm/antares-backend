@@ -7,12 +7,14 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { TechnologyTypes } from '../../../common/modules/persistence/entities';
 import { NewTechnologyTypeDto, UpdateTechnologyTypeDto } from '../dto';
 import { TechnologyTypesService } from '../services';
 
+@ApiTags('technologies')
 @Controller('types')
 export class TechnologyTypesController {
   constructor(private readonly service: TechnologyTypesService) {}

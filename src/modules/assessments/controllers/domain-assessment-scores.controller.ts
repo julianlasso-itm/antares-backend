@@ -7,6 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { DomainAssessmentScores } from '../../../common/modules/persistence/entities';
@@ -16,6 +17,7 @@ import {
 } from '../dto';
 import { DomainAssessmentScoresService } from '../services';
 
+@ApiTags('assessments')
 @Controller('domain-assessment-scores')
 export class DomainAssessmentScoresController {
   constructor(private readonly service: DomainAssessmentScoresService) {}

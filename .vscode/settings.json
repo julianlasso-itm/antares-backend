@@ -5,6 +5,7 @@
     "antares",
     "asmt",
     "assmt",
+    "GPFVV",
     "Knowledges",
     "pkassessments",
     "pkassmt",
@@ -29,6 +30,7 @@
     "postgres",
     "puntaje",
     "Puntaje",
+    "RTHH",
     "typeorm"
   ],
 }

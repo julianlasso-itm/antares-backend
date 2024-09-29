@@ -7,6 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { KnowledgeGapNotes } from '../../../common/modules/persistence/entities';
@@ -16,6 +17,7 @@ import {
 } from '../dto';
 import { KnowledgeGapNotesService } from '../services';
 
+@ApiTags('knowledge-gaps')
 @Controller('notes')
 export class KnowledgeGapNotesController {
   constructor(private readonly service: KnowledgeGapNotesService) {}

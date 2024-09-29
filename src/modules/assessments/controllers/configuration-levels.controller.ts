@@ -7,6 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { ConfigurationLevels } from '../../../common/modules/persistence/entities';
@@ -16,6 +17,7 @@ import {
 } from '../dto';
 import { ConfigurationLevelsService } from '../services';
 
+@ApiTags('assessments')
 @Controller('configuration-levels')
 export class ConfigurationLevelsController {
   constructor(private readonly service: ConfigurationLevelsService) {}

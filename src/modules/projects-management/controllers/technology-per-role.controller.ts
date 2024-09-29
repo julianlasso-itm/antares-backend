@@ -7,12 +7,14 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { TechnologyPerRole } from '../../../common/modules/persistence/entities';
 import { NewTechnologyPerRoleDto, UpdateTechnologyPerRoleDto } from '../dto';
 import { TechnologyPerRoleService } from '../services';
 
+@ApiTags('projects-management')
 @Controller('technology-per-role')
 export class TechnologyPerRoleController {
   constructor(private readonly service: TechnologyPerRoleService) {}

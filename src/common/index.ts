@@ -1,3 +1,4 @@
+export * from './doc';
 export * from './dto';
 export * from './exceptions';
 export * from './services';
