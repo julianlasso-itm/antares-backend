@@ -6,6 +6,7 @@ import {
   ProjectsManagementModule,
   TechnologiesModule,
 } from './modules';
+import { SecurityModule } from './modules/security';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import {
     KnowledgeGapsModule,
     ProjectsManagementModule,
     TechnologiesModule,
+    SecurityModule,
   ],
   controllers: [],
   providers: [],
