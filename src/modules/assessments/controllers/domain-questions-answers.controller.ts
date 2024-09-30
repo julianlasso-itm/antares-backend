@@ -42,8 +42,12 @@ export class DomainQuestionsAnswersController {
   ): Promise<ResponseDto<DomainQuestionsAnswers>> {
     const newData = new DomainQuestionsAnswers();
     newData.domainQuestionAnswerId = ulid();
-    newData.domainKnowledgeId = request.domainKnowledgeId;
-    newData.domainKnowledgeLevelId = request.domainKnowledgeLevelId;
+    if (request.domainKnowledgeId && request.domainKnowledgeLevelId === null) {
+      newData.domainKnowledgeId = request.domainKnowledgeId;
+    }
+    if (request.domainKnowledgeLevelId && request.domainKnowledgeId === null) {
+      newData.domainKnowledgeLevelId = request.domainKnowledgeLevelId;
+    }
     newData.question = request.question;
     newData.answer = request.answer;
 
