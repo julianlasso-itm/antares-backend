@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { ConfigurationPerLevel } from './configuration-per-level.entity';
 import { DomainAssessmentScores } from './domain-assessment-scores.entity';
@@ -14,6 +15,13 @@ import { RatingScale } from './rating-scale.entity';
     'Configuración para los niveles del sistema. Ejemplo Junior, Middle y Senior',
 })
 export class ConfigurationLevels {
+  @ApiProperty({
+    description: 'Identificador de la configuración',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     primary: true,
     name: 'cnf_lvl_id',
@@ -22,6 +30,13 @@ export class ConfigurationLevels {
   })
   configurationLevelId: string;
 
+  @ApiProperty({
+    description: 'Nombre de la configuración',
+    example: 'Configuración 2023',
+    required: true,
+    maxLength: 50,
+    type: String,
+  })
   @Column('character varying', {
     name: 'cnf_lvl_name',
     length: 50,
@@ -29,6 +44,12 @@ export class ConfigurationLevels {
   })
   name: string;
 
+  @ApiProperty({
+    description: 'Estado del registro. True activo, False inactivo',
+    example: true,
+    required: true,
+    type: Boolean,
+  })
   @Column('boolean', {
     name: 'cnf_lvl_status',
     default: () => 'true',
@@ -36,6 +57,12 @@ export class ConfigurationLevels {
   })
   status: boolean;
 
+  @ApiProperty({
+    description: 'Fecha y hora de creación del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: true,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'cnf_lvl_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -43,6 +70,12 @@ export class ConfigurationLevels {
   })
   createdAt: Date;
 
+  @ApiProperty({
+    description: 'Fecha y hora de última actualización del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'cnf_lvl_updated_at',
     nullable: true,
@@ -50,6 +83,12 @@ export class ConfigurationLevels {
   })
   updatedAt: Date | null;
 
+  @ApiProperty({
+    description: 'Fecha y hora de borrado del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'cnf_lvl_deleted_at',
     nullable: true,

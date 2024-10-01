@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
 import { Assessments } from './assessments.entity';
 import { ConfigurationLevels } from './configuration-levels.entity';
@@ -18,6 +19,13 @@ import { DomainKnowledge } from './domain-knowledge.entity';
     'Puntaje del dominio de conocimiento de una tecnología en un assessment de un profesional con un rol específico en un proyecto de un cliente',
 })
 export class DomainAssessmentScores {
+  @ApiProperty({
+    description: 'Identificador del puntaje del dominio de conocimiento',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     primary: true,
     name: 'das_id',
@@ -26,6 +34,14 @@ export class DomainAssessmentScores {
   })
   domainAssessmentScoreId: string;
 
+  @ApiProperty({
+    description:
+      'Identificador de la evaluación realizada a un profesional con un rol en un proyecto de un cliente',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'asmt_id',
     length: 26,
@@ -33,6 +49,13 @@ export class DomainAssessmentScores {
   })
   assessmentId: string;
 
+  @ApiProperty({
+    description: 'Identificador del dominio de conocimiento',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'dk_id',
     length: 26,
@@ -40,6 +63,13 @@ export class DomainAssessmentScores {
   })
   domainKnowledgeId: string;
 
+  @ApiProperty({
+    description: 'Identificador de la configuración usada',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'cnf_lvl_id',
     length: 26,
@@ -47,6 +77,13 @@ export class DomainAssessmentScores {
   })
   configurationLevelId: string;
 
+  @ApiProperty({
+    description: 'Observaciones del evaluador sobre el dominio de conocimiento',
+    example: 'No conoce aún el concepto',
+    required: false,
+    maxLength: 8192,
+    type: String,
+  })
   @Column('character varying', {
     name: 'das_observations',
     nullable: true,
@@ -56,6 +93,16 @@ export class DomainAssessmentScores {
   })
   observations: string | null;
 
+  @ApiProperty({
+    description:
+      'Puntaje del dominio del conocimiento al ser evaluado. Ejemplo: 0.00, 1.00, 2.00... hasta 5.00',
+    example: 5.0,
+    examples: [0.0, 1.0, 2.0, 2.5, 3.0, 4.0, 5.0],
+    maximum: 5.0,
+    minimum: 0.0,
+    required: true,
+    type: Number,
+  })
   @Column('numeric', {
     name: 'das_score',
     precision: 3,
@@ -65,6 +112,13 @@ export class DomainAssessmentScores {
   })
   score: number;
 
+  @ApiProperty({
+    description: 'Estado del registro. True activo, False inactivo',
+    example: true,
+    examples: [true, false, null],
+    required: true,
+    type: Boolean,
+  })
   @Column('boolean', {
     name: 'das_status',
     default: () => 'true',
@@ -72,6 +126,12 @@ export class DomainAssessmentScores {
   })
   status: boolean;
 
+  @ApiProperty({
+    description: 'Fecha y hora de creación del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: true,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'das_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -79,6 +139,12 @@ export class DomainAssessmentScores {
   })
   createdAt: Date;
 
+  @ApiProperty({
+    description: 'Fecha y hora de última actualización del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'das_updated_at',
     nullable: true,
@@ -86,6 +152,12 @@ export class DomainAssessmentScores {
   })
   updatedAt: Date | null;
 
+  @ApiProperty({
+    description: 'Fecha y hora de borrado del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'das_deleted_at',
     nullable: true,

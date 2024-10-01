@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
@@ -29,6 +30,14 @@ import { Levels } from './levels.entity';
     'Esta tabla representa la relación condicional entre los elementos de conocimiento del dominio (`domain_knowledge`), los niveles de configuración (`configuration_levels`) y los niveles generales (`levels`). Su objetivo es garantizar que, cuando un elemento de conocimiento esté asociado a una configuración específica, también esté vinculado a un nivel determinado. Esta tabla intermedia asegura la consistencia de los datos al establecer una dependencia explícita entre configuraciones y niveles dentro del contexto del conocimiento de un dominio',
 })
 export class DomainKnowledgeLevels {
+  @ApiProperty({
+    description:
+      'Identificador del dominio de conocimiento pero con una configuración de nivel',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     primary: true,
     name: 'dk_lvl_id',
@@ -38,6 +47,13 @@ export class DomainKnowledgeLevels {
   })
   domainKnowledgeLevelId: string;
 
+  @ApiProperty({
+    description: 'Identificador del dominio de conocimiento',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'dk_id',
     length: 26,
@@ -45,14 +61,27 @@ export class DomainKnowledgeLevels {
   })
   domainKnowledgeId: string;
 
+  @ApiProperty({
+    description: 'Identificador de la configuración usada',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'cnf_lvl_id',
     length: 26,
-    comment:
-      'Identificador de la configuración usada con referencia a los niveles usados en el sistema',
+    comment: 'Identificador de la configuración usada',
   })
   configurationLevelId: string;
 
+  @ApiProperty({
+    description: 'Identificador del nivel en el sistema',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'level_id',
     length: 26,
@@ -61,6 +90,12 @@ export class DomainKnowledgeLevels {
   })
   levelId: string;
 
+  @ApiProperty({
+    description: 'Estado del registro. True activo, False inactivo',
+    example: true,
+    required: true,
+    type: Boolean,
+  })
   @Column('boolean', {
     name: 'dk_lvl_status',
     default: () => 'true',
@@ -68,6 +103,12 @@ export class DomainKnowledgeLevels {
   })
   status: boolean;
 
+  @ApiProperty({
+    description: 'Fecha y hora de creación del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: true,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'dk_lvl_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -75,6 +116,12 @@ export class DomainKnowledgeLevels {
   })
   createdAt: Date;
 
+  @ApiProperty({
+    description: 'Fecha y hora de última actualización del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'dk_lvl_updated_at',
     nullable: true,
@@ -82,6 +129,12 @@ export class DomainKnowledgeLevels {
   })
   updatedAt: Date | null;
 
+  @ApiProperty({
+    description: 'Fecha y hora de borrado del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'dk_lvl_deleted_at',
     nullable: true,

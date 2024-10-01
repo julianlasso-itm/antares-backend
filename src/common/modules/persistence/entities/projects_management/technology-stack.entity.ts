@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
@@ -22,6 +23,14 @@ import { TechnologyPerRole } from './technology-per-role.entity';
   comment: 'Stack tecnológico de un proyecto en un cliente',
 })
 export class TechnologyStack {
+  @ApiProperty({
+    description:
+      'Identificador del stack tecnológico en un proyecto de un cliente',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     primary: true,
     name: 'ts_id',
@@ -30,6 +39,14 @@ export class TechnologyStack {
   })
   technologyStackId: string;
 
+  @ApiProperty({
+    description:
+      'Identificador de una tecnología en un stack tecnológico de un proyecto de un cliente',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'tech_item_id',
     length: 26,
@@ -38,6 +55,13 @@ export class TechnologyStack {
   })
   technologyItemId: string;
 
+  @ApiProperty({
+    description: 'Identificador del proyecto de un cliente',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'project_id',
     length: 26,
@@ -45,6 +69,14 @@ export class TechnologyStack {
   })
   projectId: string;
 
+  @ApiProperty({
+    description: 'Peso (importancia) de la tecnología',
+    example: 0.8,
+    minimum: 0.0,
+    maximum: 1.0,
+    required: false,
+    type: Number,
+  })
   @Column('numeric', {
     name: 'ts_weight',
     nullable: true,
@@ -54,6 +86,12 @@ export class TechnologyStack {
   })
   weight: number | null;
 
+  @ApiProperty({
+    description: 'Estado del registro. True activo, False inactivo',
+    example: true,
+    required: true,
+    type: Boolean,
+  })
   @Column('boolean', {
     name: 'ts_status',
     default: () => 'true',
@@ -61,6 +99,12 @@ export class TechnologyStack {
   })
   status: boolean;
 
+  @ApiProperty({
+    description: 'Fecha y hora de creación del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: true,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'ts_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -68,6 +112,12 @@ export class TechnologyStack {
   })
   createdAt: Date;
 
+  @ApiProperty({
+    description: 'Fecha y hora de última actualización del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'ts_updated_at',
     nullable: true,
@@ -75,6 +125,12 @@ export class TechnologyStack {
   })
   updatedAt: Date | null;
 
+  @ApiProperty({
+    description: 'Fecha y hora de borrado del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'ts_deleted_at',
     nullable: true,

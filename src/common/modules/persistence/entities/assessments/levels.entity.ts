@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { ConfigurationPerLevel } from './configuration-per-level.entity';
 import { DomainKnowledgeLevels } from './domain-knowledge-levels.entity';
@@ -13,6 +14,13 @@ import { DomainKnowledgeLevels } from './domain-knowledge-levels.entity';
   comment: 'Niveles a usar en el sistema. Ejemplo: Junior, Middle y Senior',
 })
 export class Levels {
+  @ApiProperty({
+    description: 'Identificador del nivel a usar en el sistema',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     primary: true,
     name: 'level_id',
@@ -22,6 +30,14 @@ export class Levels {
   })
   levelId: string;
 
+  @ApiProperty({
+    description: 'Nombre del nivel a usar',
+    example: 'Junior',
+    examples: ['Junior', 'Middle', 'Senior'],
+    required: true,
+    maxLength: 30,
+    type: String,
+  })
   @Column('character varying', {
     name: 'level_name',
     length: 30,
@@ -29,6 +45,12 @@ export class Levels {
   })
   name: string;
 
+  @ApiProperty({
+    description: 'Estado del registro. True activo, False inactivo',
+    example: true,
+    required: true,
+    type: Boolean,
+  })
   @Column('boolean', {
     name: 'level_status',
     default: () => 'true',
@@ -36,6 +58,12 @@ export class Levels {
   })
   status: boolean;
 
+  @ApiProperty({
+    description: 'Fecha y hora de creación del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: true,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'level_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -43,6 +71,12 @@ export class Levels {
   })
   createdAt: Date;
 
+  @ApiProperty({
+    description: 'Fecha y hora de última actualización del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'level_updated_at',
     nullable: true,
@@ -50,6 +84,12 @@ export class Levels {
   })
   updatedAt: Date | null;
 
+  @ApiProperty({
+    description: 'Fecha y hora de borrado del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'level_deleted_at',
     nullable: true,

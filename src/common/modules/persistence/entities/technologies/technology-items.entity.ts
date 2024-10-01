@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
@@ -22,6 +23,13 @@ import { TechnologyTypes } from './technology-types.entity';
   comment: 'Tecnologías usadas en los diferentes clientes de la empresa',
 })
 export class TechnologyItems {
+  @ApiProperty({
+    description: 'Identificador de la tecnología',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     primary: true,
     name: 'tech_item_id',
@@ -30,6 +38,13 @@ export class TechnologyItems {
   })
   technologyItemId: string;
 
+  @ApiProperty({
+    description: 'Identificador del tipo de tecnología',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'tech_type_id',
     length: 26,
@@ -37,6 +52,13 @@ export class TechnologyItems {
   })
   technologyTypeId: string;
 
+  @ApiProperty({
+    description: 'Nombre de la tecnología',
+    example: 'Lenguaje de programación',
+    required: true,
+    maxLength: 500,
+    type: String,
+  })
   @Column('character varying', {
     name: 'tech_item_name',
     length: 500,
@@ -44,6 +66,13 @@ export class TechnologyItems {
   })
   name: string;
 
+  @ApiProperty({
+    description: 'Descripción de la tecnología',
+    example: 'Lenguaje de programación de código abierto',
+    required: false,
+    maxLength: 2048,
+    type: String,
+  })
   @Column('character varying', {
     name: 'tech_item_description',
     nullable: true,
@@ -52,6 +81,13 @@ export class TechnologyItems {
   })
   description: string | null;
 
+  @ApiProperty({
+    description: 'Ícono de la tecnología',
+    example: '/icons/100860/react_icon.png',
+    required: false,
+    maxLength: 500,
+    type: String,
+  })
   @Column('character varying', {
     name: 'tech_item_icon',
     nullable: true,
@@ -60,6 +96,12 @@ export class TechnologyItems {
   })
   icon: string | null;
 
+  @ApiProperty({
+    description: 'Estado del registro. True activo, False inactivo',
+    example: true,
+    required: true,
+    type: Boolean,
+  })
   @Column('boolean', {
     name: 'tech_item_status',
     default: () => 'true',
@@ -67,6 +109,12 @@ export class TechnologyItems {
   })
   status: boolean;
 
+  @ApiProperty({
+    description: 'Fecha y hora de creación del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: true,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'tech_item_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -74,6 +122,12 @@ export class TechnologyItems {
   })
   createdAt: Date;
 
+  @ApiProperty({
+    description: 'Fecha y hora de última actualización del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'tech_item_updated_at',
     nullable: true,
@@ -81,6 +135,12 @@ export class TechnologyItems {
   })
   updatedAt: Date | null;
 
+  @ApiProperty({
+    description: 'Fecha y hora de borrado del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'tech_item_deleted_at',
     nullable: true,

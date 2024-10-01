@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
 import { Roles } from './roles.entity';
 import { TechnologyStack } from './technology-stack.entity';
@@ -18,6 +19,14 @@ import { TechnologyStack } from './technology-stack.entity';
     'Relación entre un rol y una tecnología en un stack tecnológico de un proyecto de un cliente',
 })
 export class TechnologyPerRole {
+  @ApiProperty({
+    description:
+      'Identificador de la tecnología por rol en un proyecto de un cliente',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     primary: true,
     name: 'tpr_id',
@@ -27,6 +36,14 @@ export class TechnologyPerRole {
   })
   technologyPerRoleId: string;
 
+  @ApiProperty({
+    description:
+      'Identificador del stack tecnológico en un proyecto de un cliente',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'ts_id',
     length: 26,
@@ -34,6 +51,13 @@ export class TechnologyPerRole {
   })
   technologyStackId: string;
 
+  @ApiProperty({
+    description: 'Identificador del rol en un proyecto de un cliente',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'role_id',
     length: 26,
@@ -41,6 +65,12 @@ export class TechnologyPerRole {
   })
   roleId: string;
 
+  @ApiProperty({
+    description: 'Estado del registro. True activo, False inactivo',
+    example: true,
+    required: true,
+    type: Boolean,
+  })
   @Column('boolean', {
     name: 'tpr_status',
     default: () => 'true',
@@ -48,6 +78,12 @@ export class TechnologyPerRole {
   })
   status: boolean;
 
+  @ApiProperty({
+    description: 'Fecha y hora de creación del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: true,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'tpr_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -55,6 +91,12 @@ export class TechnologyPerRole {
   })
   createdAt: Date;
 
+  @ApiProperty({
+    description: 'Fecha y hora de última actualización del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'tpr_updated_at',
     nullable: true,
@@ -62,6 +104,12 @@ export class TechnologyPerRole {
   })
   updatedAt: Date | null;
 
+  @ApiProperty({
+    description: 'Fecha y hora de borrado del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'tpr_deleted_at',
     nullable: true,

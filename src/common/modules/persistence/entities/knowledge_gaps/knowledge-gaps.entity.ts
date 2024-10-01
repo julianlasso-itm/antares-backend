@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
@@ -21,6 +22,13 @@ import { KnowledgeGapNotes } from './knowledge-gap-notes.entity';
   comment: 'Brechas de conocimiento detectadas en un assessment',
 })
 export class KnowledgeGaps {
+  @ApiProperty({
+    description: 'Identificador de la brecha de conocimiento detectada',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     primary: true,
     name: 'kg_id',
@@ -29,6 +37,14 @@ export class KnowledgeGaps {
   })
   knowledgeGapId: string;
 
+  @ApiProperty({
+    description:
+      'Identificador de la evaluación realizada a un profesional con un rol en un proyecto de un cliente',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'asmt_id',
     length: 26,
@@ -37,6 +53,13 @@ export class KnowledgeGaps {
   })
   assessmentId: string;
 
+  @ApiProperty({
+    description: 'Identificador del dominio de conocimiento',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'dk_id',
     length: 26,
@@ -44,6 +67,14 @@ export class KnowledgeGaps {
   })
   domainKnowledgeId: string;
 
+  @ApiProperty({
+    description: 'Observaciones sobre la brecha de conocimiento detectada',
+    example:
+      'Posee los conocimientos teóricos necesarios, pero aún falla en la práctica.',
+    required: true,
+    maxLength: 8192,
+    type: String,
+  })
   @Column('character varying', {
     name: 'kg_observation',
     length: 8192,
@@ -51,6 +82,12 @@ export class KnowledgeGaps {
   })
   observation: string;
 
+  @ApiProperty({
+    description: 'Estado del registro. True activo, False inactivo',
+    example: true,
+    required: true,
+    type: Boolean,
+  })
   @Column('boolean', {
     name: 'kg_status',
     default: () => 'true',
@@ -58,6 +95,12 @@ export class KnowledgeGaps {
   })
   status: boolean;
 
+  @ApiProperty({
+    description: 'Fecha y hora de creación del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: true,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'kg_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -65,6 +108,12 @@ export class KnowledgeGaps {
   })
   createdAt: Date;
 
+  @ApiProperty({
+    description: 'Fecha y hora de última actualización del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'kg_updated_at',
     nullable: true,
@@ -72,6 +121,12 @@ export class KnowledgeGaps {
   })
   updatedAt: Date | null;
 
+  @ApiProperty({
+    description: 'Fecha y hora de borrado del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'kg_deleted_at',
     nullable: true,

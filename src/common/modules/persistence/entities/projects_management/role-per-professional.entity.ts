@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
@@ -25,6 +26,14 @@ import { Roles } from './roles.entity';
     'Relación entre un profesional y un rol en un proyecto de un cliente',
 })
 export class RolePerProfessional {
+  @ApiProperty({
+    description:
+      'Identificador del rol y el profesional en un proyecto de un cliente',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     primary: true,
     name: 'rpp_id',
@@ -33,6 +42,13 @@ export class RolePerProfessional {
   })
   rolePerProfessionalId: string;
 
+  @ApiProperty({
+    description: 'Identificador del profesional en el sistema',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'professional_id',
     length: 26,
@@ -40,6 +56,13 @@ export class RolePerProfessional {
   })
   professionalId: string;
 
+  @ApiProperty({
+    description: 'Identificador del rol en el sistema',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     name: 'role_id',
     length: 26,
@@ -47,6 +70,13 @@ export class RolePerProfessional {
   })
   roleId: string;
 
+  @ApiProperty({
+    description:
+      'Fecha y hora en que el profesional entra a participar en un proyecto de un cliente con un rol específico',
+    example: '2023-03-30T12:00:00.000Z',
+    required: true,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'rpp_start_date',
     comment:
@@ -54,6 +84,13 @@ export class RolePerProfessional {
   })
   startDate: Date;
 
+  @ApiProperty({
+    description:
+      'Fecha y hora en que el profesional deja de participar en un proyecto de un cliente con un rol específico',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'rpp_end_date',
     nullable: true,
@@ -62,6 +99,12 @@ export class RolePerProfessional {
   })
   endDate: Date | null;
 
+  @ApiProperty({
+    description: 'Estado del registro. True activo, False inactivo',
+    example: true,
+    required: true,
+    type: Boolean,
+  })
   @Column('boolean', {
     name: 'rpp_status',
     default: () => 'true',
@@ -69,6 +112,12 @@ export class RolePerProfessional {
   })
   status: boolean;
 
+  @ApiProperty({
+    description: 'Fecha y hora de creación del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: true,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'rpp_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -76,6 +125,12 @@ export class RolePerProfessional {
   })
   createdAt: Date;
 
+  @ApiProperty({
+    description: 'Fecha y hora de última actualización del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'rpp_updated_at',
     nullable: true,
@@ -83,6 +138,12 @@ export class RolePerProfessional {
   })
   updatedAt: Date | null;
 
+  @ApiProperty({
+    description: 'Fecha y hora de borrado del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'rpp_deleted_at',
     nullable: true,

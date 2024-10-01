@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { RolePerProfessional } from '../projects_management';
 
@@ -19,6 +20,13 @@ import { RolePerProfessional } from '../projects_management';
     'Datos de los profesionales de la empresa, es decir, programadores y demás',
 })
 export class Professionals {
+  @ApiProperty({
+    description: 'Identificador del profesional en el sistema',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    maxLength: 26,
+    type: String,
+  })
   @Column('character varying', {
     primary: true,
     name: 'pro_id',
@@ -27,6 +35,15 @@ export class Professionals {
   })
   professionalId: string;
 
+  @ApiProperty({
+    description: 'Tipo de documento',
+    example: 'CC',
+    examples: ['CC', 'CE'],
+    enum: DocumentType,
+    required: true,
+    maxLength: 2,
+    type: String,
+  })
   @Column('character varying', {
     name: 'pro_document_type',
     length: 2,
@@ -35,6 +52,13 @@ export class Professionals {
   })
   documentType: string;
 
+  @ApiProperty({
+    description: 'Número de documento',
+    example: '123456789',
+    required: true,
+    maxLength: 20,
+    type: String,
+  })
   @Column('character varying', {
     name: 'pro_document',
     length: 20,
@@ -42,6 +66,13 @@ export class Professionals {
   })
   document: string;
 
+  @ApiProperty({
+    description: 'Nombre completo del profesional',
+    example: 'Julian Andres Lasso Figueroa',
+    required: true,
+    maxLength: 500,
+    type: String,
+  })
   @Column('character varying', {
     name: 'pro_full_name',
     length: 500,
@@ -49,6 +80,13 @@ export class Professionals {
   })
   name: string;
 
+  @ApiProperty({
+    description: 'Correo electrónico del profesional',
+    example: 'julian.lasso@sofka.com.co',
+    required: true,
+    maxLength: 500,
+    type: String,
+  })
   @Column('character varying', {
     name: 'pro_email',
     length: 500,
@@ -56,6 +94,13 @@ export class Professionals {
   })
   email: string;
 
+  @ApiProperty({
+    description: 'Foto del profesional',
+    example: '/icons/100860/photo.png',
+    required: false,
+    maxLength: 1024,
+    type: String,
+  })
   @Column('character varying', {
     name: 'pro_photo',
     nullable: true,
@@ -64,6 +109,12 @@ export class Professionals {
   })
   photo: string | null;
 
+  @ApiProperty({
+    description: 'Estado del registro. True activo, False inactivo',
+    example: true,
+    required: true,
+    type: Boolean,
+  })
   @Column('boolean', {
     name: 'pro_status',
     default: () => 'true',
@@ -71,6 +122,12 @@ export class Professionals {
   })
   status: boolean;
 
+  @ApiProperty({
+    description: 'Fecha y hora de creación del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: true,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'pro_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -78,6 +135,12 @@ export class Professionals {
   })
   createdAt: Date;
 
+  @ApiProperty({
+    description: 'Fecha y hora de última actualización del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'pro_updated_at',
     nullable: true,
@@ -85,6 +148,12 @@ export class Professionals {
   })
   updatedAt: Date | null;
 
+  @ApiProperty({
+    description: 'Fecha y hora de borrado del registro',
+    example: '2023-03-30T12:00:00.000Z',
+    required: false,
+    type: Date,
+  })
   @Column('timestamp without time zone', {
     name: 'pro_deleted_at',
     nullable: true,
