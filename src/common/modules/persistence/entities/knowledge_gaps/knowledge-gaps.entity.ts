@@ -66,7 +66,7 @@ export class KnowledgeGaps {
 
   @ManyToOne(
     () => DomainKnowledge,
-    (domainKnowledge) => domainKnowledge.kgKnowledgeGaps,
+    (domainKnowledge) => domainKnowledge.knowledgeGaps,
     { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' },
   )
   @JoinColumn([{ name: 'dk_id', referencedColumnName: 'domainKnowledgeId' }])

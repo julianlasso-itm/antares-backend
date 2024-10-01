@@ -5,44 +5,71 @@ import { Levels } from './levels.entity';
 @Index(
   'configuration_per_level_cnf_lvl_id_Idx',
   ['configurationLevelId', 'levelId'],
-  { unique: true },
+  { unique: true, where: 'deletedAt IS NULL' },
 )
 @Index('configuration_per_level_cpl_status_Idx', ['deletedAt', 'status'], {})
 @Index('pkassmt_configuration_per_level', ['configurationPerLevelId'], {
   unique: true,
 })
-@Entity('assmt_configuration_per_level', { schema: 'assessments' })
+@Entity('assmt_configuration_per_level', {
+  schema: 'assessments',
+  comment: 'Niveles a usar en una configuración para el sistema en general',
+})
 export class ConfigurationPerLevel {
-  @Column('character varying', { primary: true, name: 'cpl_id', length: 26 })
+  @Column('character varying', {
+    primary: true,
+    name: 'cpl_id',
+    length: 26,
+    comment: 'Identificador del nivel en una configuración',
+  })
   configurationPerLevelId: string;
 
-  @Column('character varying', { name: 'cnf_lvl_id', length: 26 })
+  @Column('character varying', {
+    name: 'cnf_lvl_id',
+    length: 26,
+    comment: 'Identificador de la configuración usada',
+  })
   configurationLevelId: string;
 
-  @Column('character varying', { name: 'level_id', length: 26 })
+  @Column('character varying', {
+    name: 'level_id',
+    length: 26,
+    comment:
+      'Identificador del nivel a usar en el sistema. Ejemplo: Junior, Middle o Senior',
+  })
   levelId: string;
 
-  @Column('integer', { name: 'cpl_position' })
+  @Column('integer', {
+    name: 'cpl_position',
+    comment: 'Posición del nivel en la configuración. Ejemplo 1, 2, 3',
+  })
   position: number;
 
-  @Column('boolean', { name: 'cpl_status', default: () => 'true' })
+  @Column('boolean', {
+    name: 'cpl_status',
+    default: () => 'true',
+    comment: 'Estado del registro. True activo, False inactivo',
+  })
   status: boolean;
 
   @Column('timestamp without time zone', {
     name: 'cpl_created_at',
     default: () => 'CURRENT_TIMESTAMP',
+    comment: 'Fecha y hora de creación del registro',
   })
   createdAt: Date;
 
   @Column('timestamp without time zone', {
     name: 'cpl_updated_at',
     nullable: true,
+    comment: 'Fecha y hora de última actualización del registro',
   })
   updatedAt: Date | null;
 
   @Column('timestamp without time zone', {
     name: 'cpl_deleted_at',
     nullable: true,
+    comment: 'Fecha y hora de borrado del registro',
   })
   deletedAt: Date | null;
 

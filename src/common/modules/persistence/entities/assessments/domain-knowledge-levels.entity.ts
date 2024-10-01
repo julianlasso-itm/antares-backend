@@ -14,44 +14,78 @@ import { Levels } from './levels.entity';
 @Index(
   'domain_knowledge_levels_dk_id_cnf_lvl_id_level_id_Idx',
   ['configurationLevelId', 'domainKnowledgeId', 'levelId'],
-  { unique: true },
+  {
+    unique: true,
+    where: 'deletedAt IS NULL',
+  },
 )
 @Index('domain_knowledge_levels_dk_lvl_status_Idx', ['deletedAt', 'status'], {})
 @Index('pkassmt_domain_knowledge_levels', ['domainKnowledgeLevelId'], {
   unique: true,
 })
-@Entity('assmt_domain_knowledge_levels', { schema: 'assessments' })
+@Entity('assmt_domain_knowledge_levels', {
+  schema: 'assessments',
+  comment:
+    'Esta tabla representa la relación condicional entre los elementos de conocimiento del dominio (`domain_knowledge`), los niveles de configuración (`configuration_levels`) y los niveles generales (`levels`). Su objetivo es garantizar que, cuando un elemento de conocimiento esté asociado a una configuración específica, también esté vinculado a un nivel determinado. Esta tabla intermedia asegura la consistencia de los datos al establecer una dependencia explícita entre configuraciones y niveles dentro del contexto del conocimiento de un dominio',
+})
 export class DomainKnowledgeLevels {
-  @Column('character varying', { primary: true, name: 'dk_lvl_id', length: 26 })
+  @Column('character varying', {
+    primary: true,
+    name: 'dk_lvl_id',
+    length: 26,
+    comment:
+      'Identificador del dominio de conocimiento pero con una configuración de nivel',
+  })
   domainKnowledgeLevelId: string;
 
-  @Column('character varying', { name: 'dk_id', length: 26 })
+  @Column('character varying', {
+    name: 'dk_id',
+    length: 26,
+    comment: 'Identificador del dominio de conocimiento',
+  })
   domainKnowledgeId: string;
 
-  @Column('character varying', { name: 'cnf_lvl_id', length: 26 })
+  @Column('character varying', {
+    name: 'cnf_lvl_id',
+    length: 26,
+    comment:
+      'Identificador de la configuración usada con referencia a los niveles usados en el sistema',
+  })
   configurationLevelId: string;
 
-  @Column('character varying', { name: 'level_id', length: 26 })
+  @Column('character varying', {
+    name: 'level_id',
+    length: 26,
+    comment:
+      'Identificador del nivel en el sistema. Ejemplo: Junior, Middle o Senior',
+  })
   levelId: string;
 
-  @Column('boolean', { name: 'dk_lvl_status', default: () => 'true' })
+  @Column('boolean', {
+    name: 'dk_lvl_status',
+    default: () => 'true',
+    comment: 'Estado del registro. True activo, False inactivo',
+  })
   status: boolean;
 
   @Column('timestamp without time zone', {
     name: 'dk_lvl_created_at',
     default: () => 'CURRENT_TIMESTAMP',
+    comment: 'Fecha y hora de creación del registro',
   })
   createdAt: Date;
 
   @Column('timestamp without time zone', {
     name: 'dk_lvl_updated_at',
     nullable: true,
+    comment: 'Fecha y hora de última actualización del registro',
   })
   updatedAt: Date | null;
 
   @Column('timestamp without time zone', {
     name: 'dk_lvl_deleted_at',
     nullable: true,
+    comment: 'Fecha y hora de borrado del registro',
   })
   deletedAt: Date | null;
 
@@ -67,7 +101,7 @@ export class DomainKnowledgeLevels {
 
   @ManyToOne(
     () => DomainKnowledge,
-    (domainKnowledge) => domainKnowledge.assmtDomainKnowledgeLevels,
+    (domainKnowledge) => domainKnowledge.domainKnowledgeLevels,
     { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' },
   )
   @JoinColumn([{ name: 'dk_id', referencedColumnName: 'domainKnowledgeId' }])

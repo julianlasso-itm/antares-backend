@@ -10,20 +10,31 @@ import {
 import { RolePerProfessional } from './role-per-professional.entity';
 import { TechnologyPerRole } from './technology-per-role.entity';
 
-@Index('roles_role_status_Idx', ['deletedAt', 'status'], {})
-@Index('roles_roles_sub_role_id_Idx', ['deletedAt', 'subRoleId'], {})
+@Index('roles_role_status_Idx', ['status', 'deletedAt'], {})
+@Index('roles_roles_sub_role_id_Idx', ['subRoleId', 'deletedAt'], {})
 @Index('pkpm_roles', ['roleId'], { unique: true })
-@Index('roles_role_name_Idx', ['name'], { unique: true })
-@Entity('pm_roles', { schema: 'projects_management' })
+@Index('roles_role_name_Idx', ['name'], {
+  unique: true,
+  where: 'deletedAt IS NULL',
+})
+@Entity('pm_roles', {
+  schema: 'projects_management',
+  comment: 'Roles en los proyectos de un cliente',
+})
 export class Roles {
   @ApiProperty({
-    description: 'Identificador del rol en el sistema',
+    description: 'Identificador del rol en un proyecto de un cliente',
     example: '01J8XM2FC49N58RTHH671GPFVV',
     required: true,
     maxLength: 26,
     type: String,
   })
-  @Column('character varying', { primary: true, name: 'role_id', length: 26 })
+  @Column('character varying', {
+    primary: true,
+    name: 'role_id',
+    length: 26,
+    comment: 'Identificador del rol en un proyecto de un cliente',
+  })
   roleId: string;
 
   @ApiProperty({
@@ -37,22 +48,28 @@ export class Roles {
     name: 'roles_sub_role_id',
     nullable: true,
     length: 26,
+    comment:
+      'Identificador del sub-rol que compone un rol en un proyecto de un cliente',
   })
   subRoleId: string | null;
 
   @ApiProperty({
-    description: 'Nombre del rol en el sistema',
-    example: 'Administrador',
+    description: 'Nombre del rol en un proyecto de un cliente',
+    example: 'Backend Developer',
     required: true,
     maxLength: 500,
     type: String,
   })
-  @Column('character varying', { name: 'role_name', length: 500 })
+  @Column('character varying', {
+    name: 'role_name',
+    length: 500,
+    comment: 'Nombre del rol en un proyecto de un cliente',
+  })
   name: string;
 
   @ApiProperty({
     description: 'Descripción del rol en el sistema',
-    example: 'Rol para administrar el sistema',
+    example: 'Rol para desarrollar aplicaciones backend',
     required: false,
     maxLength: 2048,
     type: String,
@@ -61,6 +78,7 @@ export class Roles {
     name: 'role_description',
     nullable: true,
     length: 2048,
+    comment: 'Descripción del rol en un proyecto de un cliente',
   })
   description: string | null;
 
@@ -70,7 +88,11 @@ export class Roles {
     required: true,
     type: Boolean,
   })
-  @Column('boolean', { name: 'role_status', default: () => 'true' })
+  @Column('boolean', {
+    name: 'role_status',
+    default: () => 'true',
+    comment: 'Estado del registro. True activo, False inactivo',
+  })
   status: boolean;
 
   @ApiProperty({
@@ -82,6 +104,7 @@ export class Roles {
   @Column('timestamp without time zone', {
     name: 'role_created_at',
     default: () => 'CURRENT_TIMESTAMP',
+    comment: 'Fecha y hora de creación del registro',
   })
   createdAt: Date;
 
@@ -94,6 +117,7 @@ export class Roles {
   @Column('timestamp without time zone', {
     name: 'role_updated_at',
     nullable: true,
+    comment: 'Fecha y hora de última actualización del registro',
   })
   updatedAt: Date | null;
 
@@ -106,6 +130,7 @@ export class Roles {
   @Column('timestamp without time zone', {
     name: 'role_deleted_at',
     nullable: true,
+    comment: 'Fecha y hora de borrado del registro',
   })
   deletedAt: Date | null;
 

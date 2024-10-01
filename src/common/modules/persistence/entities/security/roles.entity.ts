@@ -2,10 +2,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { UserPerRole } from './user-per-role.entity';
 
-@Index('roles_role_status_Idx', ['deletedAt', 'status'], {})
+@Index('roles_role_status_Idx', ['status', 'deletedAt'], {})
 @Index('pksec_roles', ['roleId'], { unique: true })
-@Index('roles_role_name_Idx', ['name'], { unique: true })
-@Entity('sec_roles', { schema: 'security' })
+@Index('roles_role_name_Idx', ['name'], {
+  unique: true,
+  where: 'deletedAt IS NULL',
+})
+@Entity('sec_roles', {
+  schema: 'security',
+  comment: 'Roles del sistema ANTARES',
+})
 export class Roles {
   @ApiProperty({
     description: 'Identificador del rol en el sistema',
@@ -14,7 +20,12 @@ export class Roles {
     maxLength: 26,
     type: String,
   })
-  @Column('character varying', { primary: true, name: 'role_id', length: 26 })
+  @Column('character varying', {
+    primary: true,
+    name: 'role_id',
+    length: 26,
+    comment: 'Identificador del rol en el sistema',
+  })
   roleId: string;
 
   @ApiProperty({
@@ -24,7 +35,11 @@ export class Roles {
     maxLength: 50,
     type: String,
   })
-  @Column('character varying', { name: 'role_name', length: 50 })
+  @Column('character varying', {
+    name: 'role_name',
+    length: 50,
+    comment: 'Nombre del rol en el sistema',
+  })
   name: string;
 
   @ApiProperty({
@@ -34,7 +49,11 @@ export class Roles {
     maxLength: 1024,
     type: String,
   })
-  @Column('character varying', { name: 'role_description', length: 1024 })
+  @Column('character varying', {
+    name: 'role_description',
+    length: 1024,
+    comment: 'Descripción del rol en el sistema',
+  })
   description: string;
 
   @ApiProperty({
@@ -43,7 +62,11 @@ export class Roles {
     required: true,
     type: Boolean,
   })
-  @Column('boolean', { name: 'role_status', default: () => 'true' })
+  @Column('boolean', {
+    name: 'role_status',
+    default: () => 'true',
+    comment: 'Estado del registro. True activo, False inactivo',
+  })
   status: boolean;
 
   @ApiProperty({
@@ -55,6 +78,7 @@ export class Roles {
   @Column('timestamp without time zone', {
     name: 'role_created_at',
     default: () => 'CURRENT_TIMESTAMP',
+    comment: 'Fecha y hora de creación del registro',
   })
   createdAt: Date;
 
@@ -68,6 +92,7 @@ export class Roles {
   @Column('timestamp without time zone', {
     name: 'role_updated_at',
     nullable: true,
+    comment: 'Fecha y hora de última actualización del registro',
   })
   updatedAt: Date | null;
 
@@ -81,6 +106,7 @@ export class Roles {
   @Column('timestamp without time zone', {
     name: 'role_deleted_at',
     nullable: true,
+    comment: 'Fecha y hora de borrado del registro',
   })
   deletedAt: Date | null;
 

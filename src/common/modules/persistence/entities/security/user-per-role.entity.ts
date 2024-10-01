@@ -5,8 +5,9 @@ import { Users } from './users.entity';
 
 @Index('user_per_role_user_id_role_id_Idx', ['roleId', 'userId'], {
   unique: true,
+  where: 'deletedAt IS NULL',
 })
-@Index('user_per_role_upr_status_Idx', ['deletedAt', 'status'], {})
+@Index('user_per_role_upr_status_Idx', ['status', 'deletedAt'], {})
 @Index('pksec_user_per_role', ['userPerRoleId'], { unique: true })
 @Entity('sec_user_per_role', { schema: 'security' })
 export class UserPerRole {
@@ -17,7 +18,12 @@ export class UserPerRole {
     maxLength: 26,
     type: String,
   })
-  @Column('character varying', { primary: true, name: 'upr_id', length: 26 })
+  @Column('character varying', {
+    primary: true,
+    name: 'upr_id',
+    length: 26,
+    comment: 'Identificador del rol y el usuario en el sistema',
+  })
   userPerRoleId: string;
 
   @ApiProperty({
@@ -27,7 +33,11 @@ export class UserPerRole {
     maxLength: 26,
     type: String,
   })
-  @Column('character varying', { name: 'user_id', length: 26 })
+  @Column('character varying', {
+    name: 'user_id',
+    length: 26,
+    comment: 'Identificador del usuario en el sistema',
+  })
   userId: string;
 
   @ApiProperty({
@@ -37,7 +47,11 @@ export class UserPerRole {
     maxLength: 26,
     type: String,
   })
-  @Column('character varying', { name: 'role_id', length: 26 })
+  @Column('character varying', {
+    name: 'role_id',
+    length: 26,
+    comment: 'Identificador del rol en el sistema',
+  })
   roleId: string;
 
   @ApiProperty({
@@ -46,7 +60,11 @@ export class UserPerRole {
     required: true,
     type: Boolean,
   })
-  @Column('boolean', { name: 'upr_status', default: () => 'true' })
+  @Column('boolean', {
+    name: 'upr_status',
+    default: () => 'true',
+    comment: 'Estado del registro. True activo, False inactivo',
+  })
   status: boolean;
 
   @ApiProperty({
@@ -58,6 +76,7 @@ export class UserPerRole {
   @Column('timestamp without time zone', {
     name: 'upr_created_at',
     default: () => 'CURRENT_TIMESTAMP',
+    comment: 'Fecha y hora de creación del registro',
   })
   createdAt: Date;
 
@@ -70,6 +89,7 @@ export class UserPerRole {
   @Column('timestamp without time zone', {
     name: 'upr_updated_at',
     nullable: true,
+    comment: 'Fecha y hora de última actualización del registro',
   })
   updatedAt: Date | null;
 
@@ -82,6 +102,7 @@ export class UserPerRole {
   @Column('timestamp without time zone', {
     name: 'upr_deleted_at',
     nullable: true,
+    comment: 'Fecha y hora de borrado del registro',
   })
   deletedAt: Date | null;
 

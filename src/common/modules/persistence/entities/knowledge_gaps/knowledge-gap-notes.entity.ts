@@ -4,43 +4,71 @@ import { KnowledgeGaps } from './knowledge-gaps.entity';
 
 @Index(
   'knowledge_gap_notes_user_id_kg_id_Idx',
-  ['knowledgeGapId', 'deletedAt', 'userId'],
+  ['knowledgeGapId', 'userId', 'deletedAt'],
   {},
 )
-@Index('knowledge_gap_notes_kgn_status_Idx', ['deletedAt', 'status'], {})
+@Index('knowledge_gap_notes_kgn_status_Idx', ['status', 'deletedAt'], {})
 @Index('pkkg_knowledge_gap_notes', ['knowledgeGapNoteId'], { unique: true })
-@Entity('kg_knowledge_gap_notes', { schema: 'knowledge_gaps' })
+@Entity('kg_knowledge_gap_notes', {
+  schema: 'knowledge_gaps',
+  comment: 'Notas sobre una brecha de conocimiento detectada en un assessment',
+})
 export class KnowledgeGapNotes {
-  @Column('character varying', { primary: true, name: 'kgn_id', length: 26 })
+  @Column('character varying', {
+    primary: true,
+    name: 'kgn_id',
+    length: 26,
+    comment:
+      'Identificador de la nota sobre la brecha de conocimiento detectada',
+  })
   knowledgeGapNoteId: string;
 
-  @Column('character varying', { name: 'user_id', length: 26 })
+  @Column('character varying', {
+    name: 'user_id',
+    length: 26,
+    comment: 'Identificador del usuario en el sistema que realizó la nota',
+  })
   userId: string;
 
-  @Column('character varying', { name: 'kg_id', length: 26 })
+  @Column('character varying', {
+    name: 'kg_id',
+    length: 26,
+    comment: 'Identificador de la brecha de conocimiento detectada',
+  })
   knowledgeGapId: string;
 
-  @Column('character varying', { name: 'kgn_observation', length: 8192 })
+  @Column('character varying', {
+    name: 'kgn_observation',
+    length: 8192,
+    comment: 'Observaciones sobre la brecha de conocimiento detectada',
+  })
   observation: string;
 
-  @Column('boolean', { name: 'kgn_status', default: () => 'true' })
+  @Column('boolean', {
+    name: 'kgn_status',
+    default: () => 'true',
+    comment: 'Estado del registro. True activo, False inactivo',
+  })
   status: boolean;
 
   @Column('timestamp without time zone', {
     name: 'kgn_created_at',
     default: () => 'CURRENT_TIMESTAMP',
+    comment: 'Fecha y hora de creación del registro',
   })
   createdAt: Date;
 
   @Column('timestamp without time zone', {
     name: 'kgn_updated_at',
     nullable: true,
+    comment: 'Fecha y hora de última actualización del registro',
   })
   updatedAt: Date | null;
 
   @Column('timestamp without time zone', {
     name: 'kgn_deleted_at',
     nullable: true,
+    comment: 'Fecha y hora de borrado del registro',
   })
   deletedAt: Date | null;
 
