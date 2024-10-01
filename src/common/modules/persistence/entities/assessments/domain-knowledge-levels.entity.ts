@@ -19,7 +19,7 @@ import { Levels } from './levels.entity';
     where: 'deletedAt IS NULL',
   },
 )
-@Index('domain_knowledge_levels_dk_lvl_status_Idx', ['deletedAt', 'status'], {})
+@Index('domain_knowledge_levels_dk_lvl_status_Idx', ['status', 'deletedAt'], {})
 @Index('pkassmt_domain_knowledge_levels', ['domainKnowledgeLevelId'], {
   unique: true,
 })

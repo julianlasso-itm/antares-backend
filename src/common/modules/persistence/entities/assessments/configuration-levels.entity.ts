@@ -4,7 +4,7 @@ import { DomainAssessmentScores } from './domain-assessment-scores.entity';
 import { DomainKnowledgeLevels } from './domain-knowledge-levels.entity';
 import { RatingScale } from './rating-scale.entity';
 
-@Index('configuration_level_cnf_lvl_status_Idx', ['deletedAt', 'status'], {})
+@Index('configuration_level_cnf_lvl_status_Idx', ['status', 'deletedAt'], {})
 @Index('pkassmt_configuration_levels', ['configurationLevelId'], {
   unique: true,
 })

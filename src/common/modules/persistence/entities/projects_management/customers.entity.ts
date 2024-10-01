@@ -4,7 +4,6 @@ import { Projects } from './projects.entity';
 @Index('customers_customer_status_Idx', ['status', 'deletedAt'], {})
 @Index('pkpm_customers', ['customerId'], {
   unique: true,
-  where: 'deletedAt IS NULL',
 })
 @Index('customers_cus_name_Idx', ['name'], {
   unique: true,

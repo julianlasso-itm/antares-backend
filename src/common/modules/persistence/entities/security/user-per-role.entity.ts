@@ -9,7 +9,10 @@ import { Users } from './users.entity';
 })
 @Index('user_per_role_upr_status_Idx', ['status', 'deletedAt'], {})
 @Index('pksec_user_per_role', ['userPerRoleId'], { unique: true })
-@Entity('sec_user_per_role', { schema: 'security' })
+@Entity('sec_user_per_role', {
+  schema: 'security',
+  comment: 'Relación entre un rol y un usuario en el sistema',
+})
 export class UserPerRole {
   @ApiProperty({
     description: 'Identificador del rol y el usuario en el sistema',

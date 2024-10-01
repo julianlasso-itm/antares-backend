@@ -11,14 +11,14 @@ import { RolePerProfessional } from '../projects_management';
 import { Users } from '../security';
 import { DomainAssessmentScores } from './domain-assessment-scores.entity';
 
-@Index('assessments_rpp_id_Idx', ['deletedAt', 'rolePerProfessionalId'], {})
+@Index('assessments_rpp_id_Idx', ['rolePerProfessionalId', 'deletedAt'], {})
 @Index(
   'assessments_user_id_rpp_id_Idx',
   ['deletedAt', 'rolePerProfessionalId', 'userId'],
   {},
 )
-@Index('assessments_user_id_Idx', ['deletedAt', 'userId'], {})
-@Index('assessments_asmt_status_Idx', ['deletedAt', 'status'], {})
+@Index('assessments_user_id_Idx', ['userId', 'deletedAt'], {})
+@Index('assessments_asmt_status_Idx', ['status', 'deletedAt'], {})
 @Index('pkassmt_assessments', ['assessmentId'], { unique: true })
 @Entity('assmt_assessments', {
   schema: 'assessments',

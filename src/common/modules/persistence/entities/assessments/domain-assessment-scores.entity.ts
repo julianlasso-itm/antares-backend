@@ -8,7 +8,7 @@ import { DomainKnowledge } from './domain-knowledge.entity';
   ['assessmentId', 'configurationLevelId', 'deletedAt', 'domainKnowledgeId'],
   {},
 )
-@Index('domain_assessment_scores_das_status_Idx', ['deletedAt', 'status'], {})
+@Index('domain_assessment_scores_das_status_Idx', ['status', 'deletedAt'], {})
 @Index('pkassmt_domain_assessment_scores', ['domainAssessmentScoreId'], {
   unique: true,
 })

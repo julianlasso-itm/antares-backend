@@ -7,7 +7,7 @@ import { Levels } from './levels.entity';
   ['configurationLevelId', 'levelId'],
   { unique: true, where: 'deletedAt IS NULL' },
 )
-@Index('configuration_per_level_cpl_status_Idx', ['deletedAt', 'status'], {})
+@Index('configuration_per_level_cpl_status_Idx', ['status', 'deletedAt'], {})
 @Index('pkassmt_configuration_per_level', ['configurationPerLevelId'], {
   unique: true,
 })
