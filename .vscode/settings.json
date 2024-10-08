@@ -6,7 +6,9 @@
     "asmt",
     "assmt",
     "GPFVV",
+    "ILIKE",
     "Knowledges",
+    "paginación",
     "pkassessments",
     "pkassmt",
     "pkconfiguration",
@@ -31,6 +33,7 @@
     "puntaje",
     "Puntaje",
     "RTHH",
-    "typeorm"
+    "typeorm",
+    "unaccent"
   ],
 }
