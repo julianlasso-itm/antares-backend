@@ -1,6 +1,13 @@
-import { DeepPartial, IsNull, ObjectLiteral, Repository } from 'typeorm';
+import {
+  DeepPartial,
+  FindOptionsOrder,
+  IsNull,
+  ObjectLiteral,
+  Repository,
+} from 'typeorm';
 import { AntaresException } from '../../../exceptions';
 import { Result } from '../../../utils';
+import { FindAllResponse } from './find-all.response';
 
 export abstract class BaseRepository<Entity extends ObjectLiteral> {
   constructor(protected readonly repository: Repository<Entity>) {}
@@ -34,16 +41,24 @@ export abstract class BaseRepository<Entity extends ObjectLiteral> {
     }
   }
 
-  async findAll(conditions: Partial<Entity> = {}): Promise<Result<Entity[]>> {
+  async findAll(
+    conditions: Partial<Entity> = {},
+    page?: number,
+    size?: number,
+    order?: FindOptionsOrder<Entity>,
+  ): Promise<Result<FindAllResponse<Entity>>> {
     try {
-      const records = await this.repository.find({
+      const [records, total] = await this.repository.findAndCount({
         where: {
           ...conditions,
           deletedAt: IsNull(),
         },
+        take: size,
+        skip: page !== undefined && size !== undefined ? page * size : 0,
+        order: order,
       });
 
-      return Result.ok(records);
+      return Result.ok(new FindAllResponse(records, total));
     } catch (error) {
       return Result.err(new AntaresException(error.message));
     }

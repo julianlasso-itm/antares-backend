@@ -1,5 +1,6 @@
-import { ObjectLiteral } from 'typeorm';
+import { FindOptionsOrder, ObjectLiteral } from 'typeorm';
 import { BaseRepository } from '../modules/persistence';
+import { FindAllResponse } from '../modules/persistence/repositories/find-all.response';
 import { Result } from '../utils';
 
 export abstract class BaseService<
@@ -8,8 +9,15 @@ export abstract class BaseService<
 > {
   constructor(protected readonly repository: Repository) {}
 
-  async findAll(): Promise<Result<Entity[]>> {
-    return await this.repository.findAll();
+  async findAll(
+    where?: Partial<Entity>,
+    page?: number,
+    size?: number,
+    order?: FindOptionsOrder<Entity>,
+    searchField?: keyof Entity, // Añadir el campo de búsqueda
+    searchTerm?: string, // Añadir el término de búsqueda
+  ): Promise<Result<FindAllResponse<Entity>>> {
+    return await this.repository.findAll(where, page, size, order);
   }
 
   async findOne(field: string, id: string): Promise<Result<Entity>> {
