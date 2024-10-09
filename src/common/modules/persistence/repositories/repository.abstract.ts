@@ -10,7 +10,7 @@ import { Result } from '../../../utils';
 import { FindAllResponse } from './find-all.response';
 
 export abstract class BaseRepository<Entity extends ObjectLiteral> {
-  constructor(protected readonly repository: Repository<Entity>) {}
+  constructor(readonly repository: Repository<Entity>) {}
 
   async create(entity: Entity): Promise<Result<Entity>> {
     try {
@@ -42,26 +42,48 @@ export abstract class BaseRepository<Entity extends ObjectLiteral> {
   }
 
   async findAll(
-    conditions: Partial<Entity> = {},
     page?: number,
     size?: number,
+    searchField?: Array<keyof Entity>,
+    searchTerm?: string,
     order?: FindOptionsOrder<Entity>,
   ): Promise<Result<FindAllResponse<Entity>>> {
-    try {
-      const [records, total] = await this.repository.findAndCount({
-        where: {
-          ...conditions,
-          deletedAt: IsNull(),
-        },
-        take: size,
-        skip: page !== undefined && size !== undefined ? page * size : 0,
-        order: order,
-      });
+    const queryBuilder = this.repository.createQueryBuilder('entity');
 
-      return Result.ok(new FindAllResponse(records, total));
-    } catch (error) {
-      return Result.err(new AntaresException(error.message));
+    queryBuilder.where('entity.deletedAt IS NULL');
+
+    if (searchField && searchTerm) {
+      searchField.forEach((field, index) => {
+        if (index === 0) {
+          queryBuilder.andWhere(
+            `(unaccent(entity.${field as string}) ILIKE unaccent(:searchTerm) OR word_similarity(entity.${field as string}, :search) > 0.2)`,
+            { searchTerm: `%${searchTerm}%`, search: searchTerm },
+          );
+        } else {
+          queryBuilder.orWhere(
+            `(unaccent(entity.${field as string}) ILIKE unaccent(:searchTerm) OR word_similarity(entity.${field as string}, :search) > 0.2)`,
+            { searchTerm: `%${searchTerm}%`, search: searchTerm },
+          );
+        }
+      });
     }
+
+    if (order) {
+      Object.entries(order).forEach(([key, value]) => {
+        queryBuilder.addOrderBy(`entity.${key}`, value);
+      });
+    }
+
+    if (page !== undefined && size !== undefined) {
+      queryBuilder.skip(page * size).take(size);
+    }
+
+    const [result, total] = await queryBuilder.getManyAndCount();
+
+    return Result.ok({
+      data: result,
+      total,
+    });
   }
 
   async update(

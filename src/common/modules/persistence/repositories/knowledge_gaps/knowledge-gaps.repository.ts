@@ -8,7 +8,7 @@ import { BaseRepository } from '../repository.abstract';
 class KnowledgeGapsRepository extends BaseRepository<KnowledgeGaps> {
   constructor(
     @InjectRepository(KnowledgeGaps)
-    protected readonly repository: Repository<KnowledgeGaps>,
+    readonly repository: Repository<KnowledgeGaps>,
   ) {
     super(repository);
   }

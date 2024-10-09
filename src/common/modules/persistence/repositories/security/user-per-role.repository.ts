@@ -8,7 +8,7 @@ import { BaseRepository } from '../repository.abstract';
 class UserPerRoleRepository extends BaseRepository<UserPerRole> {
   constructor(
     @InjectRepository(UserPerRole)
-    protected readonly repository: Repository<UserPerRole>,
+    readonly repository: Repository<UserPerRole>,
   ) {
     super(repository);
   }

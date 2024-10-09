@@ -8,7 +8,7 @@ import { BaseRepository } from '../repository.abstract';
 class DomainKnowledgeRepository extends BaseRepository<DomainKnowledge> {
   constructor(
     @InjectRepository(DomainKnowledge)
-    protected readonly repository: Repository<DomainKnowledge>,
+    readonly repository: Repository<DomainKnowledge>,
   ) {
     super(repository);
   }

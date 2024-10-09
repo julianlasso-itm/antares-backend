@@ -8,7 +8,7 @@ import { BaseRepository } from '../repository.abstract';
 class RatingScaleRepository extends BaseRepository<RatingScale> {
   constructor(
     @InjectRepository(RatingScale)
-    protected readonly repository: Repository<RatingScale>,
+    readonly repository: Repository<RatingScale>,
   ) {
     super(repository);
   }

@@ -10,14 +10,19 @@ export abstract class BaseService<
   constructor(protected readonly repository: Repository) {}
 
   async findAll(
-    where?: Partial<Entity>,
     page?: number,
     size?: number,
     order?: FindOptionsOrder<Entity>,
-    searchField?: keyof Entity, // Añadir el campo de búsqueda
-    searchTerm?: string, // Añadir el término de búsqueda
+    searchField?: Array<keyof Entity>,
+    searchTerm?: string,
   ): Promise<Result<FindAllResponse<Entity>>> {
-    return await this.repository.findAll(where, page, size, order);
+    return await this.repository.findAll(
+      page,
+      size,
+      searchField,
+      searchTerm,
+      order,
+    );
   }
 
   async findOne(field: string, id: string): Promise<Result<Entity>> {

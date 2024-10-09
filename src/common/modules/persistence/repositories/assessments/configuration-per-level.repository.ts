@@ -8,7 +8,7 @@ import { BaseRepository } from '../repository.abstract';
 class ConfigurationPerLevelRepository extends BaseRepository<ConfigurationPerLevel> {
   constructor(
     @InjectRepository(ConfigurationPerLevel)
-    protected readonly repository: Repository<ConfigurationPerLevel>,
+    readonly repository: Repository<ConfigurationPerLevel>,
   ) {
     super(repository);
   }

@@ -203,9 +203,12 @@ export class Assessments {
   @OneToMany(
     () => DomainAssessmentScores,
     (domainAssessmentScores) => domainAssessmentScores.assessment,
+    { cascade: true },
   )
   domainAssessmentScores: DomainAssessmentScores[];
 
-  @OneToMany(() => KnowledgeGaps, (knowledgeGaps) => knowledgeGaps.assessment)
+  @OneToMany(() => KnowledgeGaps, (knowledgeGaps) => knowledgeGaps.assessment, {
+    cascade: true,
+  })
   knowledgeGaps: KnowledgeGaps[];
 }

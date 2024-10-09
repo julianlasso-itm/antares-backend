@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
+import { DocumentType } from '../../../../../modules';
 import { RolePerProfessional } from '../projects_management';
 
 @Index('professionals_pro_status_Idx', ['status', 'deletedAt'], {})
@@ -50,7 +51,7 @@ export class Professionals {
     comment:
       'Tipo de documento. CC = Cédula de Ciudadanía ; CE = Cédula de Extranjería',
   })
-  documentType: string;
+  documentType: DocumentType;
 
   @ApiProperty({
     description: 'Número de documento',

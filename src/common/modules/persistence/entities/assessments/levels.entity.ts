@@ -46,6 +46,22 @@ export class Levels {
   name: string;
 
   @ApiProperty({
+    description: 'Peso (importancia) del nivel. Acepta hasta dos decimales',
+    example: 0.8,
+    minimum: 0.0,
+    maximum: 1.0,
+    required: true,
+    type: Number,
+  })
+  @Column('numeric', {
+    name: 'level_weight',
+    precision: 3,
+    scale: 2,
+    comment: 'Importancia del nivel. Máximo 1.00 mínimo 0.00',
+  })
+  weight: number;
+
+  @ApiProperty({
     description: 'Estado del registro. True activo, False inactivo',
     example: true,
     required: true,
@@ -100,6 +116,7 @@ export class Levels {
   @OneToMany(
     () => ConfigurationPerLevel,
     (configurationPerLevel) => configurationPerLevel.level,
+    { cascade: true },
   )
   configurationPerLevels: ConfigurationPerLevel[];
 
