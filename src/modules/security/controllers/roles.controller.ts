@@ -4,8 +4,10 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -25,6 +27,7 @@ import {
   ResponseDto,
   stringExample,
 } from '../../../common';
+import { FindAllResponse } from '../../../common/modules/persistence';
 import { Roles } from '../../../common/modules/persistence/entities/security';
 import { NewRoleDto } from '../dto/new-role.dto';
 import { UpdateRoleDto } from '../dto/update-role.dto';
@@ -86,8 +89,21 @@ export class RolesController {
       },
     },
   })
-  async findAll(): Promise<ResponseDto<Roles[]>> {
-    const data = await this.service.findAll();
+  async findAll(
+    @Query('page', ParseIntPipe) page: number,
+    @Query('size', ParseIntPipe) size: number,
+    @Query('search') search?: string,
+  ): Promise<ResponseDto<FindAllResponse<Roles>>> {
+    const data = await this.service.findAll(
+      page,
+      size,
+      {
+        status: 'DESC',
+        createdAt: 'ASC',
+      },
+      ['name', 'description'],
+      search,
+    );
     return CrudController.response(data);
   }
 

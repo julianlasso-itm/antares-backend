@@ -4,15 +4,18 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
+import { FindAllResponse } from '../../../common/modules/persistence';
 import { TechnologyItems } from '../../../common/modules/persistence/entities';
 import { NewTechnologyItemDto, UpdateTechnologyItemDto } from '../dto';
 import { TechnologyItemsService } from '../services';
-import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('technologies')
 @Controller('items')
@@ -20,8 +23,21 @@ export class TechnologyItemsController {
   constructor(private readonly service: TechnologyItemsService) {}
 
   @Get()
-  async findAll(): Promise<ResponseDto<TechnologyItems[]>> {
-    const data = await this.service.findAll();
+  async findAll(
+    @Query('page', ParseIntPipe) page: number,
+    @Query('size', ParseIntPipe) size: number,
+    @Query('search') search?: string,
+  ): Promise<ResponseDto<FindAllResponse<TechnologyItems>>> {
+    const data = await this.service.findAll(
+      page,
+      size,
+      {
+        status: 'DESC',
+        createdAt: 'ASC',
+      },
+      ['name', 'description'],
+      search,
+    );
     return CrudController.response(data);
   }
 

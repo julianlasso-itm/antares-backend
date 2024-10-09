@@ -22,7 +22,7 @@ export class NewProfessionalsRequestDto {
   @IsString()
   @MaxLength(2)
   @IsEnum(DocumentType)
-  documentType: string;
+  documentType: DocumentType;
 
   @ApiProperty({
     description: 'Número de documento',

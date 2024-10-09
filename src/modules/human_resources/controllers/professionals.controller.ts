@@ -4,12 +4,15 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
+import { FindAllResponse } from '../../../common/modules/persistence';
 import { Professionals } from '../../../common/modules/persistence/entities';
 import {
   NewProfessionalsRequestDto,
@@ -23,12 +26,33 @@ export class ProfessionalsController {
   constructor(private readonly service: ProfessionalsService) {}
 
   @Get()
-  async findAll(): Promise<ResponseDto<Professionals[]>> {
-    const data = await this.service.findAll();
+  async findAll(
+    @Query('page', ParseIntPipe) page: number,
+    @Query('size', ParseIntPipe) size: number,
+    @Query('search') search?: string,
+  ): Promise<ResponseDto<FindAllResponse<Professionals>>> {
+    const data = await this.service.findAll(
+      page,
+      size,
+      {
+        status: 'DESC',
+        createdAt: 'ASC',
+      },
+      ['documentType', 'document', 'name', 'email'],
+      search,
+    );
     return CrudController.response(data);
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Devuelve un profesional del sistema' })
+  @ApiParam({
+    name: 'id',
+    description: 'Identificador del profesional en el sistema',
+    example: '01J8XM2FC49N58RTHH671GPFVV',
+    required: true,
+    type: String,
+  })
   async findOne(@Param('id') id: string): Promise<ResponseDto<Professionals>> {
     const data = await this.service.findOne('professionalId', id);
     return CrudController.response(data);

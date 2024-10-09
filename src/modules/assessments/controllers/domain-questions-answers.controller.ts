@@ -4,12 +4,20 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  getSchemaPath,
+} from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
+import { FindAllResponse } from '../../../common/modules/persistence';
 import { DomainQuestionsAnswers } from '../../../common/modules/persistence/entities';
 import {
   NewDomainQuestionsAnswersRequestDto,
@@ -23,8 +31,68 @@ export class DomainQuestionsAnswersController {
   constructor(private readonly service: DomainQuestionsAnswersService) {}
 
   @Get()
-  async findAll(): Promise<ResponseDto<DomainQuestionsAnswers[]>> {
-    const data = await this.service.findAll();
+  @ApiOperation({ summary: 'Lista todas las preguntas y respuestas' })
+  @ApiTags('assessments')
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de preguntas y respuestas',
+    content: {
+      'application/json': {
+        schema: {
+          allOf: [
+            { $ref: getSchemaPath(ResponseDto) },
+            {
+              properties: {
+                value: {
+                  type: 'array',
+                  items: { $ref: getSchemaPath(DomainQuestionsAnswers) },
+                },
+              },
+            },
+          ],
+        },
+        examples: {
+          withData: {
+            summary: 'Salida con datos',
+            value: {
+              value: [
+                {
+                  domainKnowledgeId: '01J8XM2FC49N58RTHH671GPFVV',
+                  domainKnowledgeLevelId: '01J8XM2FC49N58RTHH671GPFVV',
+                  question: '¿Cuál es el lenguaje de programación más popular?',
+                  answer:
+                    'Sin duda, PHP es un lenguaje de programación más popular',
+                  status: true,
+                  createdAt: '2023-03-30T12:00:00.000Z',
+                  updatedAt: null,
+                  deletedAt: null,
+                },
+              ],
+            },
+          },
+          withoutData: {
+            summary: 'Salida sin datos',
+            value: { value: [] },
+          },
+        },
+      },
+    },
+  })
+  async findAll(
+    @Query('page', ParseIntPipe) page: number,
+    @Query('size', ParseIntPipe) size: number,
+    @Query('search') search?: string,
+  ): Promise<ResponseDto<FindAllResponse<DomainQuestionsAnswers>>> {
+    const data = await this.service.findAll(
+      page,
+      size,
+      {
+        status: 'DESC',
+        createdAt: 'ASC',
+      },
+      ['question', 'answer'],
+      search,
+    );
     return CrudController.response(data);
   }
 

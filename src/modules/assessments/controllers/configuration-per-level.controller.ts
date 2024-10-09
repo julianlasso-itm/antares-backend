@@ -4,12 +4,15 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
+import { FindAllResponse } from '../../../common/modules/persistence';
 import { ConfigurationPerLevel } from '../../../common/modules/persistence/entities';
 import {
   NewConfigurationPerLevelRequestDto,
@@ -23,8 +26,14 @@ export class ConfigurationPerLevelController {
   constructor(private readonly service: ConfigurationPerLevelService) {}
 
   @Get()
-  async findAll(): Promise<ResponseDto<ConfigurationPerLevel[]>> {
-    const data = await this.service.findAll();
+  async findAll(
+    @Query('page', ParseIntPipe) page: number,
+    @Query('size', ParseIntPipe) size: number,
+  ): Promise<ResponseDto<FindAllResponse<ConfigurationPerLevel>>> {
+    const data = await this.service.findAll(page, size, {
+      status: 'DESC',
+      createdAt: 'ASC',
+    });
     return CrudController.response(data);
   }
 

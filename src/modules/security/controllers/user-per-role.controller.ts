@@ -4,12 +4,15 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
+import { FindAllResponse } from '../../../common/modules/persistence';
 import { UserPerRole } from '../../../common/modules/persistence/entities/security';
 import { NewUserPerRoleDto } from '../dto/new-user-per-role.dto';
 import { UpdateUserPerRoleDto } from '../dto/update-user-per-role.dto';
@@ -21,8 +24,14 @@ export class UserPerRoleController {
   constructor(private readonly service: UserPerRoleService) {}
 
   @Get()
-  async findAll(): Promise<ResponseDto<UserPerRole[]>> {
-    const data = await this.service.findAll();
+  async findAll(
+    @Query('page', ParseIntPipe) page: number,
+    @Query('size', ParseIntPipe) size: number,
+  ): Promise<ResponseDto<FindAllResponse<UserPerRole>>> {
+    const data = await this.service.findAll(page, size, {
+      status: 'DESC',
+      createdAt: 'ASC',
+    });
     return CrudController.response(data);
   }
 

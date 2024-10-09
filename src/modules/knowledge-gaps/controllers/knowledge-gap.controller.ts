@@ -4,12 +4,15 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
+import { FindAllResponse } from '../../../common/modules/persistence';
 import { KnowledgeGaps } from '../../../common/modules/persistence/entities';
 import {
   NewKnowledgeGapRequestDto,
@@ -23,8 +26,21 @@ export class KnowledgeGapsController {
   constructor(private readonly service: KnowledgeGapsService) {}
 
   @Get()
-  async findAll(): Promise<ResponseDto<KnowledgeGaps[]>> {
-    const data = await this.service.findAll();
+  async findAll(
+    @Query('page', ParseIntPipe) page: number,
+    @Query('size', ParseIntPipe) size: number,
+    @Query('search') search?: string,
+  ): Promise<ResponseDto<FindAllResponse<KnowledgeGaps>>> {
+    const data = await this.service.findAll(
+      page,
+      size,
+      {
+        status: 'DESC',
+        createdAt: 'ASC',
+      },
+      ['observation'],
+      search,
+    );
     return CrudController.response(data);
   }
 

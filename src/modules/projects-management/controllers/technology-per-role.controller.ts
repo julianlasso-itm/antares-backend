@@ -4,12 +4,15 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
+import { FindAllResponse } from '../../../common/modules/persistence';
 import { TechnologyPerRole } from '../../../common/modules/persistence/entities';
 import { NewTechnologyPerRoleDto, UpdateTechnologyPerRoleDto } from '../dto';
 import { TechnologyPerRoleService } from '../services';
@@ -20,8 +23,14 @@ export class TechnologyPerRoleController {
   constructor(private readonly service: TechnologyPerRoleService) {}
 
   @Get()
-  async findAll(): Promise<ResponseDto<TechnologyPerRole[]>> {
-    const data = await this.service.findAll();
+  async findAll(
+    @Query('page', ParseIntPipe) page: number,
+    @Query('size', ParseIntPipe) size: number,
+  ): Promise<ResponseDto<FindAllResponse<TechnologyPerRole>>> {
+    const data = await this.service.findAll(page, size, {
+      status: 'DESC',
+      createdAt: 'ASC',
+    });
     return CrudController.response(data);
   }
 
