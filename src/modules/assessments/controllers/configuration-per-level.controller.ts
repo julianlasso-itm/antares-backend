@@ -32,7 +32,8 @@ export class ConfigurationPerLevelController {
   ): Promise<ResponseDto<FindAllResponse<ConfigurationPerLevel>>> {
     const data = await this.service.findAll(page, size, {
       status: 'DESC',
-      createdAt: 'ASC',
+      position: 'ASC',
+      configurationLevelId: 'ASC',
     });
     return CrudController.response(data);
   }
