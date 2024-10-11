@@ -33,9 +33,12 @@ export class RatingScaleController {
       size,
       {
         status: 'DESC',
-        createdAt: 'ASC',
+        configurationLevel: {
+          name: 'ASC',
+        },
+        position: 'ASC',
       },
-      ['name', 'description'],
+      ['name'],
       search,
     );
     return CrudController.response(data);
