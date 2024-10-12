@@ -76,10 +76,10 @@ export class TechnologyItemsController {
     if (request.name) {
       update.name = request.name;
     }
-    if (request.description) {
+    if (request.description !== undefined) {
       update.description = request.description;
     }
-    if (request.icon) {
+    if (request.icon !== undefined) {
       update.icon = request.icon;
     }
     if (request.status !== undefined) {

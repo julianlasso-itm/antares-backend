@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class NewTechnologyItemDto {
   @ApiProperty({
@@ -21,9 +21,10 @@ export class NewTechnologyItemDto {
     maxLength: 2048,
     type: String,
   })
+  @IsOptional()
   @IsString()
   @MaxLength(2048)
-  description?: string;
+  description?: string | null;
 
   @ApiProperty({
     description: 'Ícono de la tecnología',
@@ -32,9 +33,10 @@ export class NewTechnologyItemDto {
     maxLength: 500,
     type: String,
   })
+  @IsOptional()
   @IsString()
   @MaxLength(500)
-  icon?: string;
+  icon?: string | null;
 
   @ApiProperty({
     description: 'Identificador del tipo de tecnología',
