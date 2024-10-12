@@ -24,12 +24,20 @@ export class TechnologyItemsService extends BaseService<
     order?: FindOptionsOrder<TechnologyItems>,
     searchField?: Array<keyof TechnologyItems>,
     searchTerm?: string,
+    filter?: string,
   ): Promise<Result<FindAllResponse<TechnologyItems>>> {
     const repository = this.repository.repository;
     const queryBuilder = repository.createQueryBuilder('technologyItem');
 
     // Condición para excluir registros eliminados
     queryBuilder.where('technologyItem.deletedAt IS NULL');
+
+    // Agregar condición de filtro
+    if (filter) {
+      queryBuilder.andWhere('technologyItem.technologyTypeId = :filter', {
+        filter,
+      });
+    }
 
     // Agregar condiciones de búsqueda
     if (searchField && searchTerm) {
