@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class NewTechnologyTypeDto {
   @ApiProperty({
@@ -21,7 +21,8 @@ export class NewTechnologyTypeDto {
     maxLength: 2048,
     type: String,
   })
+  @IsOptional()
   @IsString()
   @MaxLength(2048)
-  description?: string;
+  description: string | null;
 }

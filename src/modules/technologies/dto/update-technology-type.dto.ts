@@ -24,7 +24,7 @@ export class UpdateTechnologyTypeDto {
   @IsOptional()
   @IsString()
   @MaxLength(2048)
-  description?: string;
+  description?: string | null;
 
   @ApiProperty({
     description: 'Estado del registro. True activo, False inactivo',

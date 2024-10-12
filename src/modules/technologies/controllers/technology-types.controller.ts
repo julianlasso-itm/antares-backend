@@ -71,7 +71,7 @@ export class TechnologyTypesController {
     if (request.name) {
       update.name = request.name;
     }
-    if (request.description) {
+    if (request.description !== undefined) {
       update.description = request.description;
     }
     if (request.status !== undefined) {
