@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FindOptionsOrder } from 'typeorm';
+import { Brackets, FindOptionsOrder } from 'typeorm';
 import { BaseService, Result } from '../../../common';
 import { FindAllResponse } from '../../../common/modules/persistence';
 import { RatingScale } from '../../../common/modules/persistence/entities';
@@ -29,15 +29,19 @@ export class RatingScaleService extends BaseService<
 
     // Agregar condiciones de búsqueda
     if (searchField && searchTerm) {
-      searchField.forEach((field, index) => {
-        const condition = `(unaccent(ratingScale.${field as string}) ILIKE unaccent(:searchTerm) OR word_similarity(ratingScale.${field as string}, :searchTerm) > 0.2)`;
+      queryBuilder.andWhere(
+        new Brackets((qb) => {
+          searchField.forEach((field, index) => {
+            const condition = `(unaccent(ratingScale.${field as string}) ILIKE unaccent(:searchTerm) OR word_similarity(ratingScale.${field as string}, :searchTerm) > 0.2)`;
 
-        if (index === 0) {
-          queryBuilder.andWhere(condition, { searchTerm: `%${searchTerm}%` });
-        } else {
-          queryBuilder.orWhere(condition, { searchTerm: `%${searchTerm}%` });
-        }
-      });
+            if (index === 0) {
+              qb.where(condition, { searchTerm: `%${searchTerm}%` });
+            } else {
+              qb.orWhere(condition, { searchTerm: `%${searchTerm}%` });
+            }
+          });
+        }),
+      );
     }
 
     // Ordenar resultados si se especifica
