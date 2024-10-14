@@ -27,6 +27,7 @@ export class DomainKnowledgeController {
     @Query('page', ParseIntPipe) page: number,
     @Query('size', ParseIntPipe) size: number,
     @Query('search') search?: string,
+    @Query('filter') filter?: string,
   ): Promise<ResponseDto<FindAllResponse<DomainKnowledge>>> {
     const data = await this.service.findAll(
       page,
@@ -37,6 +38,7 @@ export class DomainKnowledgeController {
       },
       ['domain', 'topic'],
       search,
+      filter,
     );
     return CrudController.response(data);
   }
