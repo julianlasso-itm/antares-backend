@@ -29,11 +29,33 @@ export class DomainKnowledgeLevelsController {
   async findAll(
     @Query('page', ParseIntPipe) page: number,
     @Query('size', ParseIntPipe) size: number,
+    @Query('search') search?: string,
+    @Query('filter') filter?: string,
   ): Promise<ResponseDto<FindAllResponse<DomainKnowledgeLevels>>> {
-    const data = await this.service.findAll(page, size, {
-      status: 'DESC',
-      createdAt: 'ASC',
-    });
+    const data = await this.service.findAll(
+      page,
+      size,
+      {
+        status: 'DESC',
+        createdAt: 'ASC',
+      },
+      [],
+      search,
+      filter,
+    );
+    return CrudController.response(data);
+  }
+
+  @Get('find-one')
+  async findOneWithFilter(
+    @Query('level') levelId: string,
+    @Query('domainKnowledge') domainKnowledgeId: string,
+  ): Promise<ResponseDto<DomainKnowledgeLevels>> {
+    const query = {
+      domainKnowledgeId,
+      levelId,
+    } as Partial<DomainKnowledgeLevels>;
+    const data = await this.service.findOneWithFilter(query);
     return CrudController.response(data);
   }
 

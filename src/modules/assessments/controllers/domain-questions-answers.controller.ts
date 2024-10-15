@@ -110,12 +110,18 @@ export class DomainQuestionsAnswersController {
   ): Promise<ResponseDto<DomainQuestionsAnswers>> {
     const newData = new DomainQuestionsAnswers();
     newData.domainQuestionAnswerId = ulid();
-    if (request.domainKnowledgeId && request.domainKnowledgeLevelId === null) {
+
+    // Lógica para determinar cuál valor registrar
+    if (
+      request.domainKnowledgeId &&
+      (!request.domainKnowledgeLevelId ||
+        request.domainKnowledgeLevelId.length === 0)
+    ) {
       newData.domainKnowledgeId = request.domainKnowledgeId;
-    }
-    if (request.domainKnowledgeLevelId && request.domainKnowledgeId === null) {
+    } else if (request.domainKnowledgeLevelId) {
       newData.domainKnowledgeLevelId = request.domainKnowledgeLevelId;
     }
+
     newData.question = request.question;
     newData.answer = request.answer;
 
@@ -129,6 +135,18 @@ export class DomainQuestionsAnswersController {
     @Param('id') id: string,
   ): Promise<ResponseDto<DomainQuestionsAnswers>> {
     const update = new DomainQuestionsAnswers();
+
+    if (
+      request.domainKnowledgeId &&
+      (!request.domainKnowledgeLevelId ||
+        request.domainKnowledgeLevelId.length === 0)
+    ) {
+      update.domainKnowledgeId = request.domainKnowledgeId;
+      update.domainKnowledgeLevelId = null;
+    } else if (request.domainKnowledgeLevelId) {
+      update.domainKnowledgeLevelId = request.domainKnowledgeLevelId;
+    }
+
     if (request.question) {
       update.question = request.question;
     }

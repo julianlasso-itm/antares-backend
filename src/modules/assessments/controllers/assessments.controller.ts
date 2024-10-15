@@ -125,7 +125,6 @@ export class AssessmentsController {
     },
   })
   async findOne(@Param('id') id: string): Promise<ResponseDto<Assessments>> {
-    console.log('AssessmentsController.findOne');
     const data = await this.service.findOne('assessmentId', id);
     return CrudController.response(data);
   }

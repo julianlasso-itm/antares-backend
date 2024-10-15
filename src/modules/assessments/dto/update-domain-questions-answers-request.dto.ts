@@ -2,6 +2,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class UpdateDomainQuestionsAnswersRequestDto {
+  @IsOptional()
+  @IsString()
+  @MaxLength(26)
+  domainKnowledgeId?: string | null;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(26)
+  domainKnowledgeLevelId?: string | null;
+
   @ApiProperty({
     description: 'Pregunta a realizar bajo un dominio de conocimiento',
     example: '¿Cuál es el lenguaje de programación más popular?',
