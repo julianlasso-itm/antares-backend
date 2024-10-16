@@ -27,6 +27,7 @@ export class ProjectsController {
     @Query('page', ParseIntPipe) page: number,
     @Query('size', ParseIntPipe) size: number,
     @Query('search') search?: string,
+    @Query('filter') filter?: string,
   ): Promise<ResponseDto<FindAllResponse<Projects>>> {
     const data = await this.service.findAll(
       page,
@@ -37,6 +38,7 @@ export class ProjectsController {
       },
       ['name'],
       search,
+      filter,
     );
     return CrudController.response(data);
   }

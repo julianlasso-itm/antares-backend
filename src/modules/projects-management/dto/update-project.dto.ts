@@ -16,19 +16,6 @@ export class UpdateProjectDto {
   name?: string;
 
   @ApiProperty({
-    description: 'Descripción del proyecto de un cliente',
-    example: 'Proyecto de evaluación de tecnologías',
-    examples: ['Proyecto de evaluación de tecnologías', null],
-    required: false,
-    maxLength: 2048,
-    type: String,
-  })
-  @IsOptional()
-  @IsString()
-  @MaxLength(2048)
-  description?: string;
-
-  @ApiProperty({
     description: 'Estado del registro. True activo, False inactivo',
     example: true,
     examples: [true, false],
