@@ -26,11 +26,23 @@ export class TechnologyStackController {
   async findAll(
     @Query('page', ParseIntPipe) page: number,
     @Query('size', ParseIntPipe) size: number,
+    @Query('search') search?: string,
+    @Query('filter') filter?: string,
   ): Promise<ResponseDto<FindAllResponse<TechnologyStack>>> {
-    const data = await this.service.findAll(page, size, {
-      status: 'DESC',
-      createdAt: 'ASC',
-    });
+    const data = await this.service.findAll(
+      page,
+      size,
+      {
+        project: {
+          name: 'ASC',
+        },
+        status: 'DESC',
+        weight: 'DESC',
+      },
+      [],
+      search,
+      filter,
+    );
     return CrudController.response(data);
   }
 
@@ -50,6 +62,8 @@ export class TechnologyStackController {
     newData.technologyStackId = ulid();
     newData.projectId = request.projectId;
     newData.technologyItemId = request.technologyItemId;
+    newData.weight =
+      request.weight?.toString().length === 0 ? null : request.weight;
 
     const data = await this.service.create(newData);
     return CrudController.response(data);
@@ -66,6 +80,10 @@ export class TechnologyStackController {
     }
     if (request.technologyItemId) {
       update.technologyItemId = request.technologyItemId;
+    }
+    if (request.weight) {
+      update.weight =
+        request.weight.toString().length === 0 ? null : request.weight;
     }
     if (request.status !== undefined) {
       update.status = request.status;

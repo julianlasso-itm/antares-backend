@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumberString,
+  IsOptional,
+  IsString,
+  Matches,
+  MaxLength,
+  ValidateIf,
+} from 'class-validator';
 
 export class NewTechnologyStackDto {
   @ApiProperty({
@@ -25,4 +33,22 @@ export class NewTechnologyStackDto {
   @IsString()
   @MaxLength(26)
   technologyItemId: string;
+
+  @ApiProperty({
+    description: 'Peso (importancia) de la tecnología',
+    example: 0.8,
+    minimum: 0.0,
+    maximum: 1.0,
+    required: false,
+    type: Number,
+  })
+  @IsOptional()
+  @ValidateIf(
+    (object: NewTechnologyStackDto) => object.weight?.toString() !== '',
+  )
+  @IsNumberString()
+  @Matches(/^(?:0(?:\.\d{1,2})?|1(?:\.0{1,2})?)$/, {
+    message: 'weight must be a number between 0.00 and 1.00',
+  })
+  weight?: number | null;
 }
