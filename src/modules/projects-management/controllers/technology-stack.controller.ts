@@ -39,7 +39,7 @@ export class TechnologyStackController {
         status: 'DESC',
         weight: 'DESC',
       },
-      [],
+      ['project.name', 'technologyItem.name'],
       search,
       filter,
     );

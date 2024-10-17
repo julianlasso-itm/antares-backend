@@ -13,7 +13,7 @@ export abstract class BaseService<
     page?: number,
     size?: number,
     order?: FindOptionsOrder<Entity>,
-    searchField?: Array<keyof Entity>,
+    searchField?: Array<keyof Entity> | Array<string>,
     searchTerm?: string,
   ): Promise<Result<FindAllResponse<Entity>>> {
     return await this.repository.findAll(

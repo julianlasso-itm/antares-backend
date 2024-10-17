@@ -21,7 +21,7 @@ export class TechnologyStackService extends BaseService<
     page?: number,
     size?: number,
     order?: FindOptionsOrder<TechnologyStack>,
-    searchField?: Array<keyof TechnologyStack>,
+    searchField?: Array<keyof TechnologyStack> | Array<string>,
     searchTerm?: string,
     filter?: string,
   ): Promise<Result<FindAllResponse<TechnologyStack>>> {
@@ -43,7 +43,7 @@ export class TechnologyStackService extends BaseService<
       queryBuilder.andWhere(
         new Brackets((qb) => {
           searchField.forEach((field, index) => {
-            const condition = `(unaccent(technologyStack.${field as string}) ILIKE unaccent(:searchTerm) OR word_similarity(technologyStack.${field as string}, :searchTerm) > 0.2)`;
+            const condition = `(unaccent(${field as string}) ILIKE unaccent(:searchTerm) OR word_similarity(${field as string}, :searchTerm) > 0.2)`;
 
             if (index === 0) {
               qb.where(condition, { searchTerm: `%${searchTerm}%` });
@@ -58,11 +58,11 @@ export class TechnologyStackService extends BaseService<
     // Ordenar resultados si se especifica
     if (order) {
       Object.entries(order).forEach(([key, value]) => {
-        if (typeof value === 'object' && key === 'project') {
+        if (typeof value === 'object') {
           // Ordenar por el campo anidado: project.name
           Object.entries(value).forEach(([subKey, subValue]) => {
             queryBuilder.addOrderBy(
-              `project.${subKey}`,
+              `${key}.${subKey}`,
               subValue as 'ASC' | 'DESC',
             );
           });
@@ -73,10 +73,6 @@ export class TechnologyStackService extends BaseService<
             value as 'ASC' | 'DESC',
           );
         }
-        // queryBuilder.addOrderBy(
-        //   `technologyStack.${key}`,
-        //   value as 'ASC' | 'DESC',
-        // );
       });
     }
 
