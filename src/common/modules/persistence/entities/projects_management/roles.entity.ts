@@ -1,17 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { RolePerProfessional } from './role-per-professional.entity';
 import { TechnologyPerRole } from './technology-per-role.entity';
 
 @Index('roles_role_status_Idx', ['status', 'deletedAt'], {})
-@Index('roles_roles_sub_role_id_Idx', ['subRoleId', 'deletedAt'], {})
 @Index('pkpm_roles', ['roleId'], { unique: true })
 @Index('roles_role_name_Idx', ['name'], {
   unique: true,
@@ -36,22 +28,6 @@ export class Roles {
     comment: 'Identificador del rol en un proyecto de un cliente',
   })
   roleId: string;
-
-  @ApiProperty({
-    description: 'Identificador del sub-rol que compone un rol en el sistema',
-    example: '01J8XM2FC49N58RTHH671GPFVV',
-    required: false,
-    maxLength: 26,
-    type: String,
-  })
-  @Column('character varying', {
-    name: 'roles_sub_role_id',
-    nullable: true,
-    length: 26,
-    comment:
-      'Identificador del sub-rol que compone un rol en un proyecto de un cliente',
-  })
-  subRoleId: string | null;
 
   @ApiProperty({
     description: 'Nombre del rol en un proyecto de un cliente',
@@ -80,7 +56,7 @@ export class Roles {
     length: 2048,
     comment: 'Descripción del rol en un proyecto de un cliente',
   })
-  description: string | null;
+  description?: string | null;
 
   @ApiProperty({
     description: 'Estado del registro. True activo, False inactivo',
@@ -139,16 +115,6 @@ export class Roles {
     (rolePerProfessional) => rolePerProfessional.role,
   )
   rolePerProfessionals: RolePerProfessional[];
-
-  @ManyToOne(() => Roles, (roles) => roles.roles, {
-    onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT',
-  })
-  @JoinColumn([{ name: 'roles_sub_role_id', referencedColumnName: 'roleId' }])
-  subRole: Roles;
-
-  @OneToMany(() => Roles, (roles) => roles.subRole)
-  roles: Roles[];
 
   @OneToMany(
     () => TechnologyPerRole,

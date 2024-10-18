@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsString, Matches, MaxLength } from 'class-validator';
 
 export class NewDomainKnowledgeLevelsRequestDto {
   @ApiProperty({
@@ -11,6 +11,9 @@ export class NewDomainKnowledgeLevelsRequestDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewDomainKnowledgeLevelsRequestDto',
+  })
   @MaxLength(26)
   domainKnowledgeId: string;
 
@@ -23,6 +26,9 @@ export class NewDomainKnowledgeLevelsRequestDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewDomainKnowledgeLevelsRequestDto',
+  })
   @MaxLength(26)
   configurationLevelId: string;
 
@@ -35,6 +41,9 @@ export class NewDomainKnowledgeLevelsRequestDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewDomainKnowledgeLevelsRequestDto',
+  })
   @MaxLength(26)
   levelId: string;
 }

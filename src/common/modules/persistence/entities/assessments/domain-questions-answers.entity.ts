@@ -50,6 +50,7 @@ export class DomainQuestionsAnswers {
   })
   @Column('character varying', {
     name: 'dk_id',
+    nullable: true,
     length: 26,
     comment: 'Identificador del dominio de conocimiento',
   })
@@ -65,6 +66,7 @@ export class DomainQuestionsAnswers {
   })
   @Column('character varying', {
     name: 'dk_lvl_id',
+    nullable: true,
     length: 26,
     comment:
       'Identificador del dominio de conocimiento pero con una configuración de nivel',

@@ -84,7 +84,7 @@ export class TechnologyStack {
     scale: 2,
     comment: 'Peso (importancia) de la tecnología ; puede ir de 0.00 a 1.00',
   })
-  weight: number | null;
+  weight?: number | null;
 
   @ApiProperty({
     description: 'Estado del registro. True activo, False inactivo',

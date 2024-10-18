@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsNumber,
   IsString,
+  Matches,
   MaxLength,
 } from 'class-validator';
 
@@ -17,6 +18,9 @@ export class NewRatingScaleRequestDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewRatingScaleRequestDto',
+  })
   @MaxLength(26)
   configurationLevelId: string;
 

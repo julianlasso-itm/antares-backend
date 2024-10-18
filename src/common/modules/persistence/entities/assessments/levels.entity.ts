@@ -123,6 +123,7 @@ export class Levels {
   @OneToMany(
     () => DomainKnowledgeLevels,
     (domainKnowledgeLevels) => domainKnowledgeLevels.level,
+    { cascade: true },
   )
   domainKnowledgeLevels: DomainKnowledgeLevels[];
 }

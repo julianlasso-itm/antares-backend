@@ -4,6 +4,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Matches,
   MaxLength,
 } from 'class-validator';
 
@@ -17,6 +18,9 @@ export class NewDomainKnowledgeDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewDomainKnowledgeDto',
+  })
   @MaxLength(26)
   technologyItemId: string;
 

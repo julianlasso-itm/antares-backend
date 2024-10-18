@@ -3,6 +3,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  Matches,
   MaxLength,
   ValidateIf,
 } from 'class-validator';
@@ -17,9 +18,16 @@ export class NewDomainQuestionsAnswersRequestDto {
   })
   @IsOptional()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewDomainQuestionsAnswersRequestDto',
+  })
   @MaxLength(26)
-  @ValidateIf((object) => object.domainKnowledgeLevelId === null)
-  domainKnowledgeId?: string;
+  @ValidateIf(
+    (object: NewDomainQuestionsAnswersRequestDto) =>
+      object.domainKnowledgeLevelId === null ||
+      object.domainKnowledgeLevelId.length === 0,
+  )
+  domainKnowledgeId: string | null;
 
   @ApiProperty({
     description: 'Identificador del nivel del dominio de conocimiento',
@@ -30,9 +38,16 @@ export class NewDomainQuestionsAnswersRequestDto {
   })
   @IsOptional()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewDomainQuestionsAnswersRequestDto',
+  })
   @MaxLength(26)
-  @ValidateIf((object) => object.domainKnowledgeId === null)
-  domainKnowledgeLevelId?: string;
+  @ValidateIf(
+    (object: NewDomainQuestionsAnswersRequestDto) =>
+      object.domainKnowledgeId === null ||
+      object.domainKnowledgeId.length === 0,
+  )
+  domainKnowledgeLevelId: string | null;
 
   @ApiProperty({
     description: 'Pregunta a realizar bajo un dominio de conocimiento',

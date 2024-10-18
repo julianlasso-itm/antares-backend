@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  Matches,
+  MaxLength,
+} from 'class-validator';
 
 export class NewConfigurationPerLevelRequestDto {
   @ApiProperty({
@@ -11,6 +17,9 @@ export class NewConfigurationPerLevelRequestDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewConfigurationPerLevelRequestDto',
+  })
   @MaxLength(26)
   configurationLevelId: string;
 
@@ -23,6 +32,9 @@ export class NewConfigurationPerLevelRequestDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewConfigurationPerLevelRequestDto',
+  })
   @MaxLength(26)
   levelId: string;
 

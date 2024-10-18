@@ -173,18 +173,21 @@ export class DomainKnowledge {
   @OneToMany(
     () => DomainKnowledgeLevels,
     (domainKnowledgeLevels) => domainKnowledgeLevels.domainKnowledge,
+    { cascade: true },
   )
   domainKnowledgeLevels: DomainKnowledgeLevels[];
 
   @OneToMany(
     () => DomainQuestionsAnswers,
     (domainQuestionsAnswers) => domainQuestionsAnswers.domainKnowledge,
+    { cascade: true },
   )
   domainQuestionsAnswers: DomainQuestionsAnswers[];
 
   @OneToMany(
     () => KnowledgeGaps,
     (knowledgeGaps) => knowledgeGaps.domainKnowledge,
+    { cascade: true },
   )
   knowledgeGaps: KnowledgeGaps[];
 }

@@ -31,19 +31,6 @@ export class UpdateRoleDto {
   description?: string;
 
   @ApiProperty({
-    description: 'Identificador del sub-rol que compone un rol en el sistema',
-    example: '01J8XM2FC49N58RTHH671GPFVV',
-    examples: ['01J8XM2FC49N58RTHH671GPFVV', null],
-    required: false,
-    maxLength: 26,
-    type: String,
-  })
-  @IsOptional()
-  @IsString()
-  @MaxLength(26)
-  subRoleId?: string;
-
-  @ApiProperty({
     description: 'Estado del registro. True activo, False inactivo',
     example: true,
     examples: [true, false],

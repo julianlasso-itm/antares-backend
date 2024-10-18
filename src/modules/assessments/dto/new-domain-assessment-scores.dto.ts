@@ -4,6 +4,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Matches,
   MaxLength,
 } from 'class-validator';
 
@@ -17,6 +18,9 @@ export class NewDomainAssessmentScoresDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewDomainAssessmentScoresDto',
+  })
   @MaxLength(26)
   assessmentId: string;
 
@@ -29,6 +33,9 @@ export class NewDomainAssessmentScoresDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewDomainAssessmentScoresDto',
+  })
   @MaxLength(26)
   domainKnowledgeId: string;
 
@@ -41,6 +48,9 @@ export class NewDomainAssessmentScoresDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewDomainAssessmentScoresDto',
+  })
   @MaxLength(26)
   configurationLevelId: string;
 

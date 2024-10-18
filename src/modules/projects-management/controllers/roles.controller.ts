@@ -53,7 +53,6 @@ export class RolesController {
     newData.roleId = ulid();
     newData.name = request.name;
     newData.description = request.description ?? null;
-    newData.subRoleId = request.subRoleId ?? null;
 
     const data = await this.service.create(newData);
     return CrudController.response(data);
@@ -69,10 +68,8 @@ export class RolesController {
       update.name = request.name;
     }
     if (request.description) {
-      update.description = request.description;
-    }
-    if (request.subRoleId) {
-      update.subRoleId = request.subRoleId;
+      update.description =
+        request.description.length === 0 ? null : request.description;
     }
     if (request.status !== undefined) {
       update.status = request.status;

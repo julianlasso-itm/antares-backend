@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsString, Matches, MaxLength } from 'class-validator';
 
 export class NewAssessmentsRequestDto {
   @ApiProperty({
@@ -12,6 +12,9 @@ export class NewAssessmentsRequestDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(26)
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewAssessmentsRequestDto',
+  })
   rolePerProfessionalId: string;
 
   @ApiProperty({
@@ -24,6 +27,9 @@ export class NewAssessmentsRequestDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[0-9a-zA-Z]{26}$/, {
+    message: 'NewAssessmentsRequestDto',
+  })
   @MaxLength(26)
   userId: string;
 }
