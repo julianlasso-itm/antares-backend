@@ -34,7 +34,7 @@ export class RolesProjectManagement {
     length: 2048,
     comment: 'Descripción del rol en un proyecto de un cliente',
   })
-  description?: string | null;
+  description: string | null;
 
   @Column('boolean', {
     name: 'role_status',

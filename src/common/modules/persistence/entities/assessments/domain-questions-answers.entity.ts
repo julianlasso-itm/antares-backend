@@ -6,14 +6,14 @@ import { DomainKnowledge } from './domain-knowledge.entity';
   'domain_questions_answers_dk_id_Idx',
   ['domainKnowledgeId', 'deletedAt'],
   {
-    where: 'domainKnowledgeLevelId IS NULL',
+    where: 'dk_lvl_id IS NULL',
   },
 )
 @Index(
   'domain_questions_answers_dk_lvl_id_Idx',
   ['domainKnowledgeLevelId', 'deletedAt'],
   {
-    where: 'domainKnowledgeId IS NULL',
+    where: 'dk_id IS NULL',
   },
 )
 @Index('dqa_dqa_status_Idx', ['status', 'deletedAt'], {})
