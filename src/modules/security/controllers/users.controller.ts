@@ -1,3 +1,6 @@
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { Users } from '@entities/security/users.entity';
 import {
   Body,
   Controller,
@@ -9,13 +12,11 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
+import { NewUserDto } from '@security/dto/new-user.dto';
+import { UpdateUserDto } from '@security/dto/update-user.dto';
+import { UsersService } from '@security/services/users.service';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { Users } from '../../../common/modules/persistence/entities/security';
-import { NewUserDto } from '../dto/new-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
-import { UsersService } from '../services/users.service';
 
 @Controller('users')
 export class UsersController {

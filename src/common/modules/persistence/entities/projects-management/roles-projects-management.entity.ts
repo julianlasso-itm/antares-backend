@@ -1,38 +1,40 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { UserPerRole } from './user-per-role.entity';
+import { RolePerProfessional } from './role-per-professional.entity';
+import { TechnologyPerRole } from './technology-per-role.entity';
 
 @Index('roles_role_status_Idx', ['status', 'deletedAt'], {})
-@Index('pksec_roles', ['roleId'], { unique: true })
+@Index('pkpm_roles', ['roleId'], { unique: true })
 @Index('roles_role_name_Idx', ['name'], {
   unique: true,
-  where: 'deletedAt IS NULL',
+  where: 'role_deleted_at IS NULL',
 })
-@Entity('sec_roles', {
-  schema: 'security',
-  comment: 'Roles del sistema ANTARES',
+@Entity('pm_roles', {
+  schema: 'projects_management',
+  comment: 'Roles en los proyectos de un cliente',
 })
-export class Roles {
+export class RolesProjectManagement {
   @Column('character varying', {
     primary: true,
     name: 'role_id',
     length: 26,
-    comment: 'Identificador del rol en el sistema',
+    comment: 'Identificador del rol en un proyecto de un cliente',
   })
   roleId: string;
 
   @Column('character varying', {
     name: 'role_name',
-    length: 50,
-    comment: 'Nombre del rol en el sistema',
+    length: 500,
+    comment: 'Nombre del rol en un proyecto de un cliente',
   })
   name: string;
 
   @Column('character varying', {
     name: 'role_description',
-    length: 1024,
-    comment: 'Descripción del rol en el sistema',
+    nullable: true,
+    length: 2048,
+    comment: 'Descripción del rol en un proyecto de un cliente',
   })
-  description: string;
+  description?: string | null;
 
   @Column('boolean', {
     name: 'role_status',
@@ -62,6 +64,15 @@ export class Roles {
   })
   deletedAt: Date | null;
 
-  @OneToMany(() => UserPerRole, (userPerRole) => userPerRole.role)
-  userPerRoles: UserPerRole[];
+  @OneToMany(
+    () => RolePerProfessional,
+    (rolePerProfessional) => rolePerProfessional.role,
+  )
+  rolePerProfessionals: RolePerProfessional[];
+
+  @OneToMany(
+    () => TechnologyPerRole,
+    (technologyPerRole) => technologyPerRole.role,
+  )
+  technologyPerRoles: TechnologyPerRole[];
 }

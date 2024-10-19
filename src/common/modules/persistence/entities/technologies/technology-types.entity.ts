@@ -5,7 +5,7 @@ import { TechnologyItems } from './technology-items.entity';
 @Index('pktech_technology_types', ['technologyTypeId'], { unique: true })
 @Index('technology_types_tech_type_name_Idx', ['name'], {
   unique: true,
-  where: 'deletedAt IS NULL',
+  where: 'tech_type_deleted_at IS NULL',
 })
 @Entity('tech_technology_types', {
   schema: 'technologies',

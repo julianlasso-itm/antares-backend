@@ -1,3 +1,6 @@
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { TechnologyStack } from '@entities/projects-management/technology-stack.entity';
 import {
   Body,
   Controller,
@@ -9,12 +12,11 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { NewTechnologyStackDto } from '@projects-management/dto/new-technology-stack.dto';
+import { UpdateTechnologyStackDto } from '@projects-management/dto/update-technology-stack.dto';
+import { TechnologyStackService } from '@projects-management/services/technology-stack.service';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { TechnologyStack } from '../../../common/modules/persistence/entities';
-import { NewTechnologyStackDto, UpdateTechnologyStackDto } from '../dto';
-import { TechnologyStackService } from '../services';
 
 @Controller('technology-stack')
 export class TechnologyStackController {

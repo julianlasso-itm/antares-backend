@@ -1,3 +1,6 @@
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { Projects } from '@entities/projects-management/projects.entity';
 import {
   Body,
   Controller,
@@ -9,12 +12,11 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { NewProjectDto } from '@projects-management/dto/new-project.dto';
+import { UpdateProjectDto } from '@projects-management/dto/update-project.dto';
+import { ProjectsService } from '@projects-management/services/projects.service';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { Projects } from '../../../common/modules/persistence/entities';
-import { NewProjectDto, UpdateProjectDto } from '../dto';
-import { ProjectsService } from '../services';
 
 @Controller('projects')
 export class ProjectsController {

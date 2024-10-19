@@ -1,3 +1,9 @@
+import { NewDomainAssessmentScoresDto } from '@assessments/dto/new-domain-assessment-scores.dto';
+import { UpdateDomainAssessmentScoresDto } from '@assessments/dto/update-domain-assessment-scores.dto';
+import { DomainAssessmentScoresService } from '@assessments/services/domain-assessment-scores.service';
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { DomainAssessmentScores } from '@entities/assessments/domain-assessment-scores.entity';
 import {
   Body,
   Controller,
@@ -9,15 +15,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { DomainAssessmentScores } from '../../../common/modules/persistence/entities';
-import {
-  NewDomainAssessmentScoresDto,
-  UpdateDomainAssessmentScoresDto,
-} from '../dto';
-import { DomainAssessmentScoresService } from '../services';
 
 @Controller('domain-assessment-scores')
 export class DomainAssessmentScoresController {

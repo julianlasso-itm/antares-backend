@@ -1,7 +1,7 @@
+import { BaseService } from '@common/services/service.abstract';
+import { DomainAssessmentScores } from '@entities/assessments/domain-assessment-scores.entity';
 import { Injectable } from '@nestjs/common';
-import { BaseService } from '../../../common';
-import { DomainAssessmentScores } from '../../../common/modules/persistence/entities';
-import { DomainAssessmentScoresRepository } from '../../../common/modules/persistence/repositories';
+import DomainAssessmentScoresRepository from '@repositories/assessments/domain-assessment-scores.repository';
 
 @Injectable()
 export class DomainAssessmentScoresService extends BaseService<

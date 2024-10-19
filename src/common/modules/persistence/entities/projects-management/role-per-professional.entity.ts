@@ -1,3 +1,5 @@
+import { Assessments } from '@entities/assessments/assessments.entity';
+import { Professionals } from '@entities/human-resources/professionals.entity';
 import {
   Column,
   Entity,
@@ -6,14 +8,12 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Assessments } from '../assessments';
-import { Professionals } from '../human-resources';
-import { Roles } from './roles.entity';
+import { RolesProjectManagement } from './roles-projects-management.entity';
 
 @Index(
   'role_per_professional_professional_id_role_id_Idx',
   ['professionalId', 'roleId'],
-  { unique: true, where: 'deletedAt IS NULL' },
+  { unique: true, where: 'rpp_deleted_at IS NULL' },
 )
 @Index('role_per_professional_rpp_status_Idx', ['status', 'deletedAt'], {})
 @Index('pkpm_role_per_professional', ['rolePerProfessionalId'], {
@@ -106,10 +106,14 @@ export class RolePerProfessional {
   ])
   professional: Professionals;
 
-  @ManyToOne(() => Roles, (roles) => roles.rolePerProfessionals, {
-    onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT',
-  })
+  @ManyToOne(
+    () => RolesProjectManagement,
+    (roles) => roles.rolePerProfessionals,
+    {
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    },
+  )
   @JoinColumn([{ name: 'role_id', referencedColumnName: 'roleId' }])
-  role: Roles;
+  role: RolesProjectManagement;
 }

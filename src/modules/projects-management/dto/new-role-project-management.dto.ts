@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
-export class NewRoleDto {
+export class NewRoleProjectManagementDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(100)
@@ -9,5 +9,5 @@ export class NewRoleDto {
   @IsOptional()
   @IsString()
   @MaxLength(2048)
-  description?: string | null;
+  description: string;
 }

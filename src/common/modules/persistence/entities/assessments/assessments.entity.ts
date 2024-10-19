@@ -1,3 +1,6 @@
+import { KnowledgeGaps } from '@entities/knowledge-gaps/knowledge-gaps.entity';
+import { RolePerProfessional } from '@entities/projects-management/role-per-professional.entity';
+import { Users } from '@entities/security/users.entity';
 import {
   Column,
   Entity,
@@ -6,9 +9,6 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { KnowledgeGaps } from '../knowledge-gaps';
-import { RolePerProfessional } from '../projects-management';
-import { Users } from '../security';
 import { DomainAssessmentScores } from './domain-assessment-scores.entity';
 
 @Index('assessments_rpp_id_Idx', ['rolePerProfessionalId', 'deletedAt'], {})

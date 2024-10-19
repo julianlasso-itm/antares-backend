@@ -1,3 +1,6 @@
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { Customers } from '@entities/projects-management/customers.entity';
 import {
   Body,
   Controller,
@@ -9,12 +12,11 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { NewCustomerDto } from '@projects-management/dto/new-customer.dto';
+import { UpdateCustomerDto } from '@projects-management/dto/update-customer.dto';
+import { CustomersService } from '@projects-management/services/customers.service';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { Customers } from '../../../common/modules/persistence/entities';
-import { NewCustomerDto, UpdateCustomerDto } from '../dto';
-import { CustomersService } from '../services';
 
 @Controller('customers')
 export class CustomersController {

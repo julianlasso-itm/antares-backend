@@ -1,14 +1,14 @@
 import { IsBoolean, IsOptional, IsString, MaxLength } from 'class-validator';
 
-export class UpdateRoleDto {
+export class UpdateRoleSecurityDto {
   @IsOptional()
   @IsString()
-  @MaxLength(100)
+  @MaxLength(50)
   name?: string;
 
   @IsOptional()
   @IsString()
-  @MaxLength(2048)
+  @MaxLength(1024)
   description?: string;
 
   @IsOptional()

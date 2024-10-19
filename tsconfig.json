@@ -16,6 +16,41 @@
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@entities/*": [
+        "src/common/modules/persistence/entities/*"
+      ],
+      "@repositories/*": [
+        "src/common/modules/persistence/repositories/*"
+      ],
+      "@persistence/*": [
+        "src/common/modules/persistence/*"
+      ],
+      "@common/*": [
+        "src/common/*"
+      ],
+      "@assessments/*": [
+        "src/modules/assessments/*"
+      ],
+      "@human-resources/*": [
+        "src/modules/human-resources/*"
+      ],
+      "@knowledge-gaps/*": [
+        "src/modules/knowledge-gaps/*"
+      ],
+      "@projects-management/*": [
+        "src/modules/projects-management/*"
+      ],
+      "@security/*": [
+        "src/modules/security/*"
+      ],
+      "@technologies/*": [
+        "src/modules/technologies/*"
+      ],
+      "@modules/*": [
+        "src/modules/*"
+      ],
+    },
   }
 }

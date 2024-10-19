@@ -1,17 +1,17 @@
+import { RolePerProfessional } from '@entities/projects-management/role-per-professional.entity';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { DocumentType } from '../../../../../modules';
-import { RolePerProfessional } from '../projects-management';
+import { DocumentType } from './enums/document-type.enum';
 
 @Index('professionals_pro_status_Idx', ['status', 'deletedAt'], {})
 @Index('professionals_pro_full_name_Idx', ['name', 'deletedAt'], {})
 @Index(
   'professionals_pro_document_type_pro_document_Idx',
   ['documentType', 'document'],
-  { unique: true, where: 'deletedAt IS NULL' },
+  { unique: true, where: 'pro_deleted_at IS NULL' },
 )
 @Index('professionals_pro_email_Idx', ['email'], {
   unique: true,
-  where: 'deletedAt IS NULL',
+  where: 'pro_deleted_at IS NULL',
 })
 @Index('pkhr_professionals', ['professionalId'], { unique: true })
 @Entity('hr_professionals', {

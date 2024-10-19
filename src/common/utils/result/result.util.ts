@@ -1,4 +1,4 @@
-import { AntaresException } from '../../exceptions';
+import AntaresException from '@common/exceptions/antares.exception';
 
 class Result<Type> {
   readonly value: Type;

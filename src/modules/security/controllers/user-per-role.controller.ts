@@ -1,3 +1,6 @@
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { UserPerRole } from '@entities/security/user-per-role.entity';
 import {
   Body,
   Controller,
@@ -9,13 +12,11 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
+import { NewUserPerRoleDto } from '@security/dto/new-user-per-role.dto';
+import { UpdateUserPerRoleDto } from '@security/dto/update-user-per-role.dto';
+import { UserPerRoleService } from '@security/services/user-per-role.service';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { UserPerRole } from '../../../common/modules/persistence/entities/security';
-import { NewUserPerRoleDto } from '../dto/new-user-per-role.dto';
-import { UpdateUserPerRoleDto } from '../dto/update-user-per-role.dto';
-import { UserPerRoleService } from '../services/user-per-role.service';
 
 @Controller('user-per-role')
 export class UserPerRoleController {

@@ -1,12 +1,12 @@
+import { Assessments } from '@entities/assessments/assessments.entity';
+import { KnowledgeGapNotes } from '@entities/knowledge-gaps/knowledge-gap-notes.entity';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { Assessments } from '../assessments';
-import { KnowledgeGapNotes } from '../knowledge-gaps';
 import { UserPerRole } from './user-per-role.entity';
 
 @Index('users_user_status_Idx', ['status', 'deletedAt'], {})
 @Index('users_user_email_Idx', ['email'], {
   unique: true,
-  where: 'deletedAt IS NULL',
+  where: 'user_deleted_at IS NULL',
 })
 @Index('pksec_users', ['userId'], { unique: true })
 @Entity('sec_users', {

@@ -1,7 +1,7 @@
+import { BaseService } from '@common/services/service.abstract';
+import { Users } from '@entities/security/users.entity';
 import { Injectable } from '@nestjs/common';
-import { Users } from '../../../common/modules/persistence/entities/security';
-import { UsersRepository } from '../../../common/modules/persistence/repositories/security';
-import { BaseService } from '../../../common/services/service.abstract';
+import UsersRepository from '@repositories/security/users.repository';
 
 @Injectable()
 export class UsersService extends BaseService<Users, UsersRepository> {

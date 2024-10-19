@@ -1,7 +1,7 @@
+import { BaseService } from '@common/services/service.abstract';
+import { ConfigurationLevels } from '@entities/assessments/configuration-levels.entity';
 import { Injectable } from '@nestjs/common';
-import { BaseService } from '../../../common';
-import { ConfigurationLevels } from '../../../common/modules/persistence/entities';
-import { ConfigurationLevelsRepository } from '../../../common/modules/persistence/repositories/assessments';
+import ConfigurationLevelsRepository from '@repositories/assessments/configuration-levels.repository';
 
 @Injectable()
 export class ConfigurationLevelsService extends BaseService<

@@ -1,5 +1,5 @@
+import { Users } from '@entities/security/users.entity';
 import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
-import { Users } from '../security';
 import { KnowledgeGaps } from './knowledge-gaps.entity';
 
 @Index(

@@ -1,8 +1,8 @@
+import { Projects } from '@entities/projects-management/projects.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { BaseRepository } from '@repositories/repository.abstract';
 import { Repository } from 'typeorm';
-import { Projects } from '../../entities';
-import { BaseRepository } from '../repository.abstract';
 
 @Injectable()
 class ProjectsRepository extends BaseRepository<Projects> {

@@ -1,40 +1,38 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { RolePerProfessional } from './role-per-professional.entity';
-import { TechnologyPerRole } from './technology-per-role.entity';
+import { UserPerRole } from './user-per-role.entity';
 
 @Index('roles_role_status_Idx', ['status', 'deletedAt'], {})
-@Index('pkpm_roles', ['roleId'], { unique: true })
+@Index('pksec_roles', ['roleId'], { unique: true })
 @Index('roles_role_name_Idx', ['name'], {
   unique: true,
-  where: 'deletedAt IS NULL',
+  where: 'role_deleted_at IS NULL',
 })
-@Entity('pm_roles', {
-  schema: 'projects_management',
-  comment: 'Roles en los proyectos de un cliente',
+@Entity('sec_roles', {
+  schema: 'security',
+  comment: 'Roles del sistema ANTARES',
 })
-export class Roles {
+export class RolesSecurity {
   @Column('character varying', {
     primary: true,
     name: 'role_id',
     length: 26,
-    comment: 'Identificador del rol en un proyecto de un cliente',
+    comment: 'Identificador del rol en el sistema',
   })
   roleId: string;
 
   @Column('character varying', {
     name: 'role_name',
-    length: 500,
-    comment: 'Nombre del rol en un proyecto de un cliente',
+    length: 50,
+    comment: 'Nombre del rol en el sistema',
   })
   name: string;
 
   @Column('character varying', {
     name: 'role_description',
-    nullable: true,
-    length: 2048,
-    comment: 'Descripción del rol en un proyecto de un cliente',
+    length: 1024,
+    comment: 'Descripción del rol en el sistema',
   })
-  description?: string | null;
+  description: string;
 
   @Column('boolean', {
     name: 'role_status',
@@ -64,15 +62,6 @@ export class Roles {
   })
   deletedAt: Date | null;
 
-  @OneToMany(
-    () => RolePerProfessional,
-    (rolePerProfessional) => rolePerProfessional.role,
-  )
-  rolePerProfessionals: RolePerProfessional[];
-
-  @OneToMany(
-    () => TechnologyPerRole,
-    (technologyPerRole) => technologyPerRole.role,
-  )
-  technologyPerRoles: TechnologyPerRole[];
+  @OneToMany(() => UserPerRole, (userPerRole) => userPerRole.role)
+  userPerRoles: UserPerRole[];
 }

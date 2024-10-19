@@ -1,3 +1,5 @@
+import { Assessments } from '@entities/assessments/assessments.entity';
+import { DomainKnowledge } from '@entities/assessments/domain-knowledge.entity';
 import {
   Column,
   Entity,
@@ -6,7 +8,6 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Assessments, DomainKnowledge } from '../assessments';
 import { KnowledgeGapNotes } from './knowledge-gap-notes.entity';
 
 @Index(

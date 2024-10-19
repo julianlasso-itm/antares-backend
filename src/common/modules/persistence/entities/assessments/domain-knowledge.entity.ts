@@ -1,3 +1,5 @@
+import { KnowledgeGaps } from '@entities/knowledge-gaps/knowledge-gaps.entity';
+import { TechnologyItems } from '@entities/technologies/technology-items.entity';
 import {
   Column,
   Entity,
@@ -6,8 +8,6 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { KnowledgeGaps } from '../knowledge-gaps';
-import { TechnologyItems } from '../technologies';
 import { DomainAssessmentScores } from './domain-assessment-scores.entity';
 import { DomainKnowledgeLevels } from './domain-knowledge-levels.entity';
 import { DomainQuestionsAnswers } from './domain-questions-answers.entity';

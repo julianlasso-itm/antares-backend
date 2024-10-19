@@ -1,9 +1,10 @@
+import { BaseService } from '@common/services/service.abstract';
+import Result from '@common/utils/result/result.util';
+import { RatingScale } from '@entities/assessments/rating-scale.entity';
 import { Injectable } from '@nestjs/common';
+import RatingScaleRepository from '@repositories/assessments/rating-scale.repository';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { Brackets, FindOptionsOrder } from 'typeorm';
-import { BaseService, Result } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { RatingScale } from '../../../common/modules/persistence/entities';
-import { RatingScaleRepository } from '../../../common/modules/persistence/repositories/assessments';
 
 @Injectable()
 export class RatingScaleService extends BaseService<

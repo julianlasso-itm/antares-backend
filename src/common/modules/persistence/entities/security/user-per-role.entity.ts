@@ -1,10 +1,10 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
-import { Roles } from './roles.entity';
+import { RolesSecurity } from './roles-security.entity';
 import { Users } from './users.entity';
 
 @Index('user_per_role_user_id_role_id_Idx', ['roleId', 'userId'], {
   unique: true,
-  where: 'deletedAt IS NULL',
+  where: 'upr_deleted_at IS NULL',
 })
 @Index('user_per_role_upr_status_Idx', ['status', 'deletedAt'], {})
 @Index('pksec_user_per_role', ['userPerRoleId'], { unique: true })
@@ -63,12 +63,12 @@ export class UserPerRole {
   })
   deletedAt: Date | null;
 
-  @ManyToOne(() => Roles, (roles) => roles.userPerRoles, {
+  @ManyToOne(() => RolesSecurity, (roles) => roles.userPerRoles, {
     onDelete: 'RESTRICT',
     onUpdate: 'RESTRICT',
   })
   @JoinColumn([{ name: 'role_id', referencedColumnName: 'roleId' }])
-  role: Roles;
+  role: RolesSecurity;
 
   @ManyToOne(() => Users, (users) => users.userPerRoles, {
     onDelete: 'RESTRICT',

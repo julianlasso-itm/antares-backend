@@ -1,3 +1,4 @@
+import { DocumentType } from '@entities/human-resources/enums/document-type.enum';
 import {
   IsEmail,
   IsEnum,
@@ -5,7 +6,6 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { DocumentType } from '../enums';
 
 export class NewProfessionalsRequestDto {
   @IsNotEmpty()

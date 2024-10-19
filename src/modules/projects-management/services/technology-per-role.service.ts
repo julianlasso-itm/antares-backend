@@ -1,7 +1,7 @@
+import { BaseService } from '@common/services/service.abstract';
+import { TechnologyPerRole } from '@entities/projects-management/technology-per-role.entity';
 import { Injectable } from '@nestjs/common';
-import { TechnologyPerRole } from '../../../common/modules/persistence/entities';
-import { TechnologyPerRoleRepository } from '../../../common/modules/persistence/repositories';
-import { BaseService } from '../../../common/services/service.abstract';
+import TechnologyPerRoleRepository from '@repositories/projects-management/technology-per-role.repository';
 
 @Injectable()
 export class TechnologyPerRoleService extends BaseService<

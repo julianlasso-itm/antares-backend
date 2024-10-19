@@ -1,3 +1,9 @@
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { Professionals } from '@entities/human-resources/professionals.entity';
+import { NewProfessionalsRequestDto } from '@human-resources/dto/new-professionals-request.dto';
+import { UpdateProfessionalsRequestDto } from '@human-resources/dto/update-professionals-request.dto';
+import { ProfessionalsService } from '@human-resources/services/professionals.service';
 import {
   Body,
   Controller,
@@ -9,15 +15,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { Professionals } from '../../../common/modules/persistence/entities';
-import {
-  NewProfessionalsRequestDto,
-  UpdateProfessionalsRequestDto,
-} from '../dto';
-import { ProfessionalsService } from '../services';
 
 @Controller('professionals')
 export class ProfessionalsController {

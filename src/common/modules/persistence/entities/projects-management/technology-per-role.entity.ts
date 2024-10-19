@@ -1,5 +1,5 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
-import { Roles } from './roles.entity';
+import { RolesProjectManagement } from './roles-projects-management.entity';
 import { TechnologyStack } from './technology-stack.entity';
 
 @Index(
@@ -7,7 +7,7 @@ import { TechnologyStack } from './technology-stack.entity';
   ['roleId', 'technologyStackId'],
   {
     unique: true,
-    where: 'deletedAt IS NULL',
+    where: 'tpr_deleted_at IS NULL',
   },
 )
 @Index('technology_per_role_tpr_status_Idx', ['status', 'deletedAt'], {})
@@ -69,12 +69,16 @@ export class TechnologyPerRole {
   })
   deletedAt: Date | null;
 
-  @ManyToOne(() => Roles, (roles) => roles.technologyPerRoles, {
-    onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT',
-  })
+  @ManyToOne(
+    () => RolesProjectManagement,
+    (roles) => roles.technologyPerRoles,
+    {
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    },
+  )
   @JoinColumn([{ name: 'role_id', referencedColumnName: 'roleId' }])
-  role: Roles;
+  role: RolesProjectManagement;
 
   @ManyToOne(
     () => TechnologyStack,

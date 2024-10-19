@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
-import { PersistenceModule } from '../../common/modules/persistence';
-import { ProfessionalsController } from './controllers';
-import { ProfessionalsService } from './services';
+import { PersistenceModule } from '@persistence/persistence.module';
+import { ProfessionalsController } from './controllers/professionals.controller';
+import { ProfessionalsService } from './services/professionals.service';
 
 @Module({
   imports: [

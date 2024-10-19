@@ -1,3 +1,9 @@
+import { NewDomainQuestionsAnswersRequestDto } from '@assessments/dto/new-domain-questions-answers-request.dto';
+import { UpdateDomainQuestionsAnswersRequestDto } from '@assessments/dto/update-domain-questions-answers-request.dto';
+import { DomainQuestionsAnswersService } from '@assessments/services/domain-questions-answers.service';
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { DomainQuestionsAnswers } from '@entities/assessments/domain-questions-answers.entity';
 import {
   Body,
   Controller,
@@ -9,15 +15,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { DomainQuestionsAnswers } from '../../../common/modules/persistence/entities';
-import {
-  NewDomainQuestionsAnswersRequestDto,
-  UpdateDomainQuestionsAnswersRequestDto,
-} from '../dto';
-import { DomainQuestionsAnswersService } from '../services';
 
 @Controller('domain-questions-answers')
 export class DomainQuestionsAnswersController {

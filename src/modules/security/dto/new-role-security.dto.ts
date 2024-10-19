@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export class NewRoleDto {
+export class NewRoleSecurityDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(50)

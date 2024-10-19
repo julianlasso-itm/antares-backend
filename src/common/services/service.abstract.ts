@@ -1,7 +1,7 @@
+import Result from '@common/utils/result/result.util';
+import { FindAllResponse } from '@repositories/find-all.response';
+import { BaseRepository } from '@repositories/repository.abstract';
 import { FindOptionsOrder, ObjectLiteral } from 'typeorm';
-import { BaseRepository } from '../modules/persistence';
-import { FindAllResponse } from '../modules/persistence/repositories/find-all.response';
-import { Result } from '../utils';
 
 export abstract class BaseService<
   Entity extends ObjectLiteral,

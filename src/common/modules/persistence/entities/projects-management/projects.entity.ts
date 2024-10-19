@@ -11,7 +11,7 @@ import { TechnologyStack } from './technology-stack.entity';
 
 @Index('projects_project_name_customer_id_Idx', ['customerId', 'name'], {
   unique: true,
-  where: 'deletedAt IS NULL',
+  where: 'project_deleted_at IS NULL',
 })
 @Index('projects_customers_id_Idx', ['customerId'], {})
 @Index('projects_project_status_Idx', ['status', 'deletedAt'], {})

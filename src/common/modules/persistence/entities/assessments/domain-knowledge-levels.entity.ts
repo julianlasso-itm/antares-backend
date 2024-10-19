@@ -16,7 +16,7 @@ import { Levels } from './levels.entity';
   ['configurationLevelId', 'domainKnowledgeId', 'levelId'],
   {
     unique: true,
-    where: 'deletedAt IS NULL',
+    where: 'dk_lvl_deleted_at IS NULL',
   },
 )
 @Index('domain_knowledge_levels_dk_lvl_status_Idx', ['status', 'deletedAt'], {})

@@ -1,9 +1,10 @@
+import { BaseService } from '@common/services/service.abstract';
+import Result from '@common/utils/result/result.util';
+import { DomainKnowledge } from '@entities/assessments/domain-knowledge.entity';
 import { Injectable } from '@nestjs/common';
+import DomainKnowledgeRepository from '@repositories/assessments/domain-knowledge.repository';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { Brackets, FindOptionsOrder } from 'typeorm';
-import { BaseService, Result } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { DomainKnowledge } from '../../../common/modules/persistence/entities';
-import { DomainKnowledgeRepository } from '../../../common/modules/persistence/repositories/assessments';
 
 @Injectable()
 export class DomainKnowledgeService extends BaseService<

@@ -1,9 +1,10 @@
+import { BaseService } from '@common/services/service.abstract';
+import Result from '@common/utils/result/result.util';
+import { Levels } from '@entities/assessments/levels.entity';
 import { Injectable } from '@nestjs/common';
+import { LevelsRepository } from '@repositories/assessments/levels.repository';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { FindOptionsOrder } from 'typeorm';
-import { BaseService, Result } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { Levels } from '../../../common/modules/persistence/entities';
-import { LevelsRepository } from '../../../common/modules/persistence/repositories/assessments';
 
 @Injectable()
 export class LevelsService extends BaseService<Levels, LevelsRepository> {

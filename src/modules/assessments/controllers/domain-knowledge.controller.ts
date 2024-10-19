@@ -1,3 +1,9 @@
+import { NewDomainKnowledgeDto } from '@assessments/dto/new-domain-knowledge.dto';
+import { UpdateDomainKnowledgeDto } from '@assessments/dto/update-domain-knowledge.dto';
+import { DomainKnowledgeService } from '@assessments/services/domain-knowledge.service';
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { DomainKnowledge } from '@entities/assessments/domain-knowledge.entity';
 import {
   Body,
   Controller,
@@ -9,12 +15,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { DomainKnowledge } from '../../../common/modules/persistence/entities';
-import { NewDomainKnowledgeDto, UpdateDomainKnowledgeDto } from '../dto';
-import { DomainKnowledgeService } from '../services';
 
 @Controller('domain-knowledge')
 export class DomainKnowledgeController {

@@ -1,12 +1,10 @@
+import { AssessmentsModule } from '@assessments/assessments.module';
+import { HumanResourcesModule } from '@human-resources/human-resources.module';
+import { KnowledgeGapsModule } from '@knowledge-gaps/knowledge-gaps.module';
 import { Module } from '@nestjs/common';
-import {
-  AssessmentsModule,
-  HumanResourcesModule,
-  KnowledgeGapsModule,
-  ProjectsManagementModule,
-  TechnologiesModule,
-} from './modules';
-import { SecurityModule } from './modules/security';
+import { ProjectsManagementModule } from '@projects-management/projects-management.module';
+import { SecurityModule } from '@security/security.module';
+import { TechnologiesModule } from '@technologies/technologies.module';
 
 @Module({
   imports: [

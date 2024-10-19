@@ -1,11 +1,10 @@
+import { BaseService } from '@common/services/service.abstract';
+import Result from '@common/utils/result/result.util';
+import { DomainKnowledgeLevels } from '@entities/assessments/domain-knowledge-levels.entity';
 import { Injectable } from '@nestjs/common';
+import DomainKnowledgeLevelsRepository from '@repositories/assessments/domain-knowledge-levels.repository';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { Brackets, FindOptionsOrder } from 'typeorm';
-import { BaseService, Result } from '../../../common';
-import { DomainKnowledgeLevels } from '../../../common/modules/persistence/entities';
-import {
-  DomainKnowledgeLevelsRepository,
-  FindAllResponse,
-} from '../../../common/modules/persistence/repositories';
 
 @Injectable()
 export class DomainKnowledgeLevelsService extends BaseService<

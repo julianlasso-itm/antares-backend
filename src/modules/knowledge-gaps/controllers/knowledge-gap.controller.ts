@@ -1,3 +1,9 @@
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { KnowledgeGaps } from '@entities/knowledge-gaps/knowledge-gaps.entity';
+import { NewKnowledgeGapRequestDto } from '@knowledge-gaps/dto/new-knowledge-gap-request.dto';
+import { UpdateKnowledgeGapRequestDto } from '@knowledge-gaps/dto/update-knowledge-gap-request.dto';
+import { KnowledgeGapsService } from '@knowledge-gaps/services/knowledge-gap.service';
 import {
   Body,
   Controller,
@@ -9,15 +15,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { KnowledgeGaps } from '../../../common/modules/persistence/entities';
-import {
-  NewKnowledgeGapRequestDto,
-  UpdateKnowledgeGapRequestDto,
-} from '../dto';
-import { KnowledgeGapsService } from '../services';
 
 @Controller('gaps')
 export class KnowledgeGapsController {

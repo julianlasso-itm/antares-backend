@@ -1,8 +1,8 @@
+import { UserPerRole } from '@entities/security/user-per-role.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { BaseRepository } from '@repositories/repository.abstract';
 import { Repository } from 'typeorm';
-import { UserPerRole } from '../../entities/security';
-import { BaseRepository } from '../repository.abstract';
 
 @Injectable()
 class UserPerRoleRepository extends BaseRepository<UserPerRole> {

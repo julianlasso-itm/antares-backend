@@ -1,3 +1,5 @@
+import AntaresException from '@common/exceptions/antares.exception';
+import Result from '@common/utils/result/result.util';
 import {
   DeepPartial,
   FindOptionsOrder,
@@ -5,8 +7,6 @@ import {
   ObjectLiteral,
   Repository,
 } from 'typeorm';
-import { AntaresException } from '../../../exceptions';
-import { Result } from '../../../utils';
 import { FindAllResponse } from './find-all.response';
 
 export abstract class BaseRepository<Entity extends ObjectLiteral> {

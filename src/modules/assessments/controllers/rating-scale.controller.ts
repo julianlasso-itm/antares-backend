@@ -1,3 +1,9 @@
+import { NewRatingScaleRequestDto } from '@assessments/dto/new-rating-scale-request.dto';
+import { UpdateRatingScaleRequestDto } from '@assessments/dto/update-rating-scale-request.dto';
+import { RatingScaleService } from '@assessments/services/rating-scale.service';
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { RatingScale } from '@entities/assessments/rating-scale.entity';
 import {
   Body,
   Controller,
@@ -9,12 +15,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { RatingScale } from '../../../common/modules/persistence/entities';
-import { NewRatingScaleRequestDto, UpdateRatingScaleRequestDto } from '../dto';
-import { RatingScaleService } from '../services';
 
 @Controller('rating-scale')
 export class RatingScaleController {

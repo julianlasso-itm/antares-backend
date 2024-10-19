@@ -1,3 +1,9 @@
+import { NewConfigurationPerLevelRequestDto } from '@assessments/dto/new-configuration-per-level-request.dto';
+import { UpdateConfigurationPerLevelRequestDto } from '@assessments/dto/update-configuration-per-level-request.dto';
+import { ConfigurationPerLevelService } from '@assessments/services/configuration-per-level.service';
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { ConfigurationPerLevel } from '@entities/assessments/configuration-per-level.entity';
 import {
   Body,
   Controller,
@@ -9,15 +15,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { ConfigurationPerLevel } from '../../../common/modules/persistence/entities';
-import {
-  NewConfigurationPerLevelRequestDto,
-  UpdateConfigurationPerLevelRequestDto,
-} from '../dto';
-import { ConfigurationPerLevelService } from '../services';
 
 @Controller('configuration-per-level')
 export class ConfigurationPerLevelController {

@@ -1,13 +1,11 @@
+import { BaseService } from '@common/services/service.abstract';
+import Result from '@common/utils/result/result.util';
+import { TechnologyItems } from '@entities/technologies/technology-items.entity';
 import { Injectable } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
+import TechnologyItemsRepository from '@repositories/technologies/technology-items.repository';
 import { Brackets } from 'typeorm';
 import { FindOptionsOrder } from 'typeorm/find-options/FindOptionsOrder';
-import { Result } from '../../../common';
-import { TechnologyItems } from '../../../common/modules/persistence/entities';
-import {
-  FindAllResponse,
-  TechnologyItemsRepository,
-} from '../../../common/modules/persistence/repositories';
-import { BaseService } from '../../../common/services/service.abstract';
 
 @Injectable()
 export class TechnologyItemsService extends BaseService<

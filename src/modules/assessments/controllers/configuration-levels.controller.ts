@@ -1,3 +1,9 @@
+import { NewConfigurationLevelRequestDto } from '@assessments/dto/new-configuration-level-request.dto';
+import { UpdateConfigurationLevelRequestDto } from '@assessments/dto/update-configuration-level-request.dto';
+import { ConfigurationLevelsService } from '@assessments/services/configuration-levels.service';
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { ConfigurationLevels } from '@entities/assessments/configuration-levels.entity';
 import {
   Body,
   Controller,
@@ -9,15 +15,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { ConfigurationLevels } from '../../../common/modules/persistence/entities';
-import {
-  NewConfigurationLevelRequestDto,
-  UpdateConfigurationLevelRequestDto,
-} from '../dto';
-import { ConfigurationLevelsService } from '../services';
 
 @Controller('configuration-levels')
 export class ConfigurationLevelsController {

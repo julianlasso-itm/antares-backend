@@ -1,12 +1,10 @@
+import { BaseService } from '@common/services/service.abstract';
+import Result from '@common/utils/result/result.util';
+import { Projects } from '@entities/projects-management/projects.entity';
 import { Injectable } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
+import ProjectsRepository from '@repositories/projects-management/projects.repository';
 import { Brackets, FindOptionsOrder } from 'typeorm';
-import { Result } from '../../../common';
-import { Projects } from '../../../common/modules/persistence/entities';
-import {
-  FindAllResponse,
-  ProjectsRepository,
-} from '../../../common/modules/persistence/repositories';
-import { BaseService } from '../../../common/services/service.abstract';
 
 @Injectable()
 export class ProjectsService extends BaseService<Projects, ProjectsRepository> {

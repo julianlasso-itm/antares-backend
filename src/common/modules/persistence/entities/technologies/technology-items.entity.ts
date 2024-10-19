@@ -1,3 +1,5 @@
+import { DomainKnowledge } from '@entities/assessments/domain-knowledge.entity';
+import { TechnologyStack } from '@entities/projects-management/technology-stack.entity';
 import {
   Column,
   Entity,
@@ -6,8 +8,6 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { DomainKnowledge } from '../assessments';
-import { TechnologyStack } from '../projects-management';
 import { TechnologyTypes } from './technology-types.entity';
 
 @Index('technology_items_tech_item_status_Idx', ['status', 'deletedAt'], {})
@@ -15,7 +15,7 @@ import { TechnologyTypes } from './technology-types.entity';
 @Index('pktech_technology_items', ['technologyItemId'], { unique: true })
 @Index('technologies_tech_name_tech_deleted_at_Idx', ['name'], {
   unique: true,
-  where: 'deletedAt IS NULL',
+  where: 'tech_item_deleted_at IS NULL',
 })
 @Entity('tech_technology_items', {
   schema: 'technologies',

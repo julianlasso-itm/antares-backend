@@ -1,8 +1,8 @@
+import { TechnologyItems } from '@entities/technologies/technology-items.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { BaseRepository } from '@repositories/repository.abstract';
 import { Repository } from 'typeorm';
-import { TechnologyItems } from '../../entities';
-import { BaseRepository } from '../repository.abstract';
 
 @Injectable()
 class TechnologyItemsRepository extends BaseRepository<TechnologyItems> {

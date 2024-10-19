@@ -6,7 +6,7 @@ import { DomainKnowledgeLevels } from './domain-knowledge-levels.entity';
 @Index('pkassmt_levels', ['levelId'], { unique: true })
 @Index('levels_level_name_at_Idx', ['name'], {
   unique: true,
-  where: 'deletedAt IS NULL',
+  where: 'level_deleted_at IS NULL',
 })
 @Entity('assmt_levels', {
   schema: 'assessments',

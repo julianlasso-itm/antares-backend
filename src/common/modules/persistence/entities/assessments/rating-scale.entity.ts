@@ -5,7 +5,7 @@ import { ConfigurationLevels } from './configuration-levels.entity';
 @Index(
   'rating_scale_cnf_lvl_id_rc_name_Idx',
   ['configurationLevelId', 'name'],
-  { unique: true, where: 'deletedAt IS NULL' },
+  { unique: true, where: 'rc_deleted_at IS NULL' },
 )
 @Index('rc_rc_status_Idx', ['status', 'deletedAt'], {})
 @Index('pkassmt_rating_scale', ['ratingScaleId'], { unique: true })

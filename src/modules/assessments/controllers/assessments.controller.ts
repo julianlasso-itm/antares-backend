@@ -1,3 +1,9 @@
+import { NewAssessmentsRequestDto } from '@assessments/dto/new-assessments-request.dto';
+import { UpdateAssessmentsRequestDto } from '@assessments/dto/update-assessments-request.dto';
+import { AssessmentsService } from '@assessments/services/assessments.service';
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { Assessments } from '@entities/assessments/assessments.entity';
 import {
   Body,
   Controller,
@@ -9,12 +15,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { Assessments } from '../../../common/modules/persistence/entities';
-import { NewAssessmentsRequestDto, UpdateAssessmentsRequestDto } from '../dto';
-import { AssessmentsService } from '../services';
 
 @Controller('assessments')
 export class AssessmentsController {

@@ -1,3 +1,6 @@
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { RolesSecurity } from '@entities/security/roles-security.entity';
 import {
   Body,
   Controller,
@@ -9,24 +12,22 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { RolesProjectManagementService } from '@projects-management/services/roles-project-management.service';
+import { FindAllResponse } from '@repositories/find-all.response';
+import { NewRoleSecurityDto } from '@security/dto/new-role-security.dto';
+import { UpdateRoleSecurityDto } from '@security/dto/update-role-security.dto';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { Roles } from '../../../common/modules/persistence/entities/security';
-import { NewRoleDto } from '../dto/new-role.dto';
-import { UpdateRoleDto } from '../dto/update-role.dto';
-import { RolesService } from '../services';
 
 @Controller('roles')
-export class RolesController {
-  constructor(private readonly service: RolesService) {}
+export class RolesProjectManagementController {
+  constructor(private readonly service: RolesProjectManagementService) {}
 
   @Get()
   async findAll(
     @Query('page', ParseIntPipe) page: number,
     @Query('size', ParseIntPipe) size: number,
     @Query('search') search?: string,
-  ): Promise<ResponseDto<FindAllResponse<Roles>>> {
+  ): Promise<ResponseDto<FindAllResponse<RolesSecurity>>> {
     const data = await this.service.findAll(
       page,
       size,
@@ -41,14 +42,16 @@ export class RolesController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<ResponseDto<Roles>> {
+  async findOne(@Param('id') id: string): Promise<ResponseDto<RolesSecurity>> {
     const data = await this.service.findOne('roleId', id);
     return CrudController.response(data);
   }
 
   @Post()
-  async create(@Body() request: NewRoleDto): Promise<ResponseDto<Roles>> {
-    const newData = new Roles();
+  async create(
+    @Body() request: NewRoleSecurityDto,
+  ): Promise<ResponseDto<RolesSecurity>> {
+    const newData = new RolesSecurity();
     newData.roleId = ulid();
     newData.name = request.name;
     newData.description = request.description;
@@ -59,10 +62,10 @@ export class RolesController {
 
   @Put(':id')
   async update(
-    @Body() request: UpdateRoleDto,
+    @Body() request: UpdateRoleSecurityDto,
     @Param('id') id: string,
-  ): Promise<ResponseDto<Roles>> {
-    const update = new Roles();
+  ): Promise<ResponseDto<RolesSecurity>> {
+    const update = new RolesSecurity();
     if (request.name) {
       update.name = request.name;
     }

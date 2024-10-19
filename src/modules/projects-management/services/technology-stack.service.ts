@@ -1,12 +1,10 @@
+import { BaseService } from '@common/services/service.abstract';
+import Result from '@common/utils/result/result.util';
+import { TechnologyStack } from '@entities/projects-management/technology-stack.entity';
 import { Injectable } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
+import TechnologyStackRepository from '@repositories/projects-management/technology-stack.repository';
 import { Brackets, FindOptionsOrder } from 'typeorm';
-import { Result } from '../../../common';
-import { TechnologyStack } from '../../../common/modules/persistence/entities';
-import {
-  FindAllResponse,
-  TechnologyStackRepository,
-} from '../../../common/modules/persistence/repositories';
-import { BaseService } from '../../../common/services/service.abstract';
 
 @Injectable()
 export class TechnologyStackService extends BaseService<
@@ -43,7 +41,7 @@ export class TechnologyStackService extends BaseService<
       queryBuilder.andWhere(
         new Brackets((qb) => {
           searchField.forEach((field, index) => {
-            const condition = `(unaccent(${field as string}) ILIKE unaccent(:searchTerm) OR word_similarity(${field as string}, :searchTerm) > 0.2)`;
+            const condition = `(unaccent(${field}) ILIKE unaccent(:searchTerm) OR word_similarity(${field}, :searchTerm) > 0.2)`;
 
             if (index === 0) {
               qb.where(condition, { searchTerm: `%${searchTerm}%` });

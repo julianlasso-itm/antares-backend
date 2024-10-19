@@ -1,3 +1,6 @@
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { RolePerProfessional } from '@entities/projects-management/role-per-professional.entity';
 import {
   Body,
   Controller,
@@ -9,15 +12,11 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { NewRolePerProfessionalDto } from '@projects-management/dto/new-role-per-professional.dto';
+import { UpdateRolePerProfessionalDto } from '@projects-management/dto/update-role-per-professional.dto';
+import { RolePerProfessionalService } from '@projects-management/services/role-per-professional.service';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { RolePerProfessional } from '../../../common/modules/persistence/entities';
-import {
-  NewRolePerProfessionalDto,
-  UpdateRolePerProfessionalDto,
-} from '../dto';
-import { RolePerProfessionalService } from '../services';
 
 @Controller('role-per-professional')
 export class RolePerProfessionalController {

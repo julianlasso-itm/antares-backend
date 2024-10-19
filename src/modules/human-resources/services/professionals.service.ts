@@ -1,7 +1,7 @@
+import { BaseService } from '@common/services/service.abstract';
+import { Professionals } from '@entities/human-resources/professionals.entity';
 import { Injectable } from '@nestjs/common';
-import { BaseService } from '../../../common';
-import { Professionals } from '../../../common/modules/persistence/entities';
-import { ProfessionalsRepository } from '../../../common/modules/persistence/repositories';
+import ProfessionalsRepository from '@repositories/human-resources/professionals.repository';
 
 @Injectable()
 export class ProfessionalsService extends BaseService<

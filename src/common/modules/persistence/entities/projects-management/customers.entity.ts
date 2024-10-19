@@ -7,7 +7,7 @@ import { Projects } from './projects.entity';
 })
 @Index('customers_cus_name_Idx', ['name'], {
   unique: true,
-  where: 'deletedAt IS NULL',
+  where: 'cus_deleted_at IS NULL',
 })
 @Entity('pm_customers', {
   schema: 'projects_management',

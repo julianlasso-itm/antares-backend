@@ -1,3 +1,4 @@
+import { TechnologyItems } from '@entities/technologies/technology-items.entity';
 import {
   Column,
   Entity,
@@ -6,14 +7,13 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { TechnologyItems } from '../technologies';
 import { Projects } from './projects.entity';
 import { TechnologyPerRole } from './technology-per-role.entity';
 
 @Index(
   'technology_stack_tech_item_id_project_id_Idx',
   ['projectId', 'technologyItemId'],
-  { unique: true, where: 'deletedAt IS NULL' },
+  { unique: true, where: 'ts_deleted_at IS NULL' },
 )
 @Index('technology_stack_ts_status_Idx', ['status', 'deletedAt'], {})
 @Index('pkpm_technology_stack', ['technologyStackId'], { unique: true })

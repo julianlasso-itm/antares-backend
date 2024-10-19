@@ -1,7 +1,7 @@
+import { BaseService } from '@common/services/service.abstract';
+import { UserPerRole } from '@entities/security/user-per-role.entity';
 import { Injectable } from '@nestjs/common';
-import { BaseService } from '../../../common';
-import { UserPerRole } from '../../../common/modules/persistence/entities/security';
-import { UserPerRoleRepository } from '../../../common/modules/persistence/repositories/security';
+import UserPerRoleRepository from '@repositories/security/user-per-role.repository';
 
 @Injectable()
 export class UserPerRoleService extends BaseService<

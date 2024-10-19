@@ -1,3 +1,9 @@
+import { NewDomainKnowledgeLevelsRequestDto } from '@assessments/dto/new-domain-knowledge-levels-request.dto';
+import { UpdateDomainKnowledgeLevelsRequestDto } from '@assessments/dto/update-domain-knowledge-levels-request.dto';
+import { DomainKnowledgeLevelsService } from '@assessments/services/domain-knowledge-levels.service';
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { DomainKnowledgeLevels } from '@entities/assessments/domain-knowledge-levels.entity';
 import {
   Body,
   Controller,
@@ -9,15 +15,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { DomainKnowledgeLevels } from '../../../common/modules/persistence/entities';
-import {
-  NewDomainKnowledgeLevelsRequestDto,
-  UpdateDomainKnowledgeLevelsRequestDto,
-} from '../dto';
-import { DomainKnowledgeLevelsService } from '../services';
 
 @Controller('domain-knowledge-levels')
 export class DomainKnowledgeLevelsController {

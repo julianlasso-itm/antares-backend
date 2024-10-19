@@ -1,3 +1,6 @@
+import { ResponseDto } from '@common/dto/response.dto';
+import { CrudController } from '@common/utils/crud.controller';
+import { TechnologyPerRole } from '@entities/projects-management/technology-per-role.entity';
 import {
   Body,
   Controller,
@@ -9,12 +12,11 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { NewTechnologyPerRoleDto } from '@projects-management/dto/new-technology-per-role.dto';
+import { UpdateTechnologyPerRoleDto } from '@projects-management/dto/update-technology-per-role.dto';
+import { TechnologyPerRoleService } from '@projects-management/services/technology-per-role.service';
+import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
-import { CrudController, ResponseDto } from '../../../common';
-import { FindAllResponse } from '../../../common/modules/persistence';
-import { TechnologyPerRole } from '../../../common/modules/persistence/entities';
-import { NewTechnologyPerRoleDto, UpdateTechnologyPerRoleDto } from '../dto';
-import { TechnologyPerRoleService } from '../services';
 
 @Controller('technology-per-role')
 export class TechnologyPerRoleController {

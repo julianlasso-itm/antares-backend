@@ -1,7 +1,7 @@
+import { BaseService } from '@common/services/service.abstract';
+import { KnowledgeGaps } from '@entities/knowledge-gaps/knowledge-gaps.entity';
 import { Injectable } from '@nestjs/common';
-import { KnowledgeGaps } from '../../../common/modules/persistence/entities';
-import { KnowledgeGapsRepository } from '../../../common/modules/persistence/repositories';
-import { BaseService } from '../../../common/services/service.abstract';
+import KnowledgeGapsRepository from '@repositories/knowledge-gaps/knowledge-gaps.repository';
 
 @Injectable()
 export class KnowledgeGapsService extends BaseService<
