@@ -1,6 +1,6 @@
 import { ResponseDto } from '@common/dto/response.dto';
 import { CrudController } from '@common/utils/crud.controller';
-import { RolesSecurity } from '@entities/security/roles-security.entity';
+import { RolesProjectManagement } from '@entities/projects-management/roles-projects-management.entity';
 import {
   Body,
   Controller,
@@ -27,7 +27,7 @@ export class RolesProjectManagementController {
     @Query('page', ParseIntPipe) page: number,
     @Query('size', ParseIntPipe) size: number,
     @Query('search') search?: string,
-  ): Promise<ResponseDto<FindAllResponse<RolesSecurity>>> {
+  ): Promise<ResponseDto<FindAllResponse<RolesProjectManagement>>> {
     const data = await this.service.findAll(
       page,
       size,
@@ -42,7 +42,9 @@ export class RolesProjectManagementController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<ResponseDto<RolesSecurity>> {
+  async findOne(
+    @Param('id') id: string,
+  ): Promise<ResponseDto<RolesProjectManagement>> {
     const data = await this.service.findOne('roleId', id);
     return CrudController.response(data);
   }
@@ -50,8 +52,8 @@ export class RolesProjectManagementController {
   @Post()
   async create(
     @Body() request: NewRoleSecurityDto,
-  ): Promise<ResponseDto<RolesSecurity>> {
-    const newData = new RolesSecurity();
+  ): Promise<ResponseDto<RolesProjectManagement>> {
+    const newData = new RolesProjectManagement();
     newData.roleId = ulid();
     newData.name = request.name;
     newData.description = request.description;
@@ -64,8 +66,8 @@ export class RolesProjectManagementController {
   async update(
     @Body() request: UpdateRoleSecurityDto,
     @Param('id') id: string,
-  ): Promise<ResponseDto<RolesSecurity>> {
-    const update = new RolesSecurity();
+  ): Promise<ResponseDto<RolesProjectManagement>> {
+    const update = new RolesProjectManagement();
     if (request.name) {
       update.name = request.name;
     }

@@ -1,14 +1,14 @@
 import { BaseService } from '@common/services/service.abstract';
-import { RolesSecurity } from '@entities/security/roles-security.entity';
+import { RolesProjectManagement } from '@entities/projects-management/roles-projects-management.entity';
 import { Injectable } from '@nestjs/common';
-import RolesSecurityRepository from '@repositories/security/roles-security.repository';
+import RolesProjectManagementRepository from '@repositories/projects-management/roles-project-management.repository';
 
 @Injectable()
 export class RolesProjectManagementService extends BaseService<
-  RolesSecurity,
-  RolesSecurityRepository
+  RolesProjectManagement,
+  RolesProjectManagementRepository
 > {
-  constructor(protected readonly repository: RolesSecurityRepository) {
+  constructor(protected readonly repository: RolesProjectManagementRepository) {
     super(repository);
   }
 }

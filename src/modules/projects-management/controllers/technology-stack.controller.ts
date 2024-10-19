@@ -63,7 +63,7 @@ export class TechnologyStackController {
     newData.projectId = request.projectId;
     newData.technologyItemId = request.technologyItemId;
     newData.weight =
-      request.weight?.toString().length === 0 ? null : request.weight;
+      request.weight?.toString().length === 0 ? null : (request.weight ?? null);
 
     const data = await this.service.create(newData);
     return CrudController.response(data);

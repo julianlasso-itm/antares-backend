@@ -3,7 +3,7 @@ import { IsBoolean, IsOptional, IsString, MaxLength } from 'class-validator';
 export class UpdateRoleProjectManagementDto {
   @IsOptional()
   @IsString()
-  @MaxLength(100)
+  @MaxLength(500)
   name?: string;
 
   @IsOptional()
