@@ -9,7 +9,6 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { FindAllResponse } from '../../../common/modules/persistence';
@@ -17,7 +16,6 @@ import { TechnologyItems } from '../../../common/modules/persistence/entities';
 import { NewTechnologyItemDto, UpdateTechnologyItemDto } from '../dto';
 import { TechnologyItemsService } from '../services';
 
-@ApiTags('technologies')
 @Controller('items')
 export class TechnologyItemsController {
   constructor(private readonly service: TechnologyItemsService) {}

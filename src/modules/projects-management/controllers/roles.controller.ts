@@ -9,7 +9,6 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { FindAllResponse } from '../../../common/modules/persistence';
@@ -17,7 +16,6 @@ import { Roles } from '../../../common/modules/persistence/entities';
 import { NewRoleDto, UpdateRoleDto } from '../dto';
 import { RolesService } from '../services';
 
-@ApiTags('projects-management')
 @Controller('roles')
 export class RolesController {
   constructor(private readonly service: RolesService) {}

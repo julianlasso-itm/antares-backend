@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { BaseService } from '../../../common';
 import { KnowledgeGapNotes } from '../../../common/modules/persistence/entities';
 import { KnowledgeGapNotesRepository } from '../../../common/modules/persistence/repositories';
-import { BaseService } from '../../../common';
 
 @Injectable()
 export class KnowledgeGapNotesService extends BaseService<

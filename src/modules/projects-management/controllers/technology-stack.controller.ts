@@ -9,7 +9,6 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { FindAllResponse } from '../../../common/modules/persistence';
@@ -17,7 +16,6 @@ import { TechnologyStack } from '../../../common/modules/persistence/entities';
 import { NewTechnologyStackDto, UpdateTechnologyStackDto } from '../dto';
 import { TechnologyStackService } from '../services';
 
-@ApiTags('projects-management')
 @Controller('technology-stack')
 export class TechnologyStackController {
   constructor(private readonly service: TechnologyStackService) {}

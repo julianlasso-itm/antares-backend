@@ -9,7 +9,6 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { FindAllResponse } from '../../../common/modules/persistence';
@@ -18,7 +17,6 @@ import { NewUserPerRoleDto } from '../dto/new-user-per-role.dto';
 import { UpdateUserPerRoleDto } from '../dto/update-user-per-role.dto';
 import { UserPerRoleService } from '../services/user-per-role.service';
 
-@ApiTags('security')
 @Controller('user-per-role')
 export class UserPerRoleController {
   constructor(private readonly service: UserPerRoleService) {}
@@ -35,13 +33,6 @@ export class UserPerRoleController {
     return CrudController.response(data);
   }
 
-  @ApiParam({
-    name: 'id',
-    description: 'Identificador del usuario con rol en el sistema',
-    example: '01J8XM2FC49N58RTHH671GPFVV',
-    required: true,
-    type: String,
-  })
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<ResponseDto<UserPerRole>> {
     const data = await this.service.findOne('userPerRoleId', id);
@@ -61,13 +52,6 @@ export class UserPerRoleController {
     return CrudController.response(data);
   }
 
-  @ApiParam({
-    name: 'id',
-    description: 'Identificador del usuario con rol en el sistema',
-    example: '01J8XM2FC49N58RTHH671GPFVV',
-    required: true,
-    type: String,
-  })
   @Put(':id')
   async update(
     @Body() request: UpdateUserPerRoleDto,
@@ -88,13 +72,6 @@ export class UserPerRoleController {
     return CrudController.response(data);
   }
 
-  @ApiParam({
-    name: 'id',
-    description: 'Identificador del usuario con rol en el sistema',
-    example: '01J8XM2FC49N58RTHH671GPFVV',
-    required: true,
-    type: String,
-  })
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<ResponseDto<boolean>> {
     const data = await this.service.delete('userPerRoleId', id);

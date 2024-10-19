@@ -1,4 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { TechnologyItems } from './technology-items.entity';
 
@@ -13,13 +12,6 @@ import { TechnologyItems } from './technology-items.entity';
   comment: 'Tipos de tecnologías',
 })
 export class TechnologyTypes {
-  @ApiProperty({
-    description: 'Identificador del tipo de tecnología',
-    example: '01J8XM2FC49N58RTHH671GPFVV',
-    required: true,
-    maxLength: 26,
-    type: String,
-  })
   @Column('character varying', {
     primary: true,
     name: 'tech_type_id',
@@ -28,13 +20,6 @@ export class TechnologyTypes {
   })
   technologyTypeId: string;
 
-  @ApiProperty({
-    description: 'Nombre del tipo de tecnología',
-    example: 'Lenguaje de programación',
-    required: true,
-    maxLength: 500,
-    type: String,
-  })
   @Column('character varying', {
     name: 'tech_type_name',
     length: 500,
@@ -42,13 +27,6 @@ export class TechnologyTypes {
   })
   name: string;
 
-  @ApiProperty({
-    description: 'Descripción del tipo de tecnología',
-    example: 'Lenguaje de programación para el desarrollo de aplicaciones',
-    required: false,
-    maxLength: 2048,
-    type: String,
-  })
   @Column('character varying', {
     name: 'tech_type_description',
     nullable: true,
@@ -57,12 +35,6 @@ export class TechnologyTypes {
   })
   description: string | null;
 
-  @ApiProperty({
-    description: 'Estado del registro. True activo, False inactivo',
-    example: true,
-    required: true,
-    type: Boolean,
-  })
   @Column('boolean', {
     name: 'tech_type_status',
     default: () => 'true',
@@ -70,12 +42,6 @@ export class TechnologyTypes {
   })
   status: boolean;
 
-  @ApiProperty({
-    description: 'Fecha y hora de creación del registro',
-    example: '2023-03-30T12:00:00.000Z',
-    required: true,
-    type: Date,
-  })
   @Column('timestamp without time zone', {
     name: 'tech_type_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -83,12 +49,6 @@ export class TechnologyTypes {
   })
   createdAt: Date;
 
-  @ApiProperty({
-    description: 'Fecha y hora de última actualización del registro',
-    example: '2023-03-30T12:00:00.000Z',
-    required: false,
-    type: Date,
-  })
   @Column('timestamp without time zone', {
     name: 'tech_type_updated_at',
     nullable: true,
@@ -96,12 +56,6 @@ export class TechnologyTypes {
   })
   updatedAt: Date | null;
 
-  @ApiProperty({
-    description: 'Fecha y hora de borrado del registro',
-    example: '2023-03-30T12:00:00.000Z',
-    required: false,
-    type: Date,
-  })
   @Column('timestamp without time zone', {
     name: 'tech_type_deleted_at',
     nullable: true,

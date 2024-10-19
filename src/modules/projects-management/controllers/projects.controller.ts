@@ -9,7 +9,6 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { FindAllResponse } from '../../../common/modules/persistence';
@@ -17,7 +16,6 @@ import { Projects } from '../../../common/modules/persistence/entities';
 import { NewProjectDto, UpdateProjectDto } from '../dto';
 import { ProjectsService } from '../services';
 
-@ApiTags('projects-management')
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly service: ProjectsService) {}

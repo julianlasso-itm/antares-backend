@@ -65,8 +65,7 @@ export class ProjectsService extends BaseService<Projects, ProjectsRepository> {
     }
 
     // Relaciones
-    queryBuilder
-      .leftJoinAndSelect('projects.customer', 'customer');
+    queryBuilder.leftJoinAndSelect('projects.customer', 'customer');
 
     // Selección de campos específicos
     queryBuilder.select([

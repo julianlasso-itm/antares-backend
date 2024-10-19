@@ -9,7 +9,6 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { FindAllResponse } from '../../../common/modules/persistence';
@@ -17,7 +16,6 @@ import { DomainKnowledge } from '../../../common/modules/persistence/entities';
 import { NewDomainKnowledgeDto, UpdateDomainKnowledgeDto } from '../dto';
 import { DomainKnowledgeService } from '../services';
 
-@ApiTags('assessments')
 @Controller('domain-knowledge')
 export class DomainKnowledgeController {
   constructor(private readonly service: DomainKnowledgeService) {}

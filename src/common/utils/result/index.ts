@@ -1,1 +1,1 @@
-export {default as Result} from './result.util';
+export { default as Result } from './result.util';

@@ -9,7 +9,6 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { ulid } from 'ulid';
 import { CrudController, ResponseDto } from '../../../common';
 import { FindAllResponse } from '../../../common/modules/persistence';
@@ -17,7 +16,6 @@ import { RatingScale } from '../../../common/modules/persistence/entities';
 import { NewRatingScaleRequestDto, UpdateRatingScaleRequestDto } from '../dto';
 import { RatingScaleService } from '../services';
 
-@ApiTags('assessments')
 @Controller('rating-scale')
 export class RatingScaleController {
   constructor(private readonly service: RatingScaleService) {}

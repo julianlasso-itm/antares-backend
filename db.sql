@@ -1,23 +1,22 @@
 /************ Update: Schemas ***************/
 
 /* Add Schema: assessments */
-CREATE SCHEMA assessments;
+CREATE SCHEMA IF NOT EXISTS assessments;
 
 /* Add Schema: human_resources */
-CREATE SCHEMA human_resources;
+CREATE SCHEMA IF NOT EXISTS human_resources;
 
 /* Add Schema: knowledge_gaps */
-CREATE SCHEMA knowledge_gaps;
+CREATE SCHEMA IF NOT EXISTS knowledge_gaps;
 
 /* Add Schema: projects_management */
-CREATE SCHEMA projects_management;
+CREATE SCHEMA IF NOT EXISTS projects_management;
 
 /* Add Schema: security */
-CREATE SCHEMA security;
+CREATE SCHEMA IF NOT EXISTS security;
 
 /* Add Schema: technologies */
-CREATE SCHEMA technologies;
-
+CREATE SCHEMA IF NOT EXISTS technologies;
 
 
 /************ Update: Tables ***************/

@@ -1,4 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
 import { ConfigurationLevels } from './configuration-levels.entity';
 import { Levels } from './levels.entity';
@@ -17,13 +16,6 @@ import { Levels } from './levels.entity';
   comment: 'Niveles a usar en una configuración para el sistema en general',
 })
 export class ConfigurationPerLevel {
-  @ApiProperty({
-    description: 'Identificador del nivel en una configuración',
-    example: '01J8XM2FC49N58RTHH671GPFVV',
-    required: true,
-    maxLength: 26,
-    type: String,
-  })
   @Column('character varying', {
     primary: true,
     name: 'cpl_id',
@@ -32,13 +24,6 @@ export class ConfigurationPerLevel {
   })
   configurationPerLevelId: string;
 
-  @ApiProperty({
-    description: 'Identificador de la configuración usada',
-    example: '01J8XM2FC49N58RTHH671GPFVV',
-    required: true,
-    maxLength: 26,
-    type: String,
-  })
   @Column('character varying', {
     name: 'cnf_lvl_id',
     length: 26,
@@ -46,14 +31,6 @@ export class ConfigurationPerLevel {
   })
   configurationLevelId: string;
 
-  @ApiProperty({
-    description:
-      'Identificador del nivel a usar en el sistema. Ejemplo: Junior, Middle o Senior',
-    example: '01J8XM2FC49N58RTHH671GPFVV',
-    required: true,
-    maxLength: 26,
-    type: String,
-  })
   @Column('character varying', {
     name: 'level_id',
     length: 26,
@@ -62,26 +39,12 @@ export class ConfigurationPerLevel {
   })
   levelId: string;
 
-  @ApiProperty({
-    description: 'Posición del nivel en la configuración. Ejemplo 1, 2, 3',
-    example: 1,
-    examples: [1, 2, 3],
-    required: true,
-    type: Number,
-  })
   @Column('integer', {
     name: 'cpl_position',
     comment: 'Posición del nivel en la configuración. Ejemplo 1, 2, 3',
   })
   position: number;
 
-  @ApiProperty({
-    description: 'Estado del registro. True activo, False inactivo',
-    example: true,
-    examples: [true, false],
-    required: true,
-    type: Boolean,
-  })
   @Column('boolean', {
     name: 'cpl_status',
     default: () => 'true',
@@ -89,12 +52,6 @@ export class ConfigurationPerLevel {
   })
   status: boolean;
 
-  @ApiProperty({
-    description: 'Fecha y hora de creación del registro',
-    example: '2023-03-30T12:00:00.000Z',
-    required: true,
-    type: Date,
-  })
   @Column('timestamp without time zone', {
     name: 'cpl_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -102,13 +59,6 @@ export class ConfigurationPerLevel {
   })
   createdAt: Date;
 
-  @ApiProperty({
-    description: 'Fecha y hora de última actualización del registro',
-    example: '2023-03-30T12:00:00.000Z',
-    examples: ['2023-03-30T12:00:00.000Z', null],
-    required: false,
-    type: Date,
-  })
   @Column('timestamp without time zone', {
     name: 'cpl_updated_at',
     nullable: true,
@@ -116,13 +66,6 @@ export class ConfigurationPerLevel {
   })
   updatedAt: Date | null;
 
-  @ApiProperty({
-    description: 'Fecha y hora de borrado del registro',
-    example: '2023-03-30T12:00:00.000Z',
-    examples: ['2023-03-30T12:00:00.000Z', null],
-    required: false,
-    type: Date,
-  })
   @Column('timestamp without time zone', {
     name: 'cpl_deleted_at',
     nullable: true,
