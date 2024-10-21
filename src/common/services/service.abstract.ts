@@ -15,6 +15,8 @@ export abstract class BaseService<
     order?: FindOptionsOrder<Entity>,
     searchField?: Array<keyof Entity> | Array<string>,
     searchTerm?: string,
+    filter?: string,
+    withDisabled?: boolean,
   ): Promise<Result<FindAllResponse<Entity>>> {
     return await this.repository.findAll(
       page,
@@ -22,6 +24,7 @@ export abstract class BaseService<
       searchField,
       searchTerm,
       order,
+      withDisabled,
     );
   }
 

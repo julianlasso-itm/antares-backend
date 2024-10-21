@@ -47,10 +47,17 @@ export abstract class BaseRepository<Entity extends ObjectLiteral> {
     searchField?: Array<keyof Entity>,
     searchTerm?: string,
     order?: FindOptionsOrder<Entity>,
+    withDisabled?: boolean,
   ): Promise<Result<FindAllResponse<Entity>>> {
     const queryBuilder = this.repository.createQueryBuilder('entity');
 
     queryBuilder.where('entity.deletedAt IS NULL');
+
+    if (withDisabled === false) {
+      queryBuilder.andWhere('entity.status != :withDisabled', {
+        withDisabled,
+      });
+    }
 
     if (searchField && searchTerm) {
       searchField.forEach((field, index) => {
