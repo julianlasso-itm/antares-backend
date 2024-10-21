@@ -3,6 +3,7 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   MaxLength,
 } from 'class-validator';
@@ -30,6 +31,7 @@ export class NewProfessionalsRequestDto {
   @MaxLength(500)
   email: string;
 
+  @IsOptional()
   @IsString()
   @MaxLength(1024)
   photo?: string;
