@@ -1,11 +1,9 @@
 import {
   IsNotEmpty,
   IsNumberString,
-  IsOptional,
   IsString,
   Matches,
   MaxLength,
-  ValidateIf,
 } from 'class-validator';
 
 export class NewTechnologyStackDto {
@@ -19,13 +17,10 @@ export class NewTechnologyStackDto {
   @MaxLength(26)
   technologyItemId: string;
 
-  @IsOptional()
-  @ValidateIf(
-    (object: NewTechnologyStackDto) => object.weight?.toString() !== '',
-  )
+  @IsNotEmpty()
   @IsNumberString()
   @Matches(/^(?:0(?:\.\d{1,2})?|1(?:\.0{1,2})?)$/, {
     message: 'weight must be a number between 0.00 and 1.00',
   })
-  weight?: number | null;
+  weight: string;
 }

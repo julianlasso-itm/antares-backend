@@ -20,9 +20,6 @@ export class UpdateTechnologyStackDto {
   technologyItemId?: string;
 
   @IsOptional()
-  @ValidateIf(
-    (object: UpdateTechnologyStackDto) => object.weight?.toString() !== '',
-  )
   @IsNumberString()
   @Matches(/^(?:0(?:\.\d{1,2})?|1(?:\.0{1,2})?)$/, {
     message: 'weight must be a number between 0.00 and 1.00',

@@ -22,12 +22,19 @@ export class TechnologyStackService extends BaseService<
     searchField?: Array<keyof TechnologyStack> | Array<string>,
     searchTerm?: string,
     filter?: string,
+    withDisabled?: boolean,
   ): Promise<Result<FindAllResponse<TechnologyStack>>> {
     const repository = this.repository.repository;
     const queryBuilder = repository.createQueryBuilder('technologyStack');
 
     // Condición para excluir registros eliminados
     queryBuilder.where('technologyStack.deletedAt IS NULL');
+
+    if (withDisabled === false) {
+      queryBuilder.andWhere('technologyStack.status != :withDisabled', {
+        withDisabled,
+      });
+    }
 
     // Agregar condición de filtro si existe
     if (filter) {

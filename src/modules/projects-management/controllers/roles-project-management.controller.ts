@@ -27,6 +27,8 @@ export class RolesProjectManagementController {
     @Query('page', ParseIntPipe) page: number,
     @Query('size', ParseIntPipe) size: number,
     @Query('search') search?: string,
+    @Query('filter') filter?: string,
+    @Query('withDisabled') withDisabled?: boolean,
   ): Promise<ResponseDto<FindAllResponse<RolesProjectManagement>>> {
     const data = await this.service.findAll(
       page,
@@ -37,6 +39,8 @@ export class RolesProjectManagementController {
       },
       ['name', 'description'],
       search,
+      filter,
+      withDisabled,
     );
     return CrudController.response(data);
   }

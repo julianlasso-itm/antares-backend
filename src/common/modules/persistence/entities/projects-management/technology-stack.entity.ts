@@ -47,12 +47,12 @@ export class TechnologyStack {
 
   @Column('numeric', {
     name: 'ts_weight',
-    nullable: true,
+    default: () => '0.00',
     precision: 3,
     scale: 2,
     comment: 'Peso (importancia) de la tecnología ; puede ir de 0.00 a 1.00',
   })
-  weight: number | null;
+  weight: number;
 
   @Column('boolean', {
     name: 'ts_status',

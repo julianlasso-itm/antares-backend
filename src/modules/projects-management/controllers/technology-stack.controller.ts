@@ -28,7 +28,9 @@ export class TechnologyStackController {
     @Query('size', ParseIntPipe) size: number,
     @Query('search') search?: string,
     @Query('filter') filter?: string,
+    @Query('withDisabled') withDisabled?: boolean,
   ): Promise<ResponseDto<FindAllResponse<TechnologyStack>>> {
+    console.log('withDisabled', withDisabled);
     const data = await this.service.findAll(
       page,
       size,
@@ -42,7 +44,21 @@ export class TechnologyStackController {
       ['project.name', 'technologyItem.name'],
       search,
       filter,
+      withDisabled,
     );
+    return CrudController.response(data);
+  }
+
+  @Get('find-one')
+  async findOneWithFilter(
+    @Query('projectId') projectId: string,
+    @Query('technologyItemId') technologyItemId: string,
+  ): Promise<ResponseDto<TechnologyStack>> {
+    console.log('TechnologyStackController.findOneWithFilter');
+    const data = await this.service.findOneWithFilter({
+      projectId,
+      technologyItemId,
+    });
     return CrudController.response(data);
   }
 
@@ -50,6 +66,7 @@ export class TechnologyStackController {
   async findOne(
     @Param('id') id: string,
   ): Promise<ResponseDto<TechnologyStack>> {
+    console.log('TechnologyStackController.findOne', id);
     const data = await this.service.findOne('technologyStackId', id);
     return CrudController.response(data);
   }
@@ -62,8 +79,7 @@ export class TechnologyStackController {
     newData.technologyStackId = ulid();
     newData.projectId = request.projectId;
     newData.technologyItemId = request.technologyItemId;
-    newData.weight =
-      request.weight?.toString().length === 0 ? null : (request.weight ?? null);
+    newData.weight = Number(request.weight);
 
     const data = await this.service.create(newData);
     return CrudController.response(data);
@@ -82,8 +98,7 @@ export class TechnologyStackController {
       update.technologyItemId = request.technologyItemId;
     }
     if (request.weight) {
-      update.weight =
-        request.weight.toString().length === 0 ? null : request.weight;
+      update.weight = request.weight;
     }
     if (request.status !== undefined) {
       update.status = request.status;

@@ -26,11 +26,33 @@ export class TechnologyPerRoleController {
   async findAll(
     @Query('page', ParseIntPipe) page: number,
     @Query('size', ParseIntPipe) size: number,
+    @Query('search') search?: string,
+    @Query('filter') filter?: string,
+    @Query('withDisabled') withDisabled?: boolean,
   ): Promise<ResponseDto<FindAllResponse<TechnologyPerRole>>> {
-    const data = await this.service.findAll(page, size, {
-      status: 'DESC',
-      createdAt: 'ASC',
-    });
+    const data = await this.service.findAll(
+      page,
+      size,
+      {
+        // technologyStack: {
+        //   project: {
+        //     customer: {
+        //       name: 'ASC',
+        //     },
+        //     name: 'ASC',
+        //   },
+        // },
+        // role: {
+        //   name: 'ASC',
+        // },
+        status: 'DESC',
+      },
+      // ['role.name', 'technologyStack.project.name', 'technologyStack.technologyItem.name'],
+      [],
+      search,
+      filter,
+      withDisabled,
+    );
     return CrudController.response(data);
   }
 

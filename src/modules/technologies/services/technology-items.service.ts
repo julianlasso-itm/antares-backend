@@ -20,9 +20,10 @@ export class TechnologyItemsService extends BaseService<
     page?: number,
     size?: number,
     order?: FindOptionsOrder<TechnologyItems>,
-    searchField?: Array<keyof TechnologyItems>,
+    searchField?: Array<keyof TechnologyItems> | Array<string>,
     searchTerm?: string,
     filter?: string,
+    withDisabled?: boolean,
   ): Promise<Result<FindAllResponse<TechnologyItems>>> {
     const repository = this.repository.repository;
     const queryBuilder = repository.createQueryBuilder('technologyItem');
@@ -42,7 +43,7 @@ export class TechnologyItemsService extends BaseService<
       queryBuilder.andWhere(
         new Brackets((qb) => {
           searchField.forEach((field, index) => {
-            const condition = `(unaccent(technologyItem.${field as string}) ILIKE unaccent(:searchTerm) OR word_similarity(technologyItem.${field as string}, :searchTerm) > 0.2)`;
+            const condition = `(unaccent(technologyItem.${field}) ILIKE unaccent(:searchTerm) OR word_similarity(technologyItem.${field}, :searchTerm) > 0.2)`;
 
             if (index === 0) {
               qb.where(condition, { searchTerm: `%${searchTerm}%` });
