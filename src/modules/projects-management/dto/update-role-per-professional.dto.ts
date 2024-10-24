@@ -12,13 +12,9 @@ export class UpdateRolePerProfessionalDto {
   professionalId?: string;
 
   @IsOptional()
-  @IsString()
-  @MaxLength(30)
   startDate?: Date;
 
   @IsOptional()
-  @IsString()
-  @MaxLength(30)
   endDate?: Date;
 
   @IsOptional()

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class NewRolePerProfessionalDto {
   @IsNotEmpty()
@@ -12,7 +12,8 @@ export class NewRolePerProfessionalDto {
   professionalId: string;
 
   @IsNotEmpty()
-  @IsString()
-  @MaxLength(30)
   startDate: Date;
+
+  @IsOptional()
+  endDate: Date | null;
 }

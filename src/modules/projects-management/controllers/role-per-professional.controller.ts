@@ -26,11 +26,22 @@ export class RolePerProfessionalController {
   async findAll(
     @Query('page', ParseIntPipe) page: number,
     @Query('size', ParseIntPipe) size: number,
+    @Query('search') search?: string,
+    @Query('filter') filter?: string,
+    @Query('withDisabled') withDisabled?: boolean,
   ): Promise<ResponseDto<FindAllResponse<RolePerProfessional>>> {
-    const data = await this.service.findAll(page, size, {
-      status: 'DESC',
-      createdAt: 'ASC',
-    });
+    const data = await this.service.findAll(
+      page,
+      size,
+      {
+        status: 'DESC',
+        createdAt: 'ASC',
+      },
+      ['role.name', 'professional.name'],
+      search,
+      filter,
+      withDisabled,
+    );
     return CrudController.response(data);
   }
 
@@ -51,6 +62,7 @@ export class RolePerProfessionalController {
     newData.roleId = request.roleId;
     newData.professionalId = request.professionalId;
     newData.startDate = request.startDate;
+    newData.endDate = request.endDate ?? null;
 
     const data = await this.service.create(newData);
     return CrudController.response(data);
