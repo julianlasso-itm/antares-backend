@@ -4,7 +4,7 @@ import { TechnologyPerRole } from '@entities/projects-management/technology-per-
 import { Injectable } from '@nestjs/common';
 import { FindAllResponse } from '@repositories/find-all.response';
 import TechnologyPerRoleRepository from '@repositories/projects-management/technology-per-role.repository';
-import { Brackets, FindOptionsOrder } from 'typeorm';
+import { Brackets, FindOptionsOrder, FindOptionsOrderValue } from 'typeorm';
 
 @Injectable()
 export class TechnologyPerRoleService extends BaseService<
@@ -18,7 +18,9 @@ export class TechnologyPerRoleService extends BaseService<
   override async findAll(
     page?: number,
     size?: number,
-    order?: FindOptionsOrder<TechnologyPerRole>,
+    order?:
+      | FindOptionsOrder<TechnologyPerRole>
+      | Record<string, Record<string, FindOptionsOrderValue>>,
     searchField?: Array<keyof TechnologyPerRole> | Array<string>,
     searchTerm?: string,
     filter?: string,
@@ -69,7 +71,7 @@ export class TechnologyPerRoleService extends BaseService<
       queryBuilder.andWhere(
         new Brackets((qb) => {
           searchField.forEach((field, index) => {
-            const condition = `(unaccent(${field}) ILIKE unaccent(:searchTerm) OR word_similarity(${field}, :searchTerm) > 0.2)`;
+            const condition = `(unaccent(${field as string}) ILIKE unaccent(:searchTerm) OR word_similarity(${field as string}, :searchTerm) > 0.2)`;
 
             if (index === 0) {
               qb.where(condition, { searchTerm: `%${searchTerm}%` });
@@ -81,23 +83,25 @@ export class TechnologyPerRoleService extends BaseService<
       );
     }
 
-    // Ordenar resultados si se especifica
-    // if (order) {
-    //   Object.entries(order).forEach(([key, value]) => {
-    //     if (typeof value === 'object') {
-    //       // Ordenar por el campo anidado: role.name
-    //       Object.entries(value).forEach(([subKey, subValue]) => {
-    //         queryBuilder.addOrderBy(
-    //           `${key}.${subKey}`,
-    //           subValue as 'ASC' | 'DESC',
-    //         );
-    //       });
-    //     } else {
-    //       // Ordenar por los campos simples de technologyPerRole
-    //       queryBuilder.addOrderBy(`${key}`, value as 'ASC' | 'DESC');
-    //     }
-    //   });
-    // }
+    if (order) {
+      Object.entries(order).forEach(([key, value]) => {
+        if (typeof value === 'object') {
+          // Ordenar por el campo anidado
+          Object.entries(value).forEach(([subKey, subValue]) => {
+            queryBuilder.addOrderBy(
+              `${key}.${subKey}`,
+              subValue as 'ASC' | 'DESC',
+            );
+          });
+        } else {
+          // Ordenar por los campos simples de technologyPerRole
+          queryBuilder.addOrderBy(
+            `technologyPerRole.${key}`,
+            value as 'ASC' | 'DESC',
+          );
+        }
+      });
+    }
 
     // Paginación
     if (page !== undefined && size !== undefined) {

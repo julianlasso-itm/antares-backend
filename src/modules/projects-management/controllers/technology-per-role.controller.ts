@@ -34,21 +34,21 @@ export class TechnologyPerRoleController {
       page,
       size,
       {
-        // technologyStack: {
-        //   project: {
-        //     customer: {
-        //       name: 'ASC',
-        //     },
-        //     name: 'ASC',
-        //   },
-        // },
-        // role: {
-        //   name: 'ASC',
-        // },
         status: 'DESC',
+        customer: {
+          name: 'ASC',
+        },
+        project: {
+          name: 'ASC',
+        },
+        role: {
+          name: 'ASC',
+        },
+        technologyItem: {
+          name: 'ASC',
+        },
       },
-      // ['role.name', 'technologyStack.project.name', 'technologyStack.technologyItem.name'],
-      [],
+      ['role.name', 'project.name', 'technologyItem.name', 'customer.name'],
       search,
       filter,
       withDisabled,

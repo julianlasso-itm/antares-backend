@@ -64,22 +64,25 @@ export class RolePerProfessionalService extends BaseService<
     }
 
     // Ordenar resultados si se especifica
-    // if (order) {
-    //   Object.entries(order).forEach(([key, value]) => {
-    //     if (typeof value === 'object') {
-    //       // Ordenar por el campo anidado: role.name
-    //       Object.entries(value).forEach(([subKey, subValue]) => {
-    //         queryBuilder.addOrderBy(
-    //           `${key}.${subKey}`,
-    //           subValue as 'ASC' | 'DESC',
-    //         );
-    //       });
-    //     } else {
-    //       // Ordenar por los campos simples de rolePerProfessional
-    //       queryBuilder.addOrderBy(`${key}`, value as 'ASC' | 'DESC');
-    //     }
-    //   });
-    // }
+    if (order) {
+      Object.entries(order).forEach(([key, value]) => {
+        if (typeof value === 'object') {
+          // Ordenar por el campo anidado: project.name
+          Object.entries(value).forEach(([subKey, subValue]) => {
+            queryBuilder.addOrderBy(
+              `${key}.${subKey}`,
+              subValue as 'ASC' | 'DESC',
+            );
+          });
+        } else {
+          // Ordenar por los campos simples de rolePerProfessional
+          queryBuilder.addOrderBy(
+            `rolePerProfessional.${key}`,
+            value as 'ASC' | 'DESC',
+          );
+        }
+      });
+    }
 
     // Paginación
     if (page !== undefined && size !== undefined) {
@@ -91,10 +94,12 @@ export class RolePerProfessionalService extends BaseService<
       .leftJoinAndSelect('rolePerProfessional.role', 'role')
       .leftJoinAndSelect('rolePerProfessional.professional', 'professional')
       .leftJoinAndSelect('role.technologyPerRoles', 'technologyPerRoles')
-      .leftJoinAndSelect('technologyPerRoles.technologyStack', 'technologyStack')
+      .leftJoinAndSelect(
+        'technologyPerRoles.technologyStack',
+        'technologyStack',
+      )
       .leftJoinAndSelect('technologyStack.project', 'project')
       .leftJoinAndSelect('project.customer', 'customer');
-
 
     // Selección de campos específicos
     queryBuilder.select([

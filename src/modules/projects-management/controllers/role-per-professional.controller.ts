@@ -35,7 +35,12 @@ export class RolePerProfessionalController {
       size,
       {
         status: 'DESC',
-        createdAt: 'ASC',
+        professional: {
+          name: 'ASC',
+        },
+        role: {
+          name: 'ASC',
+        },
       },
       ['role.name', 'professional.name'],
       search,
