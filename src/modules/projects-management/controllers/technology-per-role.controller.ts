@@ -56,6 +56,14 @@ export class TechnologyPerRoleController {
     return CrudController.response(data);
   }
 
+  @Get('find-only-roles-by-project')
+  async findOnlyRolesByProject(
+    @Query('projectId') projectId: string,
+  ): Promise<ResponseDto<FindAllResponse<{ roleId: string; name: string }>>> {
+    const data = await this.service.findOnlyRolesByProject(projectId);
+    return CrudController.response(data);
+  }
+
   @Get(':id')
   async findOne(
     @Param('id') id: string,

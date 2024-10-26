@@ -38,31 +38,26 @@ export class TechnologyPerRoleService extends BaseService<
       });
     }
 
+    // Agregar joins necesarios (solo una vez para cada tabla)
+    queryBuilder
+      .leftJoin('technologyPerRole.role', 'role')
+      .leftJoin('technologyPerRole.technologyStack', 'technologyStack')
+      .leftJoin('technologyStack.technologyItem', 'technologyItem')
+      .leftJoin('technologyStack.project', 'project')
+      .leftJoin('project.customer', 'customer');
+
     // Agregar condición de filtro si existe
     if (filter) {
-      queryBuilder.andWhere('technologyPerRole.roleId = :filter', {
-        filter,
-      });
-      queryBuilder.orWhere('technologyPerRole.technologyStackId = :filter', {
-        filter,
-      });
-      queryBuilder.orWhere(
-        'technologyPerRole.technologyStack.projectId = :filter',
-        {
-          filter,
-        },
-      );
-      queryBuilder.orWhere(
-        'technologyPerRole.technologyStack.technologyItemId = :filter',
-        {
-          filter,
-        },
-      );
-      queryBuilder.orWhere(
-        'technologyPerRole.technologyStack.project.customerId = :filter',
-        {
-          filter,
-        },
+      queryBuilder.andWhere(
+        new Brackets((qb) => {
+          qb.where('technologyPerRole.roleId = :filter', { filter })
+            .orWhere('technologyPerRole.technologyStackId = :filter', {
+              filter,
+            })
+            .orWhere('technologyStack.projectId = :filter', { filter })
+            .orWhere('technologyStack.technologyItemId = :filter', { filter })
+            .orWhere('project.customerId = :filter', { filter });
+        }),
       );
     }
 
@@ -71,7 +66,7 @@ export class TechnologyPerRoleService extends BaseService<
       queryBuilder.andWhere(
         new Brackets((qb) => {
           searchField.forEach((field, index) => {
-            const condition = `(unaccent(${field as string}) ILIKE unaccent(:searchTerm) OR word_similarity(${field as string}, :searchTerm) > 0.2)`;
+            const condition = `(unaccent(${field}) ILIKE unaccent(:searchTerm) OR word_similarity(${field as string}, :searchTerm) > 0.2)`;
 
             if (index === 0) {
               qb.where(condition, { searchTerm: `%${searchTerm}%` });
@@ -108,14 +103,6 @@ export class TechnologyPerRoleService extends BaseService<
       queryBuilder.skip(page * size).take(size);
     }
 
-    // Relaciones
-    queryBuilder
-      .leftJoinAndSelect('technologyPerRole.role', 'role')
-      .leftJoinAndSelect('technologyPerRole.technologyStack', 'technologyStack')
-      .leftJoinAndSelect('technologyStack.technologyItem', 'technologyItem')
-      .leftJoinAndSelect('technologyStack.project', 'project')
-      .leftJoinAndSelect('project.customer', 'customer');
-
     // Selección de campos específicos
     queryBuilder.select([
       'technologyPerRole.technologyPerRoleId',
@@ -141,6 +128,40 @@ export class TechnologyPerRoleService extends BaseService<
     return Result.ok({
       data: result,
       total,
+    });
+  }
+
+  async findOnlyRolesByProject(
+    projectId: string,
+  ): Promise<Result<FindAllResponse<{ roleId: string; name: string }>>> {
+    const repository = this.repository.repository;
+    const queryBuilder = repository.createQueryBuilder('technologyPerRole');
+
+    // Condición para excluir registros eliminados
+    queryBuilder.where('technologyPerRole.deletedAt IS NULL');
+
+    // Agregar condición de filtro por projectId
+    queryBuilder.andWhere('technologyStack.projectId = :projectId', {
+      projectId,
+    });
+
+    // Agregar joins necesarios
+    queryBuilder
+      .leftJoin('technologyPerRole.role', 'role')
+      .leftJoin('technologyPerRole.technologyStack', 'technologyStack');
+
+    // Selección de campos específicos
+    queryBuilder.select([
+      'DISTINCT(role.roleId) as "roleId"',
+      'role.name as name',
+    ]);
+
+    // Ejecutar la consulta
+    const result = await queryBuilder.getRawMany();
+
+    return Result.ok({
+      data: result,
+      total: result.length,
     });
   }
 }
