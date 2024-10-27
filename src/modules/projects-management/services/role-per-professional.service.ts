@@ -23,12 +23,17 @@ export class RolePerProfessionalService extends BaseService<
     searchTerm?: string,
     filter?: string,
     withDisabled?: boolean,
+    isActiveOnAccount?: boolean,
   ): Promise<Result<FindAllResponse<RolePerProfessional>>> {
     const repository = this.repository.repository;
     const queryBuilder = repository.createQueryBuilder('rolePerProfessional');
 
     // Condición para excluir registros eliminados
     queryBuilder.where('rolePerProfessional.deletedAt IS NULL');
+
+    if (isActiveOnAccount === true) {
+      queryBuilder.andWhere('rolePerProfessional.endDate IS NULL');
+    }
 
     if (withDisabled === false) {
       queryBuilder.andWhere('rolePerProfessional.status != :withDisabled', {

@@ -29,6 +29,7 @@ export class RolePerProfessionalController {
     @Query('search') search?: string,
     @Query('filter') filter?: string,
     @Query('withDisabled') withDisabled?: boolean,
+    @Query('isActiveOnAccount') isActiveOnAccount?: boolean,
   ): Promise<ResponseDto<FindAllResponse<RolePerProfessional>>> {
     const data = await this.service.findAll(
       page,
@@ -46,6 +47,7 @@ export class RolePerProfessionalController {
       search,
       filter,
       withDisabled,
+      isActiveOnAccount,
     );
     return CrudController.response(data);
   }
