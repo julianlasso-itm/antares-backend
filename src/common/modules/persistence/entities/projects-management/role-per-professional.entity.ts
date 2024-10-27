@@ -13,7 +13,7 @@ import { RolesProjectManagement } from './roles-projects-management.entity';
 @Index(
   'role_per_professional_professional_id_role_id_Idx',
   ['professionalId', 'roleId'],
-  { unique: true, where: 'rpp_deleted_at IS NULL' },
+  { unique: true, where: 'rpp_deleted_at IS NULL OR rpp_end_date IS NULL' },
 )
 @Index('role_per_professional_rpp_status_Idx', ['status', 'deletedAt'], {})
 @Index('pkpm_role_per_professional', ['rolePerProfessionalId'], {
