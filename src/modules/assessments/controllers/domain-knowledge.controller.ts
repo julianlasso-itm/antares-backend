@@ -51,6 +51,18 @@ export class DomainKnowledgeController {
     return CrudController.response(data);
   }
 
+  @Get('completed-assessment/:assessmentId')
+  async findAllCompletedAssessment(
+    @Param('assessmentId') assessmentId: string,
+    @Query('technologyItemId') technologyItemId: string,
+  ): Promise<ResponseDto<DomainKnowledge[]>> {
+    const data = await this.service.findAllCompletedAssessmentForItemTechnology(
+      assessmentId,
+      technologyItemId,
+    );
+    return CrudController.response(data);
+  }
+
   @Post()
   async create(
     @Body() request: NewDomainKnowledgeDto,

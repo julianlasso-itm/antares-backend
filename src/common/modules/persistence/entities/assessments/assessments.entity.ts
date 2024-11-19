@@ -60,8 +60,8 @@ export class Assessments {
 
   @Column('numeric', {
     name: 'asmt_score',
-    precision: 3,
-    scale: 2,
+    precision: 23,
+    scale: 20,
     default: () => '0.00',
     comment: 'Puntaje total del assessment. Desde mínimo 0.00 a 5.00 máximo',
   })

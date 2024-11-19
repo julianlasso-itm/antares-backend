@@ -65,6 +65,16 @@ export class DomainAssessmentScores {
   })
   score: number;
 
+  @Column('numeric', {
+    name: 'das_rating',
+    precision: 23,
+    scale: 20,
+    comment:
+      'Calificación del dominio, es decir, es el resultado ya calculado de su puntaje y su peso',
+    default: () => 0.0,
+  })
+  rating: number;
+
   @Column('boolean', {
     name: 'das_status',
     default: () => 'true',

@@ -51,6 +51,14 @@ export class TechnologyItemsController {
     return CrudController.response(data);
   }
 
+  @Get('completed-assessment/:assessmentId')
+  async findAllCompletedAssessment(
+    @Param('assessmentId') assessmentId: string,
+  ): Promise<ResponseDto<TechnologyItems[]>> {
+    const data = await this.service.findAllCompletedAssessment(assessmentId);
+    return CrudController.response(data);
+  }
+
   @Post()
   async create(
     @Body() request: NewTechnologyItemDto,

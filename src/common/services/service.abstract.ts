@@ -36,18 +36,18 @@ export abstract class BaseService<
     return await this.repository.findOne(filter);
   }
 
-  async create(level: Entity): Promise<Result<Entity>> {
-    return await this.repository.create(level);
+  async create(entity: Entity): Promise<Result<Entity>> {
+    return await this.repository.create(entity);
   }
 
   async update(
     field: string,
     id: string,
-    level: Entity,
+    entity: Entity,
   ): Promise<Result<Entity>> {
     return await this.repository.update(
       { [field]: id } as Partial<Entity>,
-      level,
+      entity,
     );
   }
 

@@ -46,6 +46,13 @@ export class KnowledgeGaps {
   domainKnowledgeId: string;
 
   @Column('character varying', {
+    name: 'kg_title',
+    length: 500,
+    comment: 'Título de la brecha de conocimiento detectada',
+  })
+  title: string;
+
+  @Column('character varying', {
     name: 'kg_observation',
     length: 8192,
     comment: 'Observaciones sobre la brecha de conocimiento detectada',

@@ -27,6 +27,7 @@ export class KnowledgeGapsController {
     @Query('page', ParseIntPipe) page: number,
     @Query('size', ParseIntPipe) size: number,
     @Query('search') search?: string,
+    @Query('filter') filter?: string,
   ): Promise<ResponseDto<FindAllResponse<KnowledgeGaps>>> {
     const data = await this.service.findAll(
       page,
@@ -35,8 +36,10 @@ export class KnowledgeGapsController {
         status: 'DESC',
         createdAt: 'ASC',
       },
-      ['observation'],
+      ['title', 'observation'],
       search,
+      filter,
+      false,
     );
     return CrudController.response(data);
   }
@@ -55,6 +58,7 @@ export class KnowledgeGapsController {
     newData.knowledgeGapId = ulid();
     newData.assessmentId = request.assessmentId;
     newData.domainKnowledgeId = request.domainKnowledgeId;
+    newData.title = request.title;
     newData.observation = request.observation;
 
     const data = await this.service.create(newData);
@@ -67,6 +71,9 @@ export class KnowledgeGapsController {
     @Param('id') id: string,
   ): Promise<ResponseDto<KnowledgeGaps>> {
     const update = new KnowledgeGaps();
+    if (request.title) {
+      update.title = request.title;
+    }
     if (request.observation) {
       update.observation = request.observation;
     }

@@ -4,7 +4,7 @@ import { TechnologyItems } from '@entities/technologies/technology-items.entity'
 import { Injectable } from '@nestjs/common';
 import { FindAllResponse } from '@repositories/find-all.response';
 import TechnologyItemsRepository from '@repositories/technologies/technology-items.repository';
-import { Brackets } from 'typeorm';
+import { Brackets, SelectQueryBuilder } from 'typeorm';
 import { FindOptionsOrder } from 'typeorm/find-options/FindOptionsOrder';
 
 @Injectable()
@@ -108,5 +108,49 @@ export class TechnologyItemsService extends BaseService<
       data: result,
       total,
     });
+  }
+
+  async findAllCompletedAssessment(
+    assessmentId: string,
+  ): Promise<Result<TechnologyItems[]>> {
+    const repository = this.repository.repository;
+    const queryBuilder = repository.createQueryBuilder('technologyItem');
+
+    this.applyRelations(queryBuilder);
+    this.applyConditions(queryBuilder, assessmentId);
+    this.applyOrder(queryBuilder);
+
+    const data = await queryBuilder.getMany();
+    return Result.ok(data);
+  }
+
+  private applyRelations(
+    queryBuilder: SelectQueryBuilder<TechnologyItems>,
+  ): void {
+    queryBuilder
+      .leftJoinAndSelect('technologyItem.domainKnowledges', 'domainKnowledges')
+      .leftJoinAndSelect(
+        'domainKnowledges.domainAssessmentScores',
+        'domainAssessmentScores',
+      )
+      .leftJoinAndSelect('domainAssessmentScores.assessment', 'assessment');
+  }
+
+  private applyConditions(
+    queryBuilder: SelectQueryBuilder<TechnologyItems>,
+    assessmentId: string,
+  ): void {
+    queryBuilder
+      .andWhere('technologyItem.deletedAt IS NULL')
+      .andWhere('domainKnowledges.deletedAt IS NULL')
+      .andWhere('domainAssessmentScores.deletedAt IS NULL')
+      .andWhere('assessment.deletedAt IS NULL')
+      .andWhere('assessment.assessmentId = :assessmentId', {
+        assessmentId,
+      });
+  }
+
+  private applyOrder(queryBuilder: SelectQueryBuilder<TechnologyItems>): void {
+    queryBuilder.addOrderBy('technologyItem.name', 'ASC');
   }
 }

@@ -52,6 +52,18 @@ export class RolePerProfessionalController {
     return CrudController.response(data);
   }
 
+  @Get('get-assessment-by-role-per-professional')
+  async getAssessmentsByRolePerProfessional(
+    @Query('rolePerProfessionalId') rolePerProfessionalId: string,
+    @Query('levelId') levelId?: string,
+  ): Promise<ResponseDto<RolePerProfessional>> {
+    const data = await this.service.getAssessmentsByRolePerProfessional(
+      rolePerProfessionalId,
+      levelId,
+    );
+    return CrudController.response(data);
+  }
+
   @Get(':id')
   async findOne(
     @Param('id') id: string,

@@ -14,11 +14,11 @@ export class NewDomainQuestionsAnswersRequestDto {
     message: 'NewDomainQuestionsAnswersRequestDto',
   })
   @MaxLength(26)
-  @ValidateIf(
-    (object: NewDomainQuestionsAnswersRequestDto) =>
-      object.domainKnowledgeLevelId === null ||
-      object.domainKnowledgeLevelId.length === 0,
-  )
+  // @ValidateIf(
+  //   (object: NewDomainQuestionsAnswersRequestDto) =>
+  //     object.domainKnowledgeLevelId === null ||
+  //     object.domainKnowledgeLevelId.length === 0,
+  // )
   domainKnowledgeId: string | null;
 
   @IsOptional()

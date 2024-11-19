@@ -107,10 +107,18 @@ export abstract class BaseRepository<Entity extends ObjectLiteral> {
         );
       }
 
-      const updatedEntity = this.repository.merge(existingEntity.value, {
+      // const updatedEntity = this.repository.merge(existingEntity.value, {
+      //   ...partialEntity,
+      //   updatedAt: updateDate ? new Date() : existingEntity.value.updatedAt,
+      // });
+
+      const updatedEntity = {
+        ...existingEntity.value,
         ...partialEntity,
         updatedAt: updateDate ? new Date() : existingEntity.value.updatedAt,
-      });
+      };
+
+      console.log('updatedEntity----------------------------------------', updatedEntity);
 
       const result = await this.repository.save(updatedEntity);
 

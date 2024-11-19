@@ -13,6 +13,11 @@ export class NewKnowledgeGapRequestDto {
 
   @IsNotEmpty()
   @IsString()
+  @MaxLength(500)
+  title: string;
+
+  @IsNotEmpty()
+  @IsString()
   @MaxLength(8192)
   observation: string;
 }

@@ -41,6 +41,12 @@ export class ConfigurationLevelsController {
     return CrudController.response(data);
   }
 
+  @Get('full-configuration')
+  async getFullConfiguration(): Promise<ResponseDto<ConfigurationLevels>> {
+    const data = await this.service.getFullConfiguration();
+    return CrudController.response(data);
+  }
+
   @Get(':id')
   async findOne(
     @Param('id') id: string,
