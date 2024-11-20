@@ -56,8 +56,8 @@ export class KnowledgeGapNotesController {
     const newData = new KnowledgeGapNotes();
     newData.knowledgeGapNoteId = ulid();
     newData.knowledgeGapId = request.knowledgeGapId;
-    newData.userId = request.userId; // TODO: Esto debería salir del token de autenticación en relación al correo del usuario
-    newData.observation = request.note;
+    newData.userId = '01JB5XD7GCJW96XE1YV6V7BVJD'; // TODO: Esto debería salir del token de autenticación en relación al correo del usuario
+    newData.observation = request.observation;
 
     const data = await this.service.create(newData);
     return CrudController.response(data);
@@ -69,8 +69,11 @@ export class KnowledgeGapNotesController {
     @Param('id') id: string,
   ): Promise<ResponseDto<KnowledgeGapNotes>> {
     const update = new KnowledgeGapNotes();
-    if (request.note) {
-      update.observation = request.note;
+    if (request.observation) {
+      update.observation = request.observation;
+    }
+    if (request.status !== undefined) {
+      update.status = request.status;
     }
 
     const data = await this.service.update('knowledgeGapNoteId', id, update);

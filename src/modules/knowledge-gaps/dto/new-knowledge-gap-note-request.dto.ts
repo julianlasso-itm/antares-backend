@@ -8,11 +8,6 @@ export class NewKnowledgeGapNoteRequestDto {
 
   @IsNotEmpty()
   @IsString()
-  @MaxLength(26)
-  userId: string;
-
-  @IsNotEmpty()
-  @IsString()
   @MaxLength(8192)
-  note: string;
+  observation: string;
 }

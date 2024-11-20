@@ -1,8 +1,12 @@
-import { IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsBoolean, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class UpdateKnowledgeGapNoteRequestDto {
   @IsOptional()
   @IsString()
   @MaxLength(8192)
-  note?: string;
+  observation?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  status?: boolean;
 }
