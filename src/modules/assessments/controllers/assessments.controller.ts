@@ -15,6 +15,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { FindAllResponse } from '@repositories/find-all.response';
 import { ulid } from 'ulid';
 
@@ -54,13 +55,17 @@ export class AssessmentsController {
   async professionalCompletedAssessments(
     @Param('professionalId') professionalId: string,
   ): Promise<ResponseDto<FindAllResponse<Assessments>>> {
-    const data = await this.service.getProfessionalCompletedAssessments(
-      professionalId,
-    );
+    const data =
+      await this.service.getProfessionalCompletedAssessments(professionalId);
     return CrudController.response(data);
   }
 
   @Post()
+  @ApiOperation({ summary: 'Create a new assessment' })
+  @ApiResponse({
+    status: 201,
+    description: 'The assessment has been successfully created.',
+  })
   async create(
     @Body() request: AssessmentDataDto,
   ): Promise<ResponseDto<Assessments>> {

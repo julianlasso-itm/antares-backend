@@ -34,12 +34,13 @@ async function bootstrap() {
     )
     .setVersion('1.0')
     .addBearerAuth()
-    .addTag('assessments', 'Evaluaciones')
-    .addTag('human-resources', 'Recursos humanos')
-    .addTag('knowledge-gaps', 'Brechas de conocimiento')
-    .addTag('projects-management', 'Manejo de proyectos')
-    .addTag('security', 'Seguridad del sistema')
-    .addTag('technologies', 'Tecnologías')
+    .addTag('reports', 'Reporte general')
+    // .addTag('assessments', 'Evaluaciones')
+    // .addTag('human-resources', 'Recursos humanos')
+    // .addTag('knowledge-gaps', 'Brechas de conocimiento')
+    // .addTag('projects-management', 'Manejo de proyectos')
+    // .addTag('security', 'Seguridad del sistema')
+    // .addTag('technologies', 'Tecnologías')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document, {

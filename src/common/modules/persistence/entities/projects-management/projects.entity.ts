@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Customers } from './customers.entity';
 import { TechnologyStack } from './technology-stack.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Index('projects_project_name_customer_id_Idx', ['customerId', 'name'], {
   unique: true,
@@ -21,6 +22,10 @@ import { TechnologyStack } from './technology-stack.entity';
   comment: 'Proyectos de un cliente',
 })
 export class Projects {
+  @ApiProperty({
+    example: '01JB5XD7GCJW96XE1YV6V7BVJD',
+    description: 'Identificador del proyecto de un cliente',
+  })
   @Column('character varying', {
     primary: true,
     name: 'project_id',
@@ -29,6 +34,10 @@ export class Projects {
   })
   projectId: string;
 
+  @ApiProperty({
+    example: '01JB5XD7GCJW96XE1YV6V7BVJD',
+    description: 'Identificador del cliente',
+  })
   @Column('character varying', {
     name: 'customer_id',
     length: 26,
@@ -36,6 +45,10 @@ export class Projects {
   })
   customerId: string;
 
+  @ApiProperty({
+    example: 'Proyecto de prueba',
+    description: 'Nombre del proyecto',
+  })
   @Column('character varying', {
     name: 'project_name',
     length: 500,
@@ -43,6 +56,10 @@ export class Projects {
   })
   name: string;
 
+  @ApiProperty({
+    example: 'true',
+    description: 'Estado del registro. True activo, False inactivo',
+  })
   @Column('boolean', {
     name: 'project_status',
     default: () => 'true',
@@ -50,6 +67,10 @@ export class Projects {
   })
   status: boolean;
 
+  @ApiProperty({
+    example: '2023-01-01T00:00:00.000Z',
+    description: 'Fecha y hora de creación del registro',
+  })
   @Column('timestamp without time zone', {
     name: 'project_created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -57,6 +78,11 @@ export class Projects {
   })
   createdAt: Date;
 
+  @ApiProperty({
+    example: '2023-01-01T00:00:00.000Z',
+    description: 'Fecha y hora de última actualización del registro',
+    nullable: true,
+  })
   @Column('timestamp without time zone', {
     name: 'project_updated_at',
     nullable: true,
@@ -64,6 +90,11 @@ export class Projects {
   })
   updatedAt: Date | null;
 
+  @ApiProperty({
+    example: '2023-01-01T00:00:00.000Z',
+    description: 'Fecha y hora de borrado del registro',
+    nullable: true,
+  })
   @Column('timestamp without time zone', {
     name: 'project_deleted_at',
     nullable: true,

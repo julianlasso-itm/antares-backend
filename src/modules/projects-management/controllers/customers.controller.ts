@@ -12,6 +12,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NewCustomerDto } from '@projects-management/dto/new-customer.dto';
 import { UpdateCustomerDto } from '@projects-management/dto/update-customer.dto';
 import { CustomersService } from '@projects-management/services/customers.service';
@@ -38,6 +39,24 @@ export class CustomersController {
       ['name'],
       search,
     );
+    return CrudController.response(data);
+  }
+
+  @ApiTags('reports')
+  @ApiOperation({
+    summary: 'Obtener reporte general del sistema',
+    description:
+      'Devuelve un reporte con la información de todo el sistema desde los clientes hasta los profesionales evaluados y sus seguimientos',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Reporte generado',
+    // type: ResponseDto<Customers[]>,
+    // example: {},
+  })
+  @Get('report')
+  async getReport(): Promise<ResponseDto<Customers[]>> {
+    const data = await this.service.getReport();
     return CrudController.response(data);
   }
 
