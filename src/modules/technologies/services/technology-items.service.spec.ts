@@ -20,6 +20,7 @@ describe('TechnologyItemsService', () => {
       take: jest.fn().mockReturnThis(),
       addOrderBy: jest.fn().mockReturnThis(),
       getManyAndCount: jest.fn(),
+      getMany: jest.fn(),
     };
 
     const mockRepository = {
@@ -39,9 +40,6 @@ describe('TechnologyItemsService', () => {
     }).compile();
 
     service = module.get<TechnologyItemsService>(TechnologyItemsService);
-    repository = module.get<TechnologyItemsRepository>(
-      TechnologyItemsRepository,
-    );
   });
 
   describe('findAll', () => {
@@ -138,6 +136,89 @@ describe('TechnologyItemsService', () => {
         'technologyType.name',
         'DESC',
       );
+    });
+  });
+
+  describe('findAllCompletedAssessment', () => {
+    const mockAssessmentId = 'test-assessment-id';
+
+    it('should return all completed assessments for a given assessmentId', async () => {
+      // Arrange
+      const expectedResult = [
+        { id: '1', name: 'Tech 1' },
+        { id: '2', name: 'Tech 2' },
+      ];
+      queryBuilder.getMany.mockResolvedValue(expectedResult);
+
+      // Act
+      const result = await service.findAllCompletedAssessment(mockAssessmentId);
+
+      // Assert
+      expect(result).toBeInstanceOf(Result);
+      expect(result.isOk).toBe(true);
+      expect(result.value).toEqual(expectedResult);
+
+      // Verify relations were applied
+      expect(queryBuilder.leftJoinAndSelect).toHaveBeenCalledWith(
+        'technologyItem.domainKnowledges',
+        'domainKnowledges',
+      );
+      expect(queryBuilder.leftJoinAndSelect).toHaveBeenCalledWith(
+        'domainKnowledges.domainAssessmentScores',
+        'domainAssessmentScores',
+      );
+      expect(queryBuilder.leftJoinAndSelect).toHaveBeenCalledWith(
+        'domainAssessmentScores.assessment',
+        'assessment',
+      );
+
+      // Verify conditions were applied
+      expect(queryBuilder.andWhere).toHaveBeenCalledWith(
+        'technologyItem.deletedAt IS NULL',
+      );
+      expect(queryBuilder.andWhere).toHaveBeenCalledWith(
+        'domainKnowledges.deletedAt IS NULL',
+      );
+      expect(queryBuilder.andWhere).toHaveBeenCalledWith(
+        'domainAssessmentScores.deletedAt IS NULL',
+      );
+      expect(queryBuilder.andWhere).toHaveBeenCalledWith(
+        'assessment.deletedAt IS NULL',
+      );
+      expect(queryBuilder.andWhere).toHaveBeenCalledWith(
+        'assessment.assessmentId = :assessmentId',
+        { assessmentId: mockAssessmentId },
+      );
+
+      // Verify ordering was applied
+      expect(queryBuilder.addOrderBy).toHaveBeenCalledWith(
+        'technologyItem.name',
+        'ASC',
+      );
+    });
+
+    it('should handle empty results', async () => {
+      // Arrange
+      queryBuilder.getMany.mockResolvedValue([]);
+
+      // Act
+      const result = await service.findAllCompletedAssessment(mockAssessmentId);
+
+      // Assert
+      expect(result).toBeInstanceOf(Result);
+      expect(result.isOk).toBe(true);
+      expect(result.value).toEqual([]);
+    });
+
+    it('should handle database errors', async () => {
+      // Arrange
+      const error = new Error('Database error');
+      queryBuilder.getMany.mockRejectedValue(error);
+
+      // Act & Assert
+      await expect(
+        service.findAllCompletedAssessment(mockAssessmentId),
+      ).rejects.toThrow(error);
     });
   });
 });
