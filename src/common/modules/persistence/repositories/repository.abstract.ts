@@ -101,7 +101,7 @@ export abstract class BaseRepository<Entity extends ObjectLiteral> {
     try {
       const existingEntity = await this.findOne(id);
 
-      if (!existingEntity) {
+      if (existingEntity.isErr) {
         return Result.err(
           new AntaresException('Entity not found or has been deleted'),
         );
@@ -117,8 +117,6 @@ export abstract class BaseRepository<Entity extends ObjectLiteral> {
         ...partialEntity,
         updatedAt: updateDate ? new Date() : existingEntity.value.updatedAt,
       };
-
-      console.log('updatedEntity----------------------------------------', updatedEntity);
 
       const result = await this.repository.save(updatedEntity);
 

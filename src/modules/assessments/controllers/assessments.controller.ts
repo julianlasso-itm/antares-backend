@@ -69,7 +69,6 @@ export class AssessmentsController {
   async create(
     @Body() request: AssessmentDataDto,
   ): Promise<ResponseDto<Assessments>> {
-    console.log('AssessmentsController.create');
     const newData = new Assessments();
     newData.assessmentId = request.assessmentId ?? ulid();
     newData.rolePerProfessionalId = request.rolePerProfessionalId;
@@ -120,7 +119,6 @@ export class AssessmentsController {
       domainAssessmentScore.observations = domainKnowledge.observations;
       domainAssessmentScore.status = true;
 
-      console.log('domainAssessmentScore', domainAssessmentScore);
       newData.domainAssessmentScores.push(domainAssessmentScore);
     });
 
@@ -133,7 +131,6 @@ export class AssessmentsController {
     @Body() request: AssessmentDataDto,
     @Param('id') id: string,
   ): Promise<ResponseDto<Assessments>> {
-    console.log('AssessmentsController.update');
     const update = new Assessments();
     update.assessmentId = id;
     update.observations = request.observations;
@@ -163,7 +160,6 @@ export class AssessmentsController {
 
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<ResponseDto<boolean>> {
-    console.log('AssessmentsController.delete');
     const data = await this.service.delete('assessmentId', id);
     return CrudController.response(data);
   }

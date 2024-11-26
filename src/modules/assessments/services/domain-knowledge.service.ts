@@ -23,7 +23,6 @@ export class DomainKnowledgeService extends BaseService<
     searchTerm?: string,
     filter?: string,
   ): Promise<Result<FindAllResponse<DomainKnowledge>>> {
-    console.log('filter', filter);
     const repository = this.repository.repository;
     const queryBuilder = repository.createQueryBuilder('domainKnowledge');
 
@@ -106,9 +105,6 @@ export class DomainKnowledgeService extends BaseService<
     assessmentId: string,
     technologyItemId: string,
   ): Promise<Result<DomainKnowledge[]>> {
-    console.log(
-      'findAllCompletedAssessmentForItemTechnology --------------------------',
-    );
     const repository = this.repository.repository;
     const queryBuilder = repository.createQueryBuilder('domainKnowledge');
 

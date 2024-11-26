@@ -63,6 +63,7 @@
     "typescript": "^5.6.2"
   },
   "jest": {
+    "preset": "ts-jest",
     "moduleFileExtensions": [
       "js",
       "json",
@@ -76,7 +77,31 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/",
+      "main.ts",
+      ".module.ts",
+      ".entity.ts",
+      ".dto.ts",
+      ".interface.ts",
+      ".enum.ts",
+      "data.source.ts"
+    ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@entities/(.*)$": "<rootDir>/common/modules/persistence/entities/$1",
+      "^@repositories/(.*)$": "<rootDir>/common/modules/persistence/repositories/$1",
+      "^@persistence/(.*)$": "<rootDir>/common/modules/persistence/$1",
+      "^@common/(.*)$": "<rootDir>/common/$1",
+      "^@assessments/(.*)$": "<rootDir>/modules/assessments/$1",
+      "^@human-resources/(.*)$": "<rootDir>/modules/human-resources/$1",
+      "^@knowledge-gaps/(.*)$": "<rootDir>/modules/knowledge-gaps/$1",
+      "^@projects-management/(.*)$": "<rootDir>/modules/projects-management/$1",
+      "^@security/(.*)$": "<rootDir>/modules/security/$1",
+      "^@technologies/(.*)$": "<rootDir>/modules/technologies/$1",
+      "^@modules/(.*)$": "<rootDir>/modules/$1"
+    }
   }
 }
